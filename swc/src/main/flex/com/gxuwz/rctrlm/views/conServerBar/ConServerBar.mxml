@@ -217,7 +217,7 @@ import spark.components.Alert;
   <!-- Login pane -->
   <s:HGroup includeIn="LoginNotConnected" verticalAlign="middle"  paddingLeft="2" paddingRight="2" width="70%" >
     <s:Label text="连接地址" toolTip="请输入连接地址"/>
-    <s:TextInput id="serverAddrInput" text="rtmp://Server Address:ServerPort/Service" width="80%" />
+    <s:TextInput id="serverAddrInput" text="rtmp://210.36.200.41:1935/RCtrlMicroscope" width="80%" />
     <s:Label  text="用户名"  toolTip="请输入用户名"/>
     <s:TextInput id="userNameInput" width="120" text="User Name" enter="{userNameInput.text.length > 0?onConnect():setFocus()}"/>
     <s:Button label="连接"  id="conButton" click="onConnect()" enabled="{userNameInput.text.length > 0}"/>
