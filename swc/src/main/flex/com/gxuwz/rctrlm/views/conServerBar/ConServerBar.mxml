@@ -30,9 +30,9 @@ import spark.components.Alert;
   public const callEstablished:String = "CallEstablished";
   public const callFailed:String = "CallFailed";
 
-  public const _Invite:String="Invite";
-  public const _Accept:String="Accept";
-  public const _Reject:String="Reject";
+  private const _Invite:String="Invite";
+  private const _Accept:String="Accept";
+  private const _Reject:String="Reject";
 
   private var conServerBarPresenter:ConServerBarPresenter;
 
@@ -76,16 +76,13 @@ import spark.components.Alert;
    * 2.创建一个 NetConnection 对象，并为将来连接到这个对象的对象创建一个Object对象及其方法。调用 connect() 方法以建立连接。
    */
   private function onConnect():void {
-//    var event:ConServerBarEvent =new ConServerBarEvent(ConServerBarEvent.TRY_CONNECT_SERVER_EVENT);//尝试连连服务
-//    event.connectURL=serverAddrInput.text;
-//    event.userName=userNameInput.text;
-//    EventDispatcherFactory.getEventDispatcher().dispatchEvent(event);
-    if((serverAddrInput.text).length>0 && (userNameInput.text).length>0){
-      dispatchEvent(new MouseEvent("ConnectToServerEvent"));
-    }
-    else{
-      Alert.show("请输入服务器地址和用户名");
-    }
+    trace("dispatch conserver event");
+    var event:ConServerBarEvent =new ConServerBarEvent(ConServerBarEvent.TRY_CONNECT_SERVER_EVENT);//尝试连连服务
+
+    event.connectURL=serverAddrInput.text;
+    event.userName=userNameInput.text;
+
+    EventDispatcherFactory.getEventDispatcher().dispatchEvent(event);
   }
 
   /**
@@ -96,10 +93,9 @@ import spark.components.Alert;
    * 3.断开服务
    */
   private function onDisconnect():void {
-    dispatchEvent(new MouseEvent("DisconnectToServerEvent"));
-//    trace("Disconnecting.\n");
-//    var event:ConServerBarEvent =new ConServerBarEvent(ConServerBarEvent.TRY_DISCONNECT_SERVER_EVENT);//尝试断开连接
-//    EventDispatcherFactory.getEventDispatcher().dispatchEvent(event);
+    trace("Disconnecting.\n");
+    var event:ConServerBarEvent =new ConServerBarEvent(ConServerBarEvent.TRY_DISCONNECT_SERVER_EVENT);//尝试断开连接
+    EventDispatcherFactory.getEventDispatcher().dispatchEvent(event);
   }
 
   /**
@@ -109,11 +105,10 @@ import spark.components.Alert;
    */
   private function onCall():void {
     if (userNameInput.text != calleeInput.text){
-//      var event:ConServerBarEvent =new ConServerBarEvent(ConServerBarEvent.TRY_CALLUSER_EVENT);//尝试呼叫远程用户
-//      event.remoteUser=calleeInput.text;
-//      event.action=_Invite;
-//      EventDispatcherFactory.getEventDispatcher().dispatchEvent(event);
-      dispatchEvent(new MouseEvent("CallExpertEvent"));
+      var event:ConServerBarEvent =new ConServerBarEvent(ConServerBarEvent.TRY_CALLUSER_EVENT);//尝试呼叫远程用户
+      event.remoteUser=calleeInput.text;
+      event.action=_Invite;
+      EventDispatcherFactory.getEventDispatcher().dispatchEvent(event);
     } else{
       Alert.show("不必呼叫自己！");
     }
@@ -125,21 +120,18 @@ import spark.components.Alert;
    * 都派发事件onCancelEvent,
    */
   private function onCancel(choose:Number):void {
-//    var event:ConServerBarEvent;
+    var event:ConServerBarEvent;
     if(choose==1){
-//      event =new ConServerBarEvent(ConServerBarEvent.TRY_DISCONNECT_SERVER_EVENT);
+      event =new ConServerBarEvent(ConServerBarEvent.TRY_DISCONNECT_SERVER_EVENT);
       //尝试断开远程连接
-      dispatchEvent(new MouseEvent("DisconnectToServerEvent"));
     }else if(choose==2){
       //尝试终止呼叫用户
-//      event =new ConServerBarEvent(ConServerBarEvent.TRY_CANCEL_CALLUSER_EVENT);
-      dispatchEvent(new MouseEvent("CancelToCallUserEvent"));
+      event =new ConServerBarEvent(ConServerBarEvent.TRY_CANCEL_CALLUSER_EVENT);
     }else if(choose==3){
       //与远程用户断开
-//      event=new ConServerBarEvent(ConServerBarEvent.TRY_DISCONNECT_REMOTE_USER_EVENT);
-      dispatchEvent(new MouseEvent("CancelToCallUserEvent"));
+      event=new ConServerBarEvent(ConServerBarEvent.TRY_DISCONNECT_REMOTE_USER_EVENT);
     }
-//    EventDispatcherFactory.getEventDispatcher().dispatchEvent(event);
+    EventDispatcherFactory.getEventDispatcher().dispatchEvent(event);
   }
 
   private function videoQualityChanged(e:Event = null):void {
@@ -210,12 +202,6 @@ import spark.components.Alert;
   ]]>
 </fx:Script>
 
-  <fx:Metadata>
-    [Event(name="ConnectToServerEvent", type="flash.events.MouseEvent")]
-    [Event(name="DisconnectToServerEvent", type="flash.events.MouseEvent")]
-    [Event(name="CancelToCallUserEvent", type="flash.events.MouseEvent")]
-    [Event(name="CallExpertEvent", type="flash.events.MouseEvent")]
-  </fx:Metadata>
   <s:states>
     <s:State name="LoginNotConnected"/>
     <s:State name="LoginConnecting"/>
@@ -229,17 +215,13 @@ import spark.components.Alert;
   </s:states>
 
   <!-- Login pane -->
-  <s:HGroup includeIn="LoginNotConnected" verticalAlign="middle"
-            paddingLeft="2" paddingRight="2" width="70%" >
+  <s:HGroup includeIn="LoginNotConnected" verticalAlign="middle"  paddingLeft="2" paddingRight="2" width="70%" >
     <s:Label text="连接地址" toolTip="请输入连接地址"/>
-    <s:TextInput id="serverAddrInput" text="rtmp://Server Address:ServerPort/Service" width="70%" />
-
-    <s:HGroup verticalAlign="middle" id="userGroup">
-      <s:Label  text="用户名"  toolTip="请输入用户名"/>
-      <s:TextInput id="userNameInput" width="120" text="User Name" enter="{userNameInput.text.length > 0?onConnect():setFocus()}"/>
-      <s:Button label="连接"  id="conButton" click="onConnect()" enabled="{userNameInput.text.length > 0}"/>
-      <s:Button label="终止摄像头发布服务" click="onDisconnect()" />
-    </s:HGroup>
+    <s:TextInput id="serverAddrInput" text="rtmp://Server Address:ServerPort/Service" width="80%" />
+    <s:Label  text="用户名"  toolTip="请输入用户名"/>
+    <s:TextInput id="userNameInput" width="120" text="User Name" enter="{userNameInput.text.length > 0?onConnect():setFocus()}"/>
+    <s:Button label="连接"  id="conButton" click="onConnect()" enabled="{userNameInput.text.length > 0}"/>
+    <s:Button label="终止摄像头发布服务" click="onDisconnect()" />
   </s:HGroup>
 
   <!-- Login Connecting pane -->
@@ -293,7 +275,7 @@ import spark.components.Alert;
   <s:HGroup includeIn="CallFailed" verticalAlign="middle">
     <s:Label text="呼叫 {calleeInput.text}错误" />
     <!-- 发生错误，挂断连接-->
-    <s:Button label="终止服务" click="onCancel(3)"/>
+    <s:Button label="挂断" click="onCancel(3)"/>
   </s:HGroup>
 
   <s:Button id="chat" includeIn="CallEstablished" label="已经与远程用户对话连接" click="chat_clickHandler(event)"/>

@@ -27,33 +27,33 @@
 		<air.version>16.0</air.version>
 		<playerglobal.version>14.0</playerglobal.version>
 	</properties>
-	<repositories>
-		<repository>
-			<id>flex-mojos-repository</id>
-			<name>flex-mojos-repository</name>
-			<url>http://210.36.200.38:8081/nexus/content/groups/com.xjzx.videoRecognition/</url>
-		</repository>
-	</repositories>
+	<!--<repositories>-->
+		<!--<repository>-->
+			<!--<id>flex-mojos-repository</id>-->
+			<!--<name>flex-mojos-repository</name>-->
+			<!--<url>http://210.36.200.38:8081/nexus/content/groups/com.xjzx.videoRecognition/</url>-->
+		<!--</repository>-->
+	<!--</repositories>-->
 
-	<pluginRepositories>
-		<pluginRepository>
-			<id>flex-mojos-plugin-repository</id>
-			<url>http://210.36.200.38:8081/nexus/content/groups/com.xjzx.videoRecognition/</url>
-		</pluginRepository>
-	</pluginRepositories>
+	<!--<pluginRepositories>-->
+		<!--<pluginRepository>-->
+			<!--<id>flex-mojos-plugin-repository</id>-->
+			<!--<url>http://210.36.200.38:8081/nexus/content/groups/com.xjzx.videoRecognition/</url>-->
+		<!--</pluginRepository>-->
+	<!--</pluginRepositories>-->
 
-	<distributionManagement>
-		<repository>
-			<id>artifactory</id>
-			<name>artifactory-releases</name>
-			<url>http://210.36.200.38:8081/nexus/content/repositories/releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>artifactory</id>
-			<name>artifactory-snapshots</name>
-			<url>http://210.36.200.38:8081/nexus/content/repositories/snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
+	<!--<distributionManagement>-->
+		<!--<repository>-->
+			<!--<id>artifactory</id>-->
+			<!--<name>artifactory-releases</name>-->
+			<!--<url>http://210.36.200.38:8081/nexus/content/repositories/releases/</url>-->
+		<!--</repository>-->
+		<!--<snapshotRepository>-->
+			<!--<id>artifactory</id>-->
+			<!--<name>artifactory-snapshots</name>-->
+			<!--<url>http://210.36.200.38:8081/nexus/content/repositories/snapshots/</url>-->
+		<!--</snapshotRepository>-->
+	<!--</distributionManagement>-->
 
 
 	<build>
