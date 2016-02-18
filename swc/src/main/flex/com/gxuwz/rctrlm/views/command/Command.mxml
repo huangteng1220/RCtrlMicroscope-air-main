@@ -10,8 +10,8 @@
 
   <fx:Declarations>
     <!--<fx:XML id="obj_con_list_default" source=" G:/projects/microscope/rCtrlMicroscope-air-main/swc/src/main/resources/assets/obj_con_list_default.xml" />-->
-
-    <fx:XML id="obj_con_list_default" source="/obj_con_list_default.xml"  />
+<!-- -->
+    <fx:XML id="obj_con_list_default"  source="/obj_con_list_default.xml"/>
       <!--<fx:XML id="obj_con_list" source="obj_con_list_default.xml"  />-->
   </fx:Declarations>
 
@@ -424,9 +424,7 @@
     public function appComplete():void {
       //stage.nativeWindow.addEventListener(Event.CLOSING, windowClosingHandler);
       userXMLFile = File.applicationDirectory;
-//      userXMLFile = userXMLFile.resolvePath("/obj_con_list.xml");
       userXMLFile = userXMLFile.resolvePath("obj_con_list.xml");
-        trace(userXMLFile.exists+" in command 428");
       readXML();
         CONDENSER_REGULATE=
             new Regulate("$0EU2000000000",

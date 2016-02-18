@@ -66,7 +66,6 @@ public class ConServerBarPresenter {
             case "NetConnection.Connect.Success":
                 //派发时间。同时把netConnection派发
                 _netStream=new NetStream(_netConnection);
-
                 var event:ConServerBarEvent =new ConServerBarEvent(ConServerBarEvent.CHANGE_STATUS_TO_CALL_READY);//尝试连连服务
                 event.netConnection=_netConnection;
               //  event.netStream=_netStream;

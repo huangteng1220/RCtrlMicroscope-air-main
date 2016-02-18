@@ -21,8 +21,7 @@ public class Services {
     }
 
     public function onRelay(action:String,user:String):void{
-
-        trace(user+" call  you  " +action);
+        trace(action+" call from "+user);
         var evt:ConServerBarEvent =new ConServerBarEvent(ConServerBarEvent.PLAY_VIDEO_EVENT);//尝试连连服务
         evt.remoteUser=user;
         evt.action=action;
@@ -31,8 +30,6 @@ public class Services {
     }
 
     public function showMsg(fromUser:String,msg:String):void{
-        trace(fromUser+"=====fromUser");
-        trace(msg+"=====msg");
         var event:ConServerBarEvent =new ConServerBarEvent(ConServerBarEvent.SHOW_MESSAGE_EVENT);//派发显示信息事件
         event.remoteUser=fromUser;
         event.data=msg;
@@ -40,6 +37,7 @@ public class Services {
     }
 
     public function onSendCommand(commandStr:String,expertFrom:String):void{
+        trace(commandStr+" from"+expertFrom);
         var event:CommandEvent=new CommandEvent(CommandEvent.SEND_COMMAND_FROM_EXPERT);
         event.action=commandStr;
         event.data=expertFrom;
@@ -49,5 +47,20 @@ public class Services {
     public function onDisconnection():void{
         Alert.show("DIS");
     }
+
+    public function onEvent(event:String, nameUser:String):void {
+        trace(event+" add to "+nameUser);
+        var e:UserAddEvent=new UserAddEvent(UserAddEvent.USER_CONNECTION_With_SERVICE);
+        e.action=event;
+        e.user=nameUser;
+        EventDispatcherFactory.getEventDispatcher().dispatchEvent(e);
+    }
+
+    // Write message to the text area
+    public function onReception(prompt:String, message:String):void {
+//        discussion.text += prompt + message + "\n";
+        trace(prompt +";d "+ message+"dsdd");
+    }
+
 }
 }

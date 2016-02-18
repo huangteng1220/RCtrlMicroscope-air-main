@@ -319,13 +319,13 @@
 
             vdCtrl.localVdCam_vd.attachCamera(null);
             startInit.dispatchEvent(new MouseEvent("CloseComEvent"));
-            //No_autoFocus(); //before connect to camera we set focus to reset
+            No_autoFocus(); //before connect to camera we set focus to reset
             if (_autoFocus != 0) {
                 commandPanel.enabled = false;
                 picHandler.enabled = false;
                 _autoFocus = 0;
             }
-            initAfterOpenCom();
+//            initAfterOpenCom();
         }
 
         private function No_autoFocus():void {
@@ -537,6 +537,7 @@
         }
 
         private function sendMessageEventHandler(event:SendPanelEvent):void {
+            trace("remote user"+_remoteUser);
             _netConnection.call("sendMsg", null, _remoteUser, event._msg);
             msgArea.text += "我 :  " + event._msg + "\n";
             sendPanel.say.text = "";
@@ -550,9 +551,6 @@
         }
         ]]>
     </fx:Script>
-    <fx:Declarations>
-        <!--<fx:XML id="sdXML" source="/autoFocus/opencv_pic_cut.exe"/>-->
-    </fx:Declarations>
 
     <s:HGroup width="100%" height="80%">
 
@@ -575,7 +573,7 @@
                     Obj_con_rest="focusReset()"
                     CameraSelectionEvent="startInit_CameraSelectionEventHandler(event)"/>
 
-            <commands:Command_0 id="commandPanel" width="100%" height="100%" lc="{_lc}"/>
+            <commands:Command id="commandPanel" width="100%" height="100%" lc="{_lc}"/>
 
         </s:BorderContainer>
 

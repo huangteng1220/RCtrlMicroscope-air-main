@@ -35,13 +35,13 @@
 -->
 
 	<!-- The application identifier string, unique to this application. Required. -->
-	<id>main</id>
+	<id>main-control</id>
 
 	<!-- Used as the filename for the application. Required. -->
-	<filename>main</filename>
+	<filename>main-control</filename>
 
 	<!-- The name that is displayed in the AIR application installer. Optional. -->
-	<name>main</name>
+	<name>main-control</name>
 
 	<!-- An application version designator (such as "v1", "2.5", or "Alpha 1"). Required. -->
 	<versionNumber>1.0.0</versionNumber>
