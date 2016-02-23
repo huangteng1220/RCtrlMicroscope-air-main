@@ -50,7 +50,7 @@ public class Services {
 
     public function onEvent(event:String, nameUser:String):void {
         trace(event+" add to "+nameUser);
-        var e:UserAddEvent=new UserAddEvent(UserAddEvent.USER_CONNECTION_With_SERVICE);
+        var e:UserAddEvent=new UserAddEvent(UserAddEvent.USER_CONNECTION_WITH_SERVICE_FROM_SERVER);
         e.action=event;
         e.user=nameUser;
         EventDispatcherFactory.getEventDispatcher().dispatchEvent(e);

@@ -104,9 +104,6 @@
             <entry library-name="Maven: org.apache.flex.framework.air:gamepad:swc:4.14.1" library-level="project">
               <dependency linkage="Merged" />
             </entry>
-            <entry library-name="Maven: com.adobe.air.framework:aircore:swc:16.0" library-level="project">
-              <dependency linkage="Merged" />
-            </entry>
             <entry library-name="Maven: com.adobe.air.framework:applicationupdater:swc:16.0" library-level="project">
               <dependency linkage="Merged" />
             </entry>
@@ -123,7 +120,7 @@
               <dependency linkage="Merged" />
             </entry>
           </entries>
-          <sdk name="Flexmojos SDK 4.14.1" />
+          <sdk name="flex_sdk_4.14.0" />
         </dependencies>
         <compiler-options>
           <map>
@@ -148,7 +145,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
-    <orderEntry type="jdk" jdkName="Flexmojos SDK 4.14.1" jdkType="Flexmojos SDK Type" />
+    <orderEntry type="jdk" jdkName="flex_sdk_4.14.0" jdkType="Flex SDK Type (new)" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="Maven: org.apache.flex.framework:advancedgrids:swc:4.14.1" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.apache.flex.framework:advancedgrids:rb.swc:4.14.1" level="project" />
@@ -187,7 +184,7 @@
     <orderEntry type="library" exported="" name="Maven: com.adobe.air.framework:servicemonitor:swc:16.0" level="project" />
     <orderEntry type="library" exported="" name="Maven: com.adobe.air.framework:airglobal:swc:16.0" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.apache.flex.framework:osmf:swc:4.10.0.20130801" level="project" />
-    <orderEntry type="module" module-name="rCtrlMicroscope-air-swc" exported="" />
     <orderEntry type="module" module-name="rCtrlMicroscope-air-swf" exported="" />
+    <orderEntry type="module" module-name="rCtrlMicroscope-air-swc" exported="" />
   </component>
 </module>

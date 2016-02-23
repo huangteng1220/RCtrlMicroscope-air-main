@@ -101,9 +101,6 @@
             <entry library-name="Maven: org.apache.flex.framework.air:gamepad:swc:4.14.1" library-level="project">
               <dependency linkage="Merged" />
             </entry>
-            <entry library-name="Maven: com.adobe.air.framework:aircore:swc:16.0" library-level="project">
-              <dependency linkage="Merged" />
-            </entry>
             <entry library-name="Maven: com.adobe.air.framework:applicationupdater:swc:16.0" library-level="project">
               <dependency linkage="Merged" />
             </entry>
