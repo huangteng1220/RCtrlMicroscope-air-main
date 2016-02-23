@@ -187,7 +187,7 @@
     <orderEntry type="library" exported="" name="Maven: com.adobe.air.framework:servicemonitor:swc:16.0" level="project" />
     <orderEntry type="library" exported="" name="Maven: com.adobe.air.framework:airglobal:swc:16.0" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.apache.flex.framework:osmf:swc:4.10.0.20130801" level="project" />
-    <orderEntry type="module" module-name="rCtrlMicroscope-air-swc" exported="" />
     <orderEntry type="module" module-name="rCtrlMicroscope-air-swf" exported="" />
+    <orderEntry type="module" module-name="rCtrlMicroscope-air-swc" exported="" />
   </component>
 </module>

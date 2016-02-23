@@ -30,9 +30,9 @@ import spark.components.Alert;
   public const callEstablished:String = "CallEstablished";
   public const callFailed:String = "CallFailed";
 
-  private const _Invite:String="Invite";
-  private const _Accept:String="Accept";
-  private const _Reject:String="Reject";
+  public const _Invite:String="Invite";
+  public const _Accept:String="Accept";
+  public const _Reject:String="Reject";
 
   private var conServerBarPresenter:ConServerBarPresenter;
 
@@ -76,13 +76,18 @@ import spark.components.Alert;
    * 2.创建一个 NetConnection 对象，并为将来连接到这个对象的对象创建一个Object对象及其方法。调用 connect() 方法以建立连接。
    */
   private function onConnect():void {
-    trace("dispatch conserver event");
-    var event:ConServerBarEvent =new ConServerBarEvent(ConServerBarEvent.TRY_CONNECT_SERVER_EVENT);//尝试连连服务
-
-    event.connectURL=serverAddrInput.text;
-    event.userName=userNameInput.text;
-
-    EventDispatcherFactory.getEventDispatcher().dispatchEvent(event);
+//    trace("dispatch conserver event");
+//    var event:ConServerBarEvent =new ConServerBarEvent(ConServerBarEvent.TRY_CONNECT_SERVER_EVENT);//尝试连连服务
+//
+//    event.connectURL=serverAddrInput.text;
+//    event.userName=userNameInput.text;
+//
+//    EventDispatcherFactory.getEventDispatcher().dispatchEvent(event);
+    if((serverAddrInput.text).length>0 && (userNameInput.text).length>0){
+      dispatchEvent(new MouseEvent("ConnectToServerEvent"));
+    } else{
+      Alert.show("请输入服务器地址和用户名");
+    }
   }
 
   /**
@@ -104,11 +109,12 @@ import spark.components.Alert;
    * 2.在交换PeerID服务器对象 idManager查找输入的用户名是否已经注册。
    */
   private function onCall():void {
-    if (userNameInput.text != calleeInput.text){
-      var event:ConServerBarEvent =new ConServerBarEvent(ConServerBarEvent.TRY_CALLUSER_EVENT);//尝试呼叫远程用户
-      event.remoteUser=calleeInput.text;
-      event.action=_Invite;
-      EventDispatcherFactory.getEventDispatcher().dispatchEvent(event);
+    if (userNameInput.text != calleeInput.text  && (calleeInput.text.length)>0){
+//      var event:ConServerBarEvent =new ConServerBarEvent(ConServerBarEvent.TRY_CALLUSER_EVENT);//尝试呼叫远程用户
+//      event.remoteUser=calleeInput.text;
+//      event.action=_Invite;
+//      EventDispatcherFactory.getEventDispatcher().dispatchEvent(event);
+      dispatchEvent(new MouseEvent("CallExpertEvent"));
     } else{
       Alert.show("不必呼叫自己！");
     }
@@ -120,18 +126,19 @@ import spark.components.Alert;
    * 都派发事件onCancelEvent,
    */
   private function onCancel(choose:Number):void {
-    var event:ConServerBarEvent;
-    if(choose==1){
-      event =new ConServerBarEvent(ConServerBarEvent.TRY_DISCONNECT_SERVER_EVENT);
-      //尝试断开远程连接
-    }else if(choose==2){
-      //尝试终止呼叫用户
-      event =new ConServerBarEvent(ConServerBarEvent.TRY_CANCEL_CALLUSER_EVENT);
-    }else if(choose==3){
-      //与远程用户断开
-      event=new ConServerBarEvent(ConServerBarEvent.TRY_DISCONNECT_REMOTE_USER_EVENT);
-    }
-    EventDispatcherFactory.getEventDispatcher().dispatchEvent(event);
+//    var event:ConServerBarEvent;
+//    if(choose==1){
+//      event =new ConServerBarEvent(ConServerBarEvent.TRY_DISCONNECT_SERVER_EVENT);
+//      //尝试断开远程连接
+//    }else if(choose==2){
+//      //尝试终止呼叫用户
+//      event =new ConServerBarEvent(ConServerBarEvent.TRY_CANCEL_CALLUSER_EVENT);
+//    }else if(choose==3){
+//      //与远程用户断开
+//      event=new ConServerBarEvent(ConServerBarEvent.TRY_DISCONNECT_REMOTE_USER_EVENT);
+//    }
+//    EventDispatcherFactory.getEventDispatcher().dispatchEvent(event);
+    dispatchEvent(new MouseEvent("CancelToCallUserEvent"));
   }
 
   private function videoQualityChanged(e:Event = null):void {
@@ -201,6 +208,13 @@ import spark.components.Alert;
 
   ]]>
 </fx:Script>
+  <fx:Metadata>
+
+    [Event(name="ConnectToServerEvent", type="flash.events.MouseEvent")]
+    [Event(name="DisconnectToServerEvent", type="flash.events.MouseEvent")]
+    [Event(name="CancelToCallUserEvent",type="flash.events.MouseEvent")]
+    [Event(name="CallExpertEvent",type="flash.events.MouseEvent")]
+  </fx:Metadata>
 
   <s:states>
     <s:State name="LoginNotConnected"/>

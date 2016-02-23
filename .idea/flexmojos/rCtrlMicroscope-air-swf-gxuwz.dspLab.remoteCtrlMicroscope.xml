@@ -4,10 +4,10 @@
 			<path-element>E:\m2\com\adobe\air\framework\airglobal\16.0\airglobal.swc</path-element>
 		</external-library-path>
 		<fonts>
-			<local-fonts-snapshot>G:\projects\microscope\rCtrlMicroscope-air-main\swf\target\fonts.ser</local-fonts-snapshot>
+			<local-fonts-snapshot>G:\projects\microscope\最新\rCtrlMicroscope-air-main\swf\target\fonts.ser</local-fonts-snapshot>
 		</fonts>
 		<library-path>
-			<path-element>G:\projects\microscope\rCtrlMicroscope-air-main\swc\target\rCtrlMicroscope-air-swc-1.0-SNAPSHOT.swc</path-element>
+			<path-element>G:\projects\microscope\最新\rCtrlMicroscope-air-main\swc\target\rCtrlMicroscope-air-swc-1.0-SNAPSHOT.swc</path-element>
 			<path-element>E:\m2\org\apache\flex\framework\advancedgrids\4.14.1\advancedgrids-4.14.1.swc</path-element>
 			<path-element>E:\m2\org\apache\flex\framework\apache\4.14.1\apache-4.14.1.swc</path-element>
 			<path-element>E:\m2\org\apache\flex\framework\authoringsupport\4.14.1\authoringsupport-4.14.1.swc</path-element>
@@ -75,24 +75,24 @@
 			</namespace>
 		</namespaces>
 		<source-path>
-			<path-element>G:\projects\microscope\rCtrlMicroscope-air-main\swf\src\main\flex</path-element>
-			<path-element>G:\projects\microscope\rCtrlMicroscope-air-main\swf\target\classes</path-element>
+			<path-element>G:\projects\microscope\最新\rCtrlMicroscope-air-main\swf\src\main\flex</path-element>
+			<path-element>G:\projects\microscope\最新\rCtrlMicroscope-air-main\swf\target\classes</path-element>
 		</source-path>
 		<theme>
 			<filename>E:\m2\org\apache\flex\framework\themes\spark\4.14.1\spark-4.14.1.swc</filename>
 		</theme>
 	</compiler>
-	<link-report>G:\projects\microscope\rCtrlMicroscope-air-main\swf\target\rCtrlMicroscope-air-swf-1.0-SNAPSHOT-link-report.xml</link-report>
+	<link-report>G:\projects\microscope\最新\rCtrlMicroscope-air-main\swf\target\rCtrlMicroscope-air-swf-1.0-SNAPSHOT-link-report.xml</link-report>
 	<metadata>
 		<language>en_US</language>
 		<title>rCtrlMicroscope-air-swf</title>
 	</metadata>
-	<output>G:\projects\microscope\rCtrlMicroscope-air-main\swf\target\rCtrlMicroscope-air-swf-1.0-SNAPSHOT.swf</output>
-	<size-report>G:\projects\microscope\rCtrlMicroscope-air-main\swf\target\rCtrlMicroscope-air-swf-1.0-SNAPSHOT-size-report.xml</size-report>
+	<output>G:\projects\microscope\最新\rCtrlMicroscope-air-main\swf\target\rCtrlMicroscope-air-swf-1.0-SNAPSHOT.swf</output>
+	<size-report>G:\projects\microscope\最新\rCtrlMicroscope-air-main\swf\target\rCtrlMicroscope-air-swf-1.0-SNAPSHOT-size-report.xml</size-report>
 	<swf-version>27</swf-version>
 	<tools-locale>en_US</tools-locale>
 	<file-specs>
-		<path-element>G:\projects\microscope\rCtrlMicroscope-air-main\swf\src\main\flex\main.mxml</path-element>
+		<path-element>G:\projects\microscope\最新\rCtrlMicroscope-air-main\swf\src\main\flex\main.mxml</path-element>
 	</file-specs>
 <static-link-runtime-shared-libraries>false</static-link-runtime-shared-libraries>
 </flex-config>

@@ -59,7 +59,10 @@
 //                    changeStatusEventHandler);
             //add connection to service user
             EventDispatcherFactory.getEventDispatcher()
-                    .addEventListener(UserAddEvent.USER_CONNECTION_With_SERVICE,
+                    .addEventListener(CommandEvent.SEND_COMMAND_FROM_EXPERT,
+                    onSendCommandToMachineEventHandler);
+            EventDispatcherFactory.getEventDispatcher()
+                    .addEventListener(UserAddEvent.USER_CONNECTION_WITH_SERVICE_FROM_SERVER,
                     userConnectWithServiceEventHandler);
             //呼叫远程用户过程
             EventDispatcherFactory.getEventDispatcher()
@@ -213,6 +216,12 @@
                 csBar.currentState = csBar.callReady;
             }
         }
+
+
+        private function onSendCommandToMachineEventHandler(e:CommandEvent):void{
+           trace(e.action+"ddddd"+e.data) ;
+            _lc.sendMessageFun(e.action);
+        }
         ]]>
     </fx:Script>
     <!-- 显微镜端-->
@@ -233,10 +242,10 @@
     </fx:Declarations>
     <!-- 登录-->
     <conserverbar:ConServerBar id="csBar" width="100%"
-                               CallExpertEvent="csBar_CallExpertEventHandler(event)"
                                ConnectToServerEvent="csBar_ConnectToServerEventHandler(event)"
-                               CancelToCallUserEvent="csBar_CancelToCallUserEventHandler(event)"
-                               DisconnectToServerEvent="csBar_DisconnectToServerEventHandler(event)"/>
+                               DisconnectToServerEvent="csBar_DisconnectToServerEventHandler(event)"
+                               CallExpertEvent="csBar_CallExpertEventHandler(event)"
+                               CancelToCallUserEvent="csBar_CancelToCallUserEventHandler(event)"/>
     <!-- 视频图片区-->
     <command:ImgVideoCtrl id="imgVideoCtrl"
                           width="100%" height="100%"
