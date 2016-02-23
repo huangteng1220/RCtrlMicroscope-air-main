@@ -65,6 +65,14 @@
 			<filename>E:\m2\org\apache\flex\framework\themes\spark\4.14.1\spark-4.14.1.swc</filename>
 		</theme>
 	</compiler>
+	<include-file>
+		<name>obj_con_list_default.xml</name>
+		<path>G:\projects\microscope\rCtrlMicroscope-air-main\swc\src\main\resources\obj_con_list_default.xml</path>
+	</include-file>
+	<include-file>
+		<name>obj_con_list_default.xml</name>
+		<path>G:\projects\microscope\rCtrlMicroscope-air-main\swc\src\main\resources\obj_con_list_default.xml</path>
+	</include-file>
 	<include-sources>
 		<path-element>G:\projects\microscope\rCtrlMicroscope-air-main\swc\src\main\flex</path-element>
 		<path-element>G:\projects\microscope\rCtrlMicroscope-air-main\swc\target\classes</path-element>

@@ -101,6 +101,9 @@
             <entry library-name="Maven: org.apache.flex.framework.air:gamepad:swc:4.14.1" library-level="project">
               <dependency linkage="Merged" />
             </entry>
+            <entry library-name="Maven: com.adobe.air.framework:aircore:swc:16.0" library-level="project">
+              <dependency linkage="Merged" />
+            </entry>
             <entry library-name="Maven: com.adobe.air.framework:applicationupdater:swc:16.0" library-level="project">
               <dependency linkage="Merged" />
             </entry>
@@ -126,7 +129,7 @@
           <option name="resourceFilesMode" value="None" />
           <option name="additionalConfigFilePath" value="$MODULE_DIR$/../.idea/flexmojos/rCtrlMicroscope-air-swf-gxuwz.dspLab.remoteCtrlMicroscope.xml" />
         </compiler-options>
-        <packaging-air-desktop use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/../air/src/main/air/rCtrlMicroscope-air-app.xml" package-file-name="rCtrlMicroscope-air-swf-1.0-SNAPSHOT" />
+        <packaging-air-desktop package-file-name="rCtrlMicroscope-air-swf-1.0-SNAPSHOT" />
         <packaging-android />
         <packaging-ios />
       </configuration>
