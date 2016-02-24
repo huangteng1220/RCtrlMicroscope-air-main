@@ -219,7 +219,6 @@
 
 
         private function onSendCommandToMachineEventHandler(e:CommandEvent):void{
-           trace(e.action+"ddddd"+e.data) ;
             _lc.sendMessageFun(e.action);
         }
         ]]>
