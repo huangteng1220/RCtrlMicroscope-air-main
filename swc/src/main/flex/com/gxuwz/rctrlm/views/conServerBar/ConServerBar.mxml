@@ -98,9 +98,11 @@ import spark.components.Alert;
    * 3.断开服务
    */
   private function onDisconnect():void {
-    trace("Disconnecting.\n");
-    var event:ConServerBarEvent =new ConServerBarEvent(ConServerBarEvent.TRY_DISCONNECT_SERVER_EVENT);//尝试断开连接
-    EventDispatcherFactory.getEventDispatcher().dispatchEvent(event);
+//    trace("Disconnecting.\n");
+//    var event:ConServerBarEvent =new ConServerBarEvent(ConServerBarEvent.TRY_DISCONNECT_SERVER_EVENT);//尝试断开连接
+//    EventDispatcherFactory.getEventDispatcher().dispatchEvent(event);
+    onCancel(3);
+
   }
 
   /**
@@ -138,7 +140,10 @@ import spark.components.Alert;
 //      event=new ConServerBarEvent(ConServerBarEvent.TRY_DISCONNECT_REMOTE_USER_EVENT);
 //    }
 //    EventDispatcherFactory.getEventDispatcher().dispatchEvent(event);
-    dispatchEvent(new MouseEvent("CancelToCallUserEvent"));
+    if(choose==3){
+      dispatchEvent(new MouseEvent("CancelToCallUserEvent"));
+    }else
+      dispatchEvent(new MouseEvent("DisconnectToServerEvent"));
   }
 
   private function videoQualityChanged(e:Event = null):void {
@@ -229,19 +234,20 @@ import spark.components.Alert;
   </s:states>
 
   <!-- Login pane -->
-  <s:HGroup includeIn="LoginNotConnected" verticalAlign="middle"  paddingLeft="2" paddingRight="2" width="70%" >
+  <s:HGroup includeIn="LoginNotConnected" verticalAlign="middle"  paddingLeft="2" paddingRight="2" width="60%" >
     <s:Label text="连接地址" toolTip="请输入连接地址"/>
-    <s:TextInput id="serverAddrInput" text="rtmp://Server Address:ServerPort/Service" width="80%" />
+    <s:TextInput id="serverAddrInput" text="rtmp://210.36.200.41:1935/RCtrlMicroscope" width="420" />
     <s:Label  text="用户名"  toolTip="请输入用户名"/>
     <s:TextInput id="userNameInput" width="120" text="User Name" enter="{userNameInput.text.length > 0?onConnect():setFocus()}"/>
     <s:Button label="连接"  id="conButton" click="onConnect()" enabled="{userNameInput.text.length > 0}"/>
-    <s:Button label="终止摄像头发布服务" click="onDisconnect()" />
+    <s:Button label="终止摄像头发布服务" click="onCancel(2)" />
   </s:HGroup>
 
   <!-- Login Connecting pane -->
   <s:HGroup includeIn="LoginConnecting" verticalAlign="middle">
-    <s:Label text="连接到 {userNameInput.text}" />
-    <s:Button label="取消与 {userNameInput.text} 连接" click="onDisconnect()" />
+    <s:Label text="连接到 {serverAddrInput.text}" />
+    <s:Spacer height="100%" width="30"/>
+    <s:Button label="取消连接" click="onCancel(2)" />
   </s:HGroup>
 
   <s:HGroup includeIn="LoginConnected, CallReady, CallCalling, CallRinging, CallEstablished, CallFailed" verticalAlign="middle">
@@ -252,7 +258,7 @@ import spark.components.Alert;
              text.CallReady="连接为 {userNameInput.text}"
              text.CallRinging="连接为{userNameInput.text}"
              text.LoginConnected="连接为 {userNameInput.text}"/>
-    <s:Button label="DISCONNECT" click="onDisconnect()"
+    <s:Button label="DISCONNECT" click="onCancel(2)"
               label.CallCalling="断开连接"
               label.CallEstablished="断开连接"
               label.CallFailed="断开连接"
@@ -276,13 +282,13 @@ import spark.components.Alert;
   <s:HGroup includeIn="CallCalling" verticalAlign="middle">
     <s:Label text="呼叫 {calleeInput.text} 中" />
     <!-- 尝试挂断呼叫-->
-    <s:Button label="取消呼叫 {calleeInput.text} " click="onCancel(1)"/>
+    <s:Button label="取消呼叫 {calleeInput.text} " click="onCancel(3)"/>
   </s:HGroup>
 
   <!--Call Established pane -->
   <s:HGroup includeIn="CallEstablished" verticalAlign="middle">
     <s:Label text="Called  {calleeInput.text}"  />
-    <s:Button label="终止与 {calleeInput.text} 对话" click="onCancel(2)"/>
+    <s:Button label="终止与 {calleeInput.text} 对话" click="onCancel(3)"/>
     <s:Label id="callTimerText" width="25"/>
   </s:HGroup>
 

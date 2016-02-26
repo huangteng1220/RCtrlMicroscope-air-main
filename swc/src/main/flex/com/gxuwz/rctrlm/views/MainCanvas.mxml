@@ -7,7 +7,8 @@
           xmlns:conserverbar="com.gxuwz.rctrlm.views.conServerBar.*"
           xmlns:chat="com.gxuwz.rctrlm.views.chat.*"
           xmlns:aperture="com.gxuwz.rctrlm.utils.fluorinefx.aperture.*"
-          xmlns:command="com.gxuwz.rctrlm.views.command.*"
+          xmlns:command="com.gxuwz.rctrlm.views.command.*" xmlns:mx="library://ns.adobe.com/flex/mx"
+          xmlns:start="com.gxuwz.rctrlm.views.startInit.*"
           paddingBottom="5" paddingLeft="5" paddingRight="5" paddingTop="5"
           creationComplete="creationCompleteHandler()">
 
@@ -53,10 +54,6 @@
          * 监听连接服务状况
          */
         private function creationCompleteHandler():void {
-            //连接服务情况。成功则改变状态
-//            EventDispatcherFactory.getEventDispatcher()
-//                    .addEventListener(ConServerBarEvent.CHANGE_STATUS_TO_CALL_READY,
-//                    changeStatusEventHandler);
             //add connection to service user
             EventDispatcherFactory.getEventDispatcher()
                     .addEventListener(CommandEvent.SEND_COMMAND_FROM_EXPERT,
@@ -130,6 +127,7 @@
             netConn.addEventListener(NetStatusEvent.NET_STATUS, netConnectionStatusHandler);
             try {
                 netConn.connect(csBar.serverAddrInput.text); //连接网络
+                csBar.currentState=csBar.loginConnecting;
             } catch (e:Error) {
                 Alert.show("连接服务失败", "提示");
             }
@@ -146,6 +144,7 @@
             switch (netStatus) {
                 case "NetConnection.Connect.Success":
                     netConn.call("onIdentification", null, csBar.userNameInput.text);
+                    csBar.currentState = csBar.callReady; //状态改变
                     break;
                 case "NetConnection.Connect.Closed":
                         Alert.show("连接关闭", "提示");
@@ -165,7 +164,8 @@
 
             if (evt.action =="connection") {
                 if ((evt.user).toString() != (csBar.userNameInput.text).toString())
-                userList.addItem(evt.user);
+                    userList.addItem(evt.user);
+                trace("here ");
                 csBar.currentState = csBar.callReady; //状态改变
             } else {
                 var index:int = userList.getItemIndex(evt.user);
@@ -186,6 +186,7 @@
             csBar.ringerChooseBool = false;
             _playoff = false;
             netConn.close();
+            netConn=null;
         }
 
         /**
@@ -240,22 +241,18 @@
 
     </fx:Declarations>
     <!-- 登录-->
-    <conserverbar:ConServerBar id="csBar" width="100%"
-                               ConnectToServerEvent="csBar_ConnectToServerEventHandler(event)"
-                               DisconnectToServerEvent="csBar_DisconnectToServerEventHandler(event)"
-                               CallExpertEvent="csBar_CallExpertEventHandler(event)"
-                               CancelToCallUserEvent="csBar_CancelToCallUserEventHandler(event)"/>
-    <!-- 视频图片区-->
+        <conserverbar:ConServerBar id="csBar" width="100%"
+                                   ConnectToServerEvent="csBar_ConnectToServerEventHandler(event)"
+                                   DisconnectToServerEvent="csBar_DisconnectToServerEventHandler(event)"
+                                   CallExpertEvent="csBar_CallExpertEventHandler(event)"
+                                   CancelToCallUserEvent="csBar_CancelToCallUserEventHandler(event)"/>
+
+
     <command:ImgVideoCtrl id="imgVideoCtrl"
                           width="100%" height="100%"
                           netConnection="{netConn}"
                           lc="{lc}"
                           playoff="{_playoff}"
                           remoteUser="{_remoteUser}"/>
-    <!--  netStream="{_netStream}"-->
-    <!--enabled="false"-->
-    <!--<chat:Chat id="chat"-->
-               <!--netConnection="{_netConnection}"-->
-               <!--remoteUser="{_remoteUser}"-->
-               <!--width="100%"/>-->
+
 </s:VGroup>

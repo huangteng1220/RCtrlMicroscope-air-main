@@ -35,12 +35,12 @@
             </plugin>
         </plugins>
         <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>*.xml</include>
-                </includes>
-            </resource>
+            <!--<resource>-->
+                <!--<directory>src/main/resources</directory>-->
+                <!--<includes>-->
+                    <!--<include>*.xml</include>-->
+                <!--</includes>-->
+            <!--</resource>-->
 
             <!--<resource>-->
                <!--<directory>src/main/resources/autoFocus</directory>-->
@@ -48,9 +48,9 @@
             <!--<resource>-->
                 <!--<directory>src/main/resources/bin</directory>-->
             <!--</resource>-->
-            <!--<resource>-->
-                <!--<directory>src/main/resources</directory>-->
-            <!--</resource>-->
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
         </resources>
     </build>
 

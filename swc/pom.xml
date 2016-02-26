@@ -35,27 +35,26 @@
 
     <build>
         <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                    <include>*.xml</include>
-                </includes>
-            </resource>
+            <!--<resource>-->
+                <!--<directory>src/main/resources</directory>-->
+                <!--<includes>-->
+                    <!--<include>*.xml</include>-->
+                <!--</includes>-->
+            <!--</resource>-->
 
             <resource>
-                <directory>src/main/resources/assets</directory>
-                <includes>
-                    <include>*.xml</include>
-                </includes>
-            </resource>
-            <resource>
                 <directory>src/main/resources</directory>
-                <includes>
-                    <include>*.xml</include>
-                </includes>
-                <!--<filtering>false</filtering>-->
+                <!--<includes>-->
+                    <!--<include>*.xml</include>-->
+                <!--</includes>-->
             </resource>
+            <!--<resource>-->
+                <!--<directory>src/main/resources</directory>-->
+                <!--<includes>-->
+                    <!--<include>*.xml</include>-->
+                <!--</includes>-->
+                <!--&lt;!&ndash;<filtering>false</filtering>&ndash;&gt;-->
+            <!--</resource>-->
         </resources>
 
     </build>

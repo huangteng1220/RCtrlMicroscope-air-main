@@ -8,7 +8,7 @@
         xmlns:s="library://ns.adobe.com/flex/spark">
 
     <s:layout>
-        <s:HorizontalLayout verticalAlign="middle"/>
+        <s:HorizontalLayout/>
     </s:layout>
 
     <fx:Script><![CDATA[

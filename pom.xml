@@ -87,9 +87,8 @@
 			<resource>
 				<directory>src/main/resources</directory>
 				<includes>
-					<!--<include>**/*.dll</include>-->
-					<!--<include>**/*.exe</include>-->
-					<include>*</include>
+					<include>**/*.dll</include>
+					<include>**/*.exe</include>
 				</includes>
 			</resource>
 		</resources>

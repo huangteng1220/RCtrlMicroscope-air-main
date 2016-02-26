@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx"
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
 		 width="20%" height="100%">
 	
 	<fx:Script>
@@ -80,23 +79,23 @@
 			
 		]]>
 	</fx:Script>
-	
-	<fx:Declarations>
-	</fx:Declarations>
+
 	<fx:Metadata>
 		[Event(name="onDeleteImgShowEvent", type="flash.events.MouseEvent")]
 		[Event(name="onSelectedImgEvent", type="flash.events.Event")]
 		[Event(name="onCancelSelectedImgEvent", type="flash.events.Event")]
 		[Event(name="onSaveImgEvent", type="flash.events.Event")]
 	</fx:Metadata>
-	<s:VGroup width="100%" height="100%" id="imgList">
+	<!--<s:VGroup width="100%" height="100%" id="imgList">-->
+
 		<s:Image width="100%" height="100%" id="image"/>
-		<s:HGroup width="100%">
-			<s:Button id="delete_bt" width="35%" height="100%"  label="delete" click="delete_bt_clickHandler(event)"/>
-			<s:CheckBox width="30%" id="selected_chb" height="100%" label="选择" click="Transmission()"/>
-			<s:Button id="zoom_bt" width="35%" height="100%" label="zoom" click="zoom_bt_clickHandler(event)"/>
+
+		<s:HGroup >
+			<s:Button id="delete_bt" label="删除" click="delete_bt_clickHandler(event)"/>
+			<s:CheckBox id="selected_chb" label="选择" click="Transmission()"/>
+			<s:Button id="zoom_bt"  label="放大" click="zoom_bt_clickHandler(event)"/>
 		</s:HGroup>
-	</s:VGroup>		
-</s:Group>
+	<!--</s:VGroup>		-->
+</s:VGroup>
 
 

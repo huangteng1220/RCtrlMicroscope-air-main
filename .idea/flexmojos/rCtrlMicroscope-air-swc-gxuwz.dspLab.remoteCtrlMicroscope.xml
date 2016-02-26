@@ -28,7 +28,7 @@
 			<path-element>E:\m2\com\adobe\air\framework\airglobal\16.0\airglobal.swc</path-element>
 		</external-library-path>
 		<fonts>
-			<local-fonts-snapshot>G:\projects\microscope\最新\rCtrlMicroscope-air-main\swc\target\fonts.ser</local-fonts-snapshot>
+			<local-fonts-snapshot>G:\projects\microscope\news\rCtrlMicroscope-air-main\swc\target\fonts.ser</local-fonts-snapshot>
 		</fonts>
 		<locale/>
 		<namespaces>
@@ -58,27 +58,67 @@
 			</namespace>
 		</namespaces>
 		<source-path>
-			<path-element>G:\projects\microscope\最新\rCtrlMicroscope-air-main\swc\src\main\flex</path-element>
-			<path-element>G:\projects\microscope\最新\rCtrlMicroscope-air-main\swc\target\classes</path-element>
+			<path-element>G:\projects\microscope\news\rCtrlMicroscope-air-main\swc\src\main\flex</path-element>
+			<path-element>G:\projects\microscope\news\rCtrlMicroscope-air-main\swc\target\classes</path-element>
 		</source-path>
 		<theme>
 			<filename>E:\m2\org\apache\flex\framework\themes\spark\4.14.1\spark-4.14.1.swc</filename>
 		</theme>
 	</compiler>
 	<include-file>
+		<name>assets/sound/msgS.mp3</name>
+		<path>G:\projects\microscope\news\rCtrlMicroscope-air-main\swc\src\main\resources\assets\sound\msgS.mp3</path>
+	</include-file>
+	<include-file>
+		<name>assets/sound/usb1.mp3</name>
+		<path>G:\projects\microscope\news\rCtrlMicroscope-air-main\swc\src\main\resources\assets\sound\usb1.mp3</path>
+	</include-file>
+	<include-file>
+		<name>dll/apimaging.dll</name>
+		<path>G:\projects\microscope\news\rCtrlMicroscope-air-main\swc\src\main\resources\dll\apimaging.dll</path>
+	</include-file>
+	<include-file>
+		<name>dll/apoutlook.dll</name>
+		<path>G:\projects\microscope\news\rCtrlMicroscope-air-main\swc\src\main\resources\dll\apoutlook.dll</path>
+	</include-file>
+	<include-file>
+		<name>dll/apsystem.dll</name>
+		<path>G:\projects\microscope\news\rCtrlMicroscope-air-main\swc\src\main\resources\dll\apsystem.dll</path>
+	</include-file>
+	<include-file>
+		<name>dll/ATLDll.dll</name>
+		<path>G:\projects\microscope\news\rCtrlMicroscope-air-main\swc\src\main\resources\dll\ATLDll.dll</path>
+	</include-file>
+	<include-file>
+		<name>dll/ATLDll_1.dll</name>
+		<path>G:\projects\microscope\news\rCtrlMicroscope-air-main\swc\src\main\resources\dll\ATLDll_1.dll</path>
+	</include-file>
+	<include-file>
+		<name>dll/fluorinepp.dll</name>
+		<path>G:\projects\microscope\news\rCtrlMicroscope-air-main\swc\src\main\resources\dll\fluorinepp.dll</path>
+	</include-file>
+	<include-file>
+		<name>dll/msi.dll</name>
+		<path>G:\projects\microscope\news\rCtrlMicroscope-air-main\swc\src\main\resources\dll\msi.dll</path>
+	</include-file>
+	<include-file>
+		<name>dll/Project2.dll</name>
+		<path>G:\projects\microscope\news\rCtrlMicroscope-air-main\swc\src\main\resources\dll\Project2.dll</path>
+	</include-file>
+	<include-file>
 		<name>obj_con_list_default.xml</name>
-		<path>G:\projects\microscope\最新\rCtrlMicroscope-air-main\swc\src\main\resources\obj_con_list_default.xml</path>
+		<path>G:\projects\microscope\news\rCtrlMicroscope-air-main\swc\src\main\resources\obj_con_list_default.xml</path>
 	</include-file>
 	<include-sources>
-		<path-element>G:\projects\microscope\最新\rCtrlMicroscope-air-main\swc\src\main\flex</path-element>
-		<path-element>G:\projects\microscope\最新\rCtrlMicroscope-air-main\swc\target\classes</path-element>
+		<path-element>G:\projects\microscope\news\rCtrlMicroscope-air-main\swc\src\main\flex</path-element>
+		<path-element>G:\projects\microscope\news\rCtrlMicroscope-air-main\swc\target\classes</path-element>
 	</include-sources>
-	<link-report>G:\projects\microscope\最新\rCtrlMicroscope-air-main\swc\target\rCtrlMicroscope-air-swc-1.0-SNAPSHOT-link-report.xml</link-report>
+	<link-report>G:\projects\microscope\news\rCtrlMicroscope-air-main\swc\target\rCtrlMicroscope-air-swc-1.0-SNAPSHOT-link-report.xml</link-report>
 	<metadata>
 		<title>rCtrlMicroscope-air-swc</title>
 	</metadata>
-	<output>G:\projects\microscope\最新\rCtrlMicroscope-air-main\swc\target\rCtrlMicroscope-air-swc-1.0-SNAPSHOT.swc</output>
-	<size-report>G:\projects\microscope\最新\rCtrlMicroscope-air-main\swc\target\rCtrlMicroscope-air-swc-1.0-SNAPSHOT-size-report.xml</size-report>
+	<output>G:\projects\microscope\news\rCtrlMicroscope-air-main\swc\target\rCtrlMicroscope-air-swc-1.0-SNAPSHOT.swc</output>
+	<size-report>G:\projects\microscope\news\rCtrlMicroscope-air-main\swc\target\rCtrlMicroscope-air-swc-1.0-SNAPSHOT-size-report.xml</size-report>
 	<swf-version>27</swf-version>
 	<tools-locale>en_US</tools-locale>
 <static-link-runtime-shared-libraries>false</static-link-runtime-shared-libraries>

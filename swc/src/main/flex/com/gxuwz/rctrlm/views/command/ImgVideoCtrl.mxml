@@ -74,17 +74,26 @@
          */
         public var _process:NativeProcess = new NativeProcess();
 
-        [Bindable] private var inStream:NetStream;
-        [Bindable] private var outStream:NetStream;
+        [Bindable]
+        private var inStream:NetStream;
+        [Bindable]
+        private var outStream:NetStream;
 
-        [Bindable] private var _netConnection:NetConnection;
-        [Bindable] private var _lc:LocalObject;
-        [Bindable] private var _playoff:Boolean;
+        [Bindable]
+        private var _netConnection:NetConnection;
+        [Bindable]
+        private var _lc:LocalObject;
+        [Bindable]
+        private var _playoff:Boolean;
 
-        [Bindable] private var cameraIndex:int = 0;
-        [Bindable] public var camera:Camera;
-        [Bindable] private var mic:Microphone;
-        [Bindable] private var video:Video=new Video(); //只为关闭显微镜初始话操作
+        [Bindable]
+        private var cameraIndex:int = 0;
+        [Bindable]
+        public var camera:Camera;
+        [Bindable]
+        private var mic:Microphone;
+        [Bindable]
+        private var video:Video = new Video(); //只为关闭显微镜初始话操作
         private var localSO:SharedObject;
         public var _autoFocusProcess:NativeProcess = new NativeProcess();
         /**
@@ -119,14 +128,14 @@
             _playoff = value;
             if (_playoff) {
                 //发布视频
-               publicVideo();
-            }else if(_playoff==false){
+                publicVideo();
+            } else if (_playoff == false) {
                 //Alert.show("请连接显微镜");
-                cameraIndex=0;
-                inStream=null;
-                outStream=null;
-            }else{
-                Alert.show("请连接显微镜再操作","提示");
+                cameraIndex = 0;
+                inStream = null;
+                outStream = null;
+            } else {
+                Alert.show("请连接显微镜再操作", "提示");
             }
         }
 
@@ -149,6 +158,8 @@
             }
 
             var imgShow:ImageShow = new ImageShow();  //取得相片并保存
+            imgShow.padding=0;
+            imgShow.percentHeight=100;
             imgShow.image.source = bmpd;
             imgShwList.addElement(imgShow);
             imgShow.addEventListener("onDeleteImgShowEvent", deleteBitmap, false, 0, true);
@@ -319,13 +330,13 @@
 
             vdCtrl.localVdCam_vd.attachCamera(null);
             startInit.dispatchEvent(new MouseEvent("CloseComEvent"));
-//            No_autoFocus(); //before connect to camera we set focus to reset
+            No_autoFocus(); //before connect to camera we set focus to reset
             if (_autoFocus != 0) {
                 commandPanel.enabled = false;
                 picHandler.enabled = false;
                 _autoFocus = 0;
             }
-            initAfterOpenCom();
+//            initAfterOpenCom();
         }
 
         private function No_autoFocus():void {
@@ -345,7 +356,7 @@
 
             writeToTxt("从自动对焦程序中返回的代码：" + e.exitCode + "执行打开端口程序；得到的数据 COM" + e.exitCode);
             _autoFocus = e.exitCode;
-            Alert.show(_autoFocus+"是打开端口程序返回的结果");
+            Alert.show(_autoFocus + "是打开端口程序返回的结果");
             if (_autoFocus) {
                 commandPanel.enabled = true;
                 picHandler.enabled = true;
@@ -380,7 +391,7 @@
             if (outStream) {
                 outStream.attachCamera(null);
             }
-            camera=null;
+            camera = null;
             try {
                 var _autoNativeProcessStartupInfo:NativeProcessStartupInfo = new NativeProcessStartupInfo();
                 _autoNativeProcessStartupInfo.executable = File.applicationDirectory.resolvePath("autoFocus/opencv_pic_cut.exe");
@@ -426,39 +437,39 @@
 //                cameraIndex = localSO.data.cameraIndex;
 //            }else{
 //            }
-          //  trace(cameraIndex + "cameraIndex");
-          //  camera = Camera.getCamera(cameraIndex.toString()); //get the camera
-          //  mic = Microphone.getEnhancedMicrophone();
+            //  trace(cameraIndex + "cameraIndex");
+            //  camera = Camera.getCamera(cameraIndex.toString()); //get the camera
+            //  mic = Microphone.getEnhancedMicrophone();
 //            // if netconnection ,we say that it should be publish for remote user
 
 //          if(_playoff && cameraIndex){
-               // publicVideo();
+            // publicVideo();
 //          }else{
 
-             publicLocal();
+            publicLocal();
 //          }
         }
 
         private function publicLocal():void {
-                video.attachCamera(null);//释放摄像头
-                //vdCtrl.localVdCam_vd.attachCamera(null);//无效的
-                //camera=null;//关闭摄像头无效
-                cameraIndex = startInit.cameraSelection_cb.selectedIndex; //get the camera index
-                camera = Camera.getCamera(cameraIndex.toString()); //get the camera
-                //  cameraIndex = startInit.cameraSelection_cb.selectedIndex; //get the camera index
-                //startInit.cameraSelection_cb.enabled=false;
-                if(camera){
-                    camera.setMode(2592,1944,24,true);
-                    var vi:Video= new Video(camera.width,camera.height); //初始化已经定义
-                    vi.height = vdCtrl.localVdCam_vd.height;
-                    vi.width = vdCtrl.localVdCam_vd.width;
-                    vi.attachCamera(camera);
-                    vdCtrl.localVdCam_vd.addChild(vi);
-                    video=vi;
+            video.attachCamera(null);//释放摄像头
+            //vdCtrl.localVdCam_vd.attachCamera(null);//无效的
+            //camera=null;//关闭摄像头无效
+            cameraIndex = startInit.cameraSelection_cb.selectedIndex; //get the camera index
+            camera = Camera.getCamera(cameraIndex.toString()); //get the camera
+            //  cameraIndex = startInit.cameraSelection_cb.selectedIndex; //get the camera index
+            //startInit.cameraSelection_cb.enabled=false;
+            if (camera) {
+                camera.setMode(2592, 1944, 24, true);
+                var vi:Video = new Video(camera.width, camera.height); //初始化已经定义
+                vi.height = vdCtrl.localVdCam_vd.height;
+                vi.width = vdCtrl.localVdCam_vd.width;
+                vi.attachCamera(camera);
+                vdCtrl.localVdCam_vd.addChild(vi);
+                video = vi;
 //                    video.x=vdCtrl.localVdCam_vd.x+(vdCtrl.localVdCam_vd.width-camera.width);
-                }else{
-                    Alert.show("无法获得显微镜");
-                }
+            } else {
+                Alert.show("无法获得显微镜");
+            }
         }
 
         //public video and play after the expert accept
@@ -469,18 +480,18 @@
 //            cameraIndex = startInit.cameraSelection_cb.selectedIndex; //get the camera index
 //            camera = Camera.getCamera(cameraIndex.toString()); //get the camera
             try {
-                 mic = Microphone.getEnhancedMicrophone();
+                mic = Microphone.getEnhancedMicrophone();
 //                mic.gain = 50;
                 var h264Settings:H264VideoStreamSettings = new H264VideoStreamSettings();
-               // h264Settings.setProfileLevel(H264Profile.BASELINE, H264Level.LEVEL_3_1);
+                // h264Settings.setProfileLevel(H264Profile.BASELINE, H264Level.LEVEL_3_1);
                 h264Settings.setProfileLevel(H264Profile.BASELINE, H264Level.LEVEL_5_1);
-                h264Settings.setMode(2592,1944,24);
-                h264Settings.setQuality(0,100);
+                h264Settings.setMode(2592, 1944, 24);
+                h264Settings.setQuality(0, 100);
                 camera.setQuality(0, 100);
-                camera.setMode(2592,1944,24,true);
+                camera.setMode(2592, 1944, 24, true);
                 camera.setKeyFrameInterval(15);
 
-                var vi:Video = new Video(camera.width,camera.height);
+                var vi:Video = new Video(camera.width, camera.height);
                 vi.width = vdCtrl.localVdCam_vd.width;
                 vi.height = vdCtrl.localVdCam_vd.height;
 
@@ -490,7 +501,7 @@
                 inStream.play("media-sound");
                 vi.attachCamera(camera);  //get the local camera
                 vdCtrl.localVdCam_vd.addChild(vi);
-                video=vi;
+                video = vi;
                 //public video and play audio to expert
                 outStream = new NetStream(_netConnection);
                 outStream.videoStreamSettings = h264Settings;
@@ -516,8 +527,10 @@
         [Embed(source="../../../../../../resources/assets/sound/msgS.mp3")]
         private var soundClass:Class;
 
-        [Bindable] private var _connected:String = "UnConnected";
-        [Bindable] private var _remoteUser:String;
+        [Bindable]
+        private var _connected:String = "UnConnected";
+        [Bindable]
+        private var _remoteUser:String;
 
         public function get remoteUser():String {
             return _remoteUser;
@@ -532,16 +545,16 @@
             soundAsset.play();
             _remoteUser = e.remoteUser;
             msgArea.text += _remoteUser + "  :  " + e.data + "\n";
-            msgArea.scroller.verticalScrollBar.value=msgArea
+            msgArea.scroller.verticalScrollBar.value = msgArea
                     .scroller.verticalScrollBar.maximum;
         }
 
         private function sendMessageEventHandler(event:SendPanelEvent):void {
-            trace("remote user"+_remoteUser);
+            trace("remote user" + _remoteUser);
             _netConnection.call("sendMsg", null, _remoteUser, event._msg);
             msgArea.text += "我 :  " + event._msg + "\n";
             sendPanel.say.text = "";
-            msgArea.scroller.verticalScrollBar.value=msgArea
+            msgArea.scroller.verticalScrollBar.value = msgArea
                     .scroller.verticalScrollBar.maximum;
         }
 
@@ -549,55 +562,53 @@
         private function writeToTxt(obj:Object):void {
             WriteToText.writeToTxtLog(obj.toString());
         }
+
+        private function startInit_release_cameraHandler(event:MouseEvent):void {
+            video.attachCamera(null);// 关闭显微镜
+        }
         ]]>
     </fx:Script>
 
+    <!-- 显微镜连接面板-->
+    <start:StartInit
+            id="startInit"
+            width="100%"
+            CloseComEvent="{_lc.closeComFun();}"
+            OpenComEvent="startInit_OpenComEventHandler(event)"
+            No_FocusInitEvent="No_focusInit()"
+            FocusInitEvent="focusInit()"
+            Obj_con_rest="focusReset()"
+            CameraSelectionEvent="startInit_CameraSelectionEventHandler(event)"
+            release_camera="startInit_release_cameraHandler(event)"/>
+
+    <!-- 显微镜控制和图像-->
     <s:HGroup width="100%" height="80%">
 
-        <!--<videoContext:VideoCtrl id="vdCtrl" width="{FlexGlobals.topLevelApplication.parent.width*0.75}"-->
-                                <!--height="{FlexGlobals.topLevelApplication.height*0.8-30}" lc="{_lc}"/>-->
-        <videoContext:VideoCtrl id="vdCtrl" width="75%"
-                                height="100%" lc="{_lc}"/>
-        <s:BorderContainer id="bcContainer" width="25%" height="100%" cornerRadius="5">
+        <s:Panel id="bcContainer"
+                 title="设备管理器"
+                 width="25%" height="100%"
+                 cornerRadius="5">
 
             <s:layout>
-                <s:VerticalLayout paddingLeft="2" paddingBottom="2" paddingTop="2" paddingRight="2"/>
+                <s:VerticalLayout
+                        paddingLeft="2"
+                        paddingBottom="2"
+                        paddingTop="2"
+                        paddingRight="2"/>
             </s:layout>
-            <start:StartInit
-                    id="startInit"
-                    width="100%"
-                    CloseComEvent="{_lc.closeComFun();}"
-                    OpenComEvent="startInit_OpenComEventHandler(event)"
-                    No_FocusInitEvent="No_focusInit()"
-                    FocusInitEvent="focusInit()"
-                    Obj_con_rest="focusReset()"
-                    CameraSelectionEvent="startInit_CameraSelectionEventHandler(event)"/>
-
+            <!-- 显微镜控制-->
             <commands:Command id="commandPanel" width="100%" height="100%" lc="{_lc}"/>
+        </s:Panel>
 
-        </s:BorderContainer>
-
+        <videoContext:VideoCtrl id="vdCtrl" width="75%"
+                                height="100%" lc="{_lc}"/>
     </s:HGroup>
 
-    <s:HGroup width="100%" height="20%">
+    <s:HGroup width="100%" height="25%">
 
-        <s:HGroup width="60%" height="100%">
-            <img:ImageBox id="imgShwList"
-                          width="100%" height="100%"
-                          cornerRadius="5"/>
-
-            <img:PicHandler id="picHandler"
-                            cornerRadius="5"
-                            editorPicEvent="edit_bt_clickHandler()"
-                            exitPicEvent="exit_bt_clickHandler()"
-                            mergePicEvent="merge_bt_clickHandler()"
-                            takePicEvent="picHandler_takePicEventHandler()"/>
-        </s:HGroup>
-
-        <!--对话面板-->
-        <s:VGroup  width="40%" height="100%">
+        <!-- chatting panel-->
+        <s:VGroup  width="30%" height="100%">
             <s:HGroup width="100%" height="100%">
-
                 <s:TextArea width="100%" id="msgArea" height="100%" />
             </s:HGroup>
 
@@ -606,6 +617,21 @@
                     sendMessageEvent="sendMessageEventHandler(event)"/>
         </s:VGroup>
 
+
+        <!--image operation-->
+        <s:HGroup width="70%" height="100%">
+            <img:ImageBox id="imgShwList"
+                          width="100%" height="100%"
+                          cornerRadius="5"/>
+
+            <img:PicHandler id="picHandler"
+                            cornerRadius="5"
+                            height="100%"
+                            editorPicEvent="edit_bt_clickHandler()"
+                            exitPicEvent="exit_bt_clickHandler()"
+                            mergePicEvent="merge_bt_clickHandler()"
+                            takePicEvent="picHandler_takePicEventHandler()"/>
+        </s:HGroup>
     </s:HGroup>
 
 </s:VGroup>
