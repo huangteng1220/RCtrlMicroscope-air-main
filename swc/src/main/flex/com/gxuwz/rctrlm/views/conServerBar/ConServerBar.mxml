@@ -238,7 +238,7 @@ import spark.components.Alert;
     <s:Label text="连接地址" toolTip="请输入连接地址"/>
     <s:TextInput id="serverAddrInput" text="rtmp://210.36.200.41:1935/RCtrlMicroscope" width="420" />
     <s:Label  text="用户名"  toolTip="请输入用户名"/>
-    <s:TextInput id="userNameInput" width="120" text="User Name" enter="{userNameInput.text.length > 0?onConnect():setFocus()}"/>
+    <s:TextInput id="userNameInput" width="120" text="Control" enter="{userNameInput.text.length > 0?onConnect():setFocus()}"/>
     <s:Button label="连接"  id="conButton" click="onConnect()" enabled="{userNameInput.text.length > 0}"/>
     <s:Button label="终止摄像头发布服务" click="onCancel(2)" />
   </s:HGroup>

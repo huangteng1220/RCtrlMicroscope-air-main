@@ -59,8 +59,27 @@ public class Services {
     // Write message to the text area
     public function onReception(prompt:String, message:String):void {
 //        discussion.text += prompt + message + "\n";
-        trace(prompt +";d "+ message+"dsdd");
+    }
+    public function onReceptionAction(sx:String,sy:String,ex:String,ey:String,remoteUser:String):void{
+        trace(sx+" in Service Class 66");
+//        var event:CommandEvent=new CommandEvent(CommandEvent.DRAWING_LINE_FROM_EXPERT);
+//        event.startX=sx;
+//        event.startY=sy;
+//        event.endX=ex;
+//        event.endY=ey;
+//        EventDispatcherFactory.getEventDispatcher().dispatchEvent(event);
     }
 
+    public function onDrawingLine(obj:Object):void{
+        trace(obj.lineStartPoint.x+" in Server from Expert line 75");
+        var e:DrawingLineFromExpertEvent =new DrawingLineFromExpertEvent(DrawingLineFromExpertEvent.DRAWING_LINE_FROM_EXPERT);
+        e.data=obj;
+        EventDispatcherFactory.getEventDispatcher().dispatchEvent(e);
+    }
+
+    public function onCleanUI():void{
+        var e:DrawingLineFromExpertEvent=new DrawingLineFromExpertEvent(DrawingLineFromExpertEvent.CLEAN_DRAWING_LINE_FROM_EXPERT);
+        EventDispatcherFactory.getEventDispatcher().dispatchEvent(e);
+    }
 }
 }

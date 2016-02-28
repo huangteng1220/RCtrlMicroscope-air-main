@@ -218,7 +218,6 @@
             }
         }
 
-
         private function onSendCommandToMachineEventHandler(e:CommandEvent):void{
             _lc.sendMessageFun(e.action);
         }

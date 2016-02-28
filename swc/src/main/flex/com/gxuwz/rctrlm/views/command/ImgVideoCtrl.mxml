@@ -431,6 +431,9 @@
          * 3.启动摄像头并通过startInit_CameraSelectionEventHandler（）方法传到VideoCrtl中显示
          */
         private function initAfterOpenCom():void {
+
+            publicLocal();
+
             // selected camera device
 //            if (localSO.data.hasOwnProperty("cameraIndex")) {
 //                trace("camera open:" + cameraIndex);
@@ -445,8 +448,6 @@
 //          if(_playoff && cameraIndex){
             // publicVideo();
 //          }else{
-
-            publicLocal();
 //          }
         }
 

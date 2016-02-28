@@ -9,6 +9,9 @@
 
   <fx:Script>
     <![CDATA[
+    import com.gxuwz.rctrlm.events.CommandEvent;
+    import com.gxuwz.rctrlm.events.DrawingLineFromExpertEvent;
+    import com.gxuwz.rctrlm.events.EventDispatcherFactory;
     import com.gxuwz.rctrlm.utils.fluorinefx.aperture.LocalObject;
     import com.gxuwz.rctrlm.views.videoCtrl.mangerGesture.MGesture;
     import mx.controls.Label;
@@ -24,7 +27,6 @@
 
     public function set lc(value:LocalObject):void {
       _lc = value;
-      trace(value.toString()+"=====================lc is ");
     }
 
     private var gesture:MGesture;				//Instance of MGesture class we've written
@@ -47,18 +49,41 @@
       this.addElement(lineLabel);
       _camera = Camera.getCamera() as Camera;
 
+        lineMSG = new Object();
+//        //add some extra data to ensure every sent object is unique
+//        lineMSG.id = new Date().time;
+//        gesture.start();
+
+        EventDispatcherFactory.getEventDispatcher()
+            .addEventListener(DrawingLineFromExpertEvent.DRAWING_LINE_FROM_EXPERT,
+              drawingLineFromExpert);
+        EventDispatcherFactory.getEventDispatcher()
+            .addEventListener(DrawingLineFromExpertEvent.CLEAN_DRAWING_LINE_FROM_EXPERT,
+             clearnDrawingLineFromExpert);
+    }
+    private function drawingLineFromExpert(e:DrawingLineFromExpertEvent):void{
+      trace(e.data +" from Service Class which get from Expert");
+      gesture.start();
+      mouseMoveDirection(e.data);
+      onDrawingLine(e.data);
+
     }
 
+    private function clearnDrawingLineFromExpert(e:DrawingLineFromExpertEvent):void{
+        drawLineUI.graphics.clear();
+        lineLabel.text = "";
+    }
     protected function mouseDownHandler(event:MouseEvent):void {
-      lineMSG = new Object();
-      //add some extra data to ensure every sent object is unique
-      lineMSG.id = new Date().time;
-      //var lineStartPoint:Point=new Point(e.localX, e.localY);
-      var lineStartPoint:Point = new Point(this.mouseX, this.mouseY);
-      lineMSG.lineStartPoint = lineStartPoint;
 
-      startDrawingLine(lineMSG);
-      gesture.start();
+//        lineMSG = new Object();
+        //add some extra data to ensure every sent object is unique
+        lineMSG.id = new Date().time;
+        gesture.start();
+
+        var lineStartPoint:Point = new Point(this.mouseX, this.mouseY);
+        lineMSG.lineStartPoint = lineStartPoint;
+
+        startDrawingLine(lineMSG);
 
       this.addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove, false, 0, true);
       this.addEventListener(MouseEvent.MOUSE_UP, onMouseUp, false, 0, true);
@@ -109,6 +134,7 @@
       lineLabel.setStyle('fontSize', 15);
       lineLabel.x = drawingPoint.lineEndPoint.x + 15;
       lineLabel.y = drawingPoint.lineEndPoint.y - 15;
+
     }
 
     protected function polarAngle(point:Point, center:Point = null):Number {
@@ -152,6 +178,7 @@
     }
 
     private function mouseMoveDirection(lineMSG:Object):void {
+
       gestureMag = gesture.update().getMagnitude() / 2;
       gestureMag = Math.min(gestureMag, maxMag);
       direction = gesture.evalDirections();
