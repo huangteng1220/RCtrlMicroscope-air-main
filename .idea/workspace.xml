@@ -2,26 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6774e1c6-0d35-47aa-a4c5-79980494dbbf" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/swf/src/main/css/CustomStyle.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/swc/src/main/flex/com/gxuwz/rctrlm/events/DrawingLineFromExpertEvent.as" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/swc/src/main/flex/com/gxuwz/rctrlm/events/StartInitEvent.as" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/swf/main-app.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_adobe_air_framework_aircore_swc_16_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_adobe_air_framework_aircore_swc_16_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_flex_framework_advancedgrids_rb_swc_4_14_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_flex_framework_advancedgrids_rb_swc_4_14_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_flex_framework_air_airframework_rb_swc_4_14_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_flex_framework_air_airframework_rb_swc_4_14_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_flex_framework_air_airspark_rb_swc_4_14_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_flex_framework_air_airspark_rb_swc_4_14_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_flex_framework_apache_rb_swc_4_14_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_flex_framework_apache_rb_swc_4_14_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_flex_framework_charts_rb_swc_4_14_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_flex_framework_charts_rb_swc_4_14_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_flex_framework_experimental_rb_swc_4_14_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_flex_framework_experimental_rb_swc_4_14_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_flex_framework_flash_integration_rb_swc_4_14_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_flex_framework_flash_integration_rb_swc_4_14_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_flex_framework_framework_rb_swc_4_14_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_flex_framework_framework_rb_swc_4_14_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_flex_framework_mx_rb_swc_4_14_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_flex_framework_mx_rb_swc_4_14_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_flex_framework_rpc_rb_swc_4_14_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_flex_framework_rpc_rb_swc_4_14_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_flex_framework_spark_rb_swc_4_14_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_flex_framework_spark_rb_swc_4_14_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_flex_framework_textLayout_rb_swc_4_14_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_flex_framework_textLayout_rb_swc_4_14_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/swf/pom.xml" afterPath="$PROJECT_DIR$/swf/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/swf/rCtrlMicroscope-air-swf.iml" afterPath="$PROJECT_DIR$/swf/rCtrlMicroscope-air-swf.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/air/rCtrlMicroscope-control-air.iml" afterPath="$PROJECT_DIR$/air/rCtrlMicroscope-control-air.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="rCtrlMicroscope-air.iws" />
@@ -990,7 +971,7 @@
       <workItem from="1456582212357" duration="14725000" />
       <workItem from="1456645253055" duration="14486000" />
       <workItem from="1456666036571" duration="1579000" />
-      <workItem from="1456669460258" duration="1321000" />
+      <workItem from="1456669460258" duration="1388000" />
     </task>
     <task id="LOCAL-00001" summary="时间：2016-02-18 13：21&#10;完成：&#10;1.用户登录信息共享&#10;2.用户连接服务操作修改&#10;整个项目:&#10;1.用户登录和取消完成&#10;2.显微镜连接正常&#10;3.专家端发送的命令正常接收&#10;">
       <created>1455773081327</created>
@@ -1022,33 +1003,39 @@
       <option name="project" value="LOCAL" />
       <updated>1456664997691</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="时间：2016-02-28 21：08&#10;完成：&#10;显示专家端画线效果，但是，无法检测方向&#10;">
+      <created>1456726490139</created>
+      <option name="number" value="00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1456726490139</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="325915000" />
+    <option name="totallyTimeSpent" value="325982000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="21" width="1366" height="707" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33779263" sideWeight="0.38222224" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33779263" sideWeight="0.6155556" order="11" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33779263" sideWeight="0.61777776" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13481481" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24666667" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24666667" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33779263" sideWeight="0.38444445" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1629,6 +1616,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
