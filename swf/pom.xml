@@ -39,6 +39,14 @@
 
     <packaging>swf</packaging>
 
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/css</directory>
+            </resource>
+        </resources>
+    </build>
+
     <dependencies>
         <dependency>
             <groupId>gxuwz.dspLab.remoteCtrlMicroscope</groupId>
