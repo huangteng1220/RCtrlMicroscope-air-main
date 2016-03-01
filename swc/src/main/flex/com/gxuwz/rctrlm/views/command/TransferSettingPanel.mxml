@@ -2,13 +2,12 @@
 <!--
   Created by Administrator on 2016/2/29.
 -->
-<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009"
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
          xmlns:mx="library://ns.adobe.com/flex/mx"
-         title="显微镜传输设置" width="100%"
+         width="100%"
          xmlns:s="library://ns.adobe.com/flex/spark"
-         cornerRadius="6"
          chromeColor="#B0BDC4"
-         dropShadowVisible="true"
+          padding="2"
          creationComplete="appComplete()">
 
     <fx:Script><![CDATA[
@@ -105,12 +104,10 @@
             if (comboAudioCodec.selectedLabel == "Off") {
                 _mic = null;
             } else if(_mic) {
-//                _mic = Microphone.getMicrophone();// default microphone
                 if (echoCancellation.selectedItem == "Basic Micro") {
                     _mic.setUseEchoSuppression(cbEchoSuppression.selected);
                 } else if (Microphone.getEnhancedMicrophone()) {
                     var options:MicrophoneEnhancedOptions = new MicrophoneEnhancedOptions();
-                    _mic = Microphone.getEnhancedMicrophone();
                     switch (echoCancellation.selectedItem) {
                         case "Normal":
                             options.mode = MicrophoneEnhancedMode.FULL_DUPLEX;
@@ -133,6 +130,7 @@
                 if (!_mic) {
                     return;
                 }
+
                 _mic.codec = comboAudioCodec.selectedLabel;
             }
         }
@@ -170,50 +168,11 @@
 
         }
         ]]></fx:Script>
-
-
+    <s:BorderContainer cornerRadius="6" width="100%">
         <s:layout>
             <s:VerticalLayout padding="3"/>
         </s:layout>
-
-        <s:HGroup verticalAlign="middle">
-            <s:Label text="Quality" id="labelT"/>
-            <s:NumericStepper id="quality"
-                              minimum="0" maximum="100"
-                              change="onQuality()"
-                              cornerRadius="5"
-                              height="20"
-                              toolTip="0 means variable"/>
-            <s:Label text="%"/>
-            <mx:ComboBox id="comboResolution"
-                         selectedItem="640x480"
-                         dataProvider="{listResolution}"
-                         change="onResolutionChange()"/>
-        </s:HGroup>
-
-    <s:HGroup verticalAlign="middle" width="100%">
-
-        <s:NumericStepper id="bandwith"
-                          minimum="0" maximum="20480"
-                          change="onQuality()"
-                          cornerRadius="5"
-                          height="20"
-                          stepSize="1"
-                          value="128"
-                          toolTip="0 传输字节 (是字节)"/>
-        <s:Label text="Kbps"/>
-
-
-        <s:NumericStepper id="fps"
-                          minimum="1" maximum="60"
-                          cornerRadius="5"
-                          height="20"
-                          change="onCamChange()"
-                          value="15" />
-        <mx:Label text="Fps"/>
-
-    </s:HGroup>
-
+        <s:Label text="视频传输设置" backgroundColor="#ffb009" fontSize="15"/>
 
         <s:HGroup width="100%" verticalAlign="middle">
             <s:Label text="视频编码"/>
@@ -228,43 +187,79 @@
                               change="onKeyframes()"
                               value="15"/>
         </s:HGroup>
+
+        <s:HGroup verticalAlign="middle">
+            <s:Label text="质量" id="labelT"/>
+            <s:NumericStepper id="quality"
+                              minimum="0" maximum="100"
+                              change="onQuality()"
+                              cornerRadius="5"
+                              height="20"
+                              toolTip="0 means variable"/>
+            <s:Label text="%"/>
+            <s:Label text="分辨率"/>
+            <mx:ComboBox id="comboResolution"
+                         selectedItem="640x480"
+                         dataProvider="{listResolution}"
+                         change="onResolutionChange()"/>
+        </s:HGroup>
+
+    <s:HGroup verticalAlign="middle" width="100%">
+        <s:Label text="传输速度"/>
+        <s:NumericStepper id="bandwith"
+                          minimum="0" maximum="20480"
+                          change="onQuality()"
+                          cornerRadius="5"
+                          height="20"
+                          stepSize="1"
+                          value="128"
+                          toolTip="0 传输字节 (是字节)"/>
+        <s:Label text="Kbps"/>
+    </s:HGroup>
+
+     <s:HGroup verticalAlign="middle">
+         <s:Label text="捕获速度"/>
+         <s:NumericStepper id="fps"
+                           minimum="1" maximum="60"
+                           cornerRadius="5"
+                           height="20"
+                           change="onCamChange()"
+                           value="15" />
+         <mx:Label text="Fps"/>
+     </s:HGroup>
+
+    </s:BorderContainer>
+
     <mx:HRule width="100%"  chromeColor="#2d1eff"/>
-        <s:Label text="音频传输编码" backgroundColor="#ffb009" fontSize="15"/>
 
-        <s:HGroup width="100%" height="100%" verticalAlign="middle">
-            <mx:Label text="耳麦类型"/>
-            <mx:ComboBox id="echoCancellation" dataProvider="{listEchoCancellation}" change="onEchoChanged();"/>
-        </s:HGroup>
+    <s:BorderContainer width="100%" cornerRadius="6">
+        <s:layout>
+            <s:VerticalLayout padding="3"/>
+        </s:layout>
 
-         <s:HGroup width="100%"  verticalAlign="middle">
-            <s:CheckBox selected="false"
-                        label="输出模式"
-                        change="onEchoChanged()"
-                        id="cbEchoPath"
-                        toolTip="enhanced option, change echo path length (default is 128ms)" />
-            <s:CheckBox selected="false"
-                        label="语音压缩"
-                        change="onEchoChanged()"
-                        id="cbEchoSuppression"
-                        toolTip="works only with Basic Microphone" />
-        </s:HGroup>
-
+        <s:Label text="音频传输设置" backgroundColor="#ffb009" fontSize="15"/>
 
         <s:HGroup width="100%" verticalAlign="middle">
             <s:Label text="编码"/>
             <mx:ComboBox id="comboAudioCodec"
                          dataProvider="{listAudioCodec}"
-                         change="onEchoChanged()()"/>
+                         change="onEchoChanged()"/>
         </s:HGroup>
+
+        <s:HGroup width="100%"  verticalAlign="middle">
+            <mx:Label text="回声消除类型"/>
+            <mx:ComboBox id="echoCancellation" dataProvider="{listEchoCancellation}" change="onEchoChanged();"/>
+        </s:HGroup>
+
         <s:HGroup width="100%" verticalAlign="middle">
-            <s:Label text="音量跨度" toolTip="设置音量" />
+            <s:Label text="静音级别" toolTip="设置音量" />
             <s:NumericStepper id="silenceLevel"
                               minimum="0" maximum="100"
                               cornerRadius="5"
                               height="20"
                               change="onSilenceChange()"
                               value="10"/>
-            <s:Label text="声音压缩" toolTip="声音压缩率" />
+            <s:Label text="噪音抑制" toolTip="声音压缩率" />
             <s:NumericStepper id="noiseSuppression"
                               change="onNoiseChange()"
                               cornerRadius="5"
@@ -273,6 +268,22 @@
                               value="30"/>
         </s:HGroup>
 
-    </s:Panel>
+         <s:HGroup width="100%"  verticalAlign="middle">
+            <s:CheckBox selected="false"
+                        label="增强音频"
+                        change="onEchoChanged()"
+                        id="cbEchoPath"
+                        toolTip="enhanced option, change echo path length (default is 128ms)" />
+            <s:CheckBox selected="false"
+                        label="回音抑制"
+                        change="onEchoChanged()"
+                        id="cbEchoSuppression"
+                        toolTip="works only with Basic Microphone" />
+        </s:HGroup>
+
+
+    </s:BorderContainer>
+
+    </s:VGroup>
 
 
