@@ -338,7 +338,7 @@
             try {
                 var _autoNativeProcessStartupInfo:NativeProcessStartupInfo = new NativeProcessStartupInfo();
                 _autoNativeProcessStartupInfo.executable = File.applicationDirectory.resolvePath("autoFocus/No_focus_opencv_pic.exe");
-                //  _autoNativeProcessStartupInfo.executable = File.applicationDirectory.resolvePath("G:/projects/microscope/rCtrlMicroscope-air-main/air/src/main/resources/autoFocus/No_focus_opencv_pic.exe");
+//                  _autoNativeProcessStartupInfo.executable = File.applicationDirectory.resolvePath("G:/projects/microscope/rCtrlMicroscope-air-main/air/src/main/resources/autoFocus/No_focus_opencv_pic.exe");
                 _autoFocusProcess.addEventListener(NativeProcessExitEvent.EXIT, onExit_NoFocus);
                 _autoFocusProcess.start(_autoNativeProcessStartupInfo);
             } catch (e:ErrorEvent) {

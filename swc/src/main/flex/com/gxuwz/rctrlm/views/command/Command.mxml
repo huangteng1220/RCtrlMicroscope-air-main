@@ -775,7 +775,7 @@
 
     <s:VSlider id="condenser_vslider" x="291" y="146" height="46" maximum="20"  minimum="1"
                stepSize="1" value="1"/>
-    <s:VSlider id="light_bar_vslider" x="291" y="17" height="46" maximum="20" minimum="1"
+    <s:VSlider id="light_bar_vslider" x="291" y="17" height="95" maximum="20" minimum="1"
                stepSize="1" value="1"/>
 
     <s:Button id="obj_con_1" x="9" y="319" width="55" label="物镜1"
@@ -792,7 +792,7 @@
     <s:Button id="platforms_reset_bt" x="222" y="269" label="平台复位"
               click="platforms_reset_bt_clickHandler()"/>
     <s:RichText x="292" y="0" fontSize="16" text="+"/>
-    <s:RichText x="294" y="60" fontSize="16" text="-"/>
+    <s:RichText x="294" y="112" fontSize="16" text="-"/>
     <s:RichText x="292" y="133" fontSize="16" text="+"/>
     <s:RichText x="294" y="190" fontSize="16" text="-"/>
 

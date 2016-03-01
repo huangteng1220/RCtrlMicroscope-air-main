@@ -194,8 +194,7 @@
                               minimum="0" maximum="100"
                               change="onQuality()"
                               cornerRadius="5"
-                              height="20"
-                              toolTip="0 means variable"/>
+                              height="20"/>
             <s:Label text="%"/>
             <s:Label text="分辨率:"/>
             <mx:ComboBox id="comboResolution"
@@ -212,8 +211,7 @@
                           cornerRadius="5"
                           height="20"
                           stepSize="1"
-                          value="128"
-                          toolTip="0 传输字节 (是字节)"/>
+                          value="128"/>
         <s:Label text="Kbps"/>
     </s:HGroup>
 
@@ -252,14 +250,14 @@
         </s:HGroup>
 
         <s:HGroup width="100%" verticalAlign="middle">
-            <s:Label text="静音级别:" toolTip="设置音量" />
+            <s:Label text="静音级别:"/>
             <s:NumericStepper id="silenceLevel"
                               minimum="0" maximum="100"
                               cornerRadius="5"
                               height="20"
                               change="onSilenceChange()"
                               value="10"/>
-            <s:Label text="噪音抑制:" toolTip="声音压缩率" />
+            <s:Label text="噪音抑制:"  />
             <s:NumericStepper id="noiseSuppression"
                               change="onNoiseChange()"
                               cornerRadius="5"
@@ -272,13 +270,11 @@
             <s:CheckBox selected="false"
                         label="增强音频"
                         change="onEchoChanged()"
-                        id="cbEchoPath"
-                        toolTip="enhanced option, change echo path length (default is 128ms)" />
+                        id="cbEchoPath"/>
             <s:CheckBox selected="false"
                         label="回音抑制"
                         change="onEchoChanged()"
-                        id="cbEchoSuppression"
-                        toolTip="works only with Basic Microphone" />
+                        id="cbEchoSuppression"/>
         </s:HGroup>
 
 
