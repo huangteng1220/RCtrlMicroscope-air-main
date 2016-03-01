@@ -719,7 +719,7 @@
       ]]>
   </fx:Script>
 
-    <s:NavigatorContent width="100%" height="100%" label="参数">
+    <s:NavigatorContent width="100%" height="100%" label="参数设置">
 
         <s:layout >
             <s:VerticalLayout padding="2"/>
@@ -800,7 +800,7 @@
 
     </s:NavigatorContent>
 
-  <s:NavigatorContent width="100%" height="100%" label="控制">
+  <s:NavigatorContent width="100%" height="100%" label="控制面板">
 
     <s:Button id="backward" x="53" y="5" width="50" height="21" label="后移"
               click="normal_Handler(DIRECTED_DOWN)"/>
