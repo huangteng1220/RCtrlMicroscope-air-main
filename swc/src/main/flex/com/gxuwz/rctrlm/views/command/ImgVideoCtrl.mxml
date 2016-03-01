@@ -427,6 +427,7 @@
             //camera=null;//关闭摄像头无效
             cameraIndex = startInit.cameraSelection_cb.selectedIndex; //get the camera index
             camera = Camera.getCamera(cameraIndex.toString()); //get the camera
+            mic=Microphone.getEnhancedMicrophone();
             connectCamera();
             // selected camera device
 //            if (localSO.data.hasOwnProperty("cameraIndex")) {
@@ -492,7 +493,7 @@
 //               camera.setMode(2592, 1944, 24, true);
 //               camera.setMode(transferSetModel.width, transferSetModel.height, transferSetModel.fps, true);
 //                camera.setKeyFrameInterval(transferSetModel.keyFrame);
-
+//                mic=Microphone.getEnhancedMicrophone();
                 var vi:Video = new Video(camera.width, camera.height);
                 vi.width = vdCtrl.localVdCam_vd.width;
                 vi.height = vdCtrl.localVdCam_vd.height;

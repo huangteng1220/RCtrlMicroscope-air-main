@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!--
 
     Flexmojos is a set of maven goals to allow maven users to compile,
@@ -38,10 +38,10 @@
 	<id>main-control</id>
 
 	<!-- Used as the filename for the application. Required. -->
-	<filename>main-control</filename>
+	<filename>远程显微镜控制端</filename>
 
 	<!-- The name that is displayed in the AIR application installer. Optional. -->
-	<name>main-control</name>
+	<name>远程显微镜控制端</name>
 
 	<!-- An application version designator (such as "v1", "2.5", or "Alpha 1"). Required. -->
 	<versionNumber>1.0.0</versionNumber>

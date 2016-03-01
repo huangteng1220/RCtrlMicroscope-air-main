@@ -235,9 +235,9 @@ import spark.components.Alert;
 
   <!-- Login pane -->
   <s:HGroup includeIn="LoginNotConnected" verticalAlign="middle"  paddingLeft="2" paddingRight="2" width="60%" >
-    <s:Label text="连接地址" toolTip="请输入连接地址"/>
+    <s:Label text="连接地址:" toolTip="请输入连接地址"/>
     <s:TextInput id="serverAddrInput" text="rtmp://210.36.200.41:1935/RCtrlMicroscope" width="420" />
-    <s:Label  text="用户名"  toolTip="请输入用户名"/>
+    <s:Label  text="用户名:"  toolTip="请输入用户名"/>
     <s:TextInput id="userNameInput" width="120" text="Control" enter="{userNameInput.text.length > 0?onConnect():setFocus()}"/>
     <s:Button label="连接"  id="conButton" click="onConnect()" enabled="{userNameInput.text.length > 0}"/>
     <!--<s:Button label="终止摄像头发布服务" click="onCancel(2)" />-->
@@ -245,19 +245,19 @@ import spark.components.Alert;
 
   <!-- Login Connecting pane -->
   <s:HGroup includeIn="LoginConnecting" verticalAlign="middle">
-    <s:Label text="连接到 {serverAddrInput.text}" />
+    <s:Label text="连接到: {serverAddrInput.text}" />
     <s:Spacer height="100%" width="30"/>
     <s:Button label="取消连接" click="onCancel(2)" />
   </s:HGroup>
 
   <s:HGroup includeIn="LoginConnected, CallReady, CallCalling, CallRinging, CallEstablished, CallFailed" verticalAlign="middle">
     <s:Label text="Connected as {userNameInput.text}"
-             text.CallCalling="连接为 {userNameInput.text}"
-             text.CallEstablished="连接为 {userNameInput.text}"
-             text.CallFailed="连接为 {userNameInput.text}"
-             text.CallReady="连接为 {userNameInput.text}"
-             text.CallRinging="连接为{userNameInput.text}"
-             text.LoginConnected="连接为 {userNameInput.text}"/>
+             text.CallCalling="连接为: {userNameInput.text}"
+             text.CallEstablished="连接为: {userNameInput.text}"
+             text.CallFailed="连接为: {userNameInput.text}"
+             text.CallReady="连接为:  {userNameInput.text}"
+             text.CallRinging="连接为: {userNameInput.text}"
+             text.LoginConnected="连接为: {userNameInput.text}"/>
     <s:Button label="DISCONNECT" click="onCancel(2)"
               label.CallCalling="断开连接"
               label.CallEstablished="断开连接"
@@ -280,20 +280,20 @@ import spark.components.Alert;
 
   <!--Call Calling pane -->
   <s:HGroup includeIn="CallCalling" verticalAlign="middle">
-    <s:Label text="呼叫 {calleeInput.text} 中" />
+    <s:Label text="呼叫:  {calleeInput.text} 中" />
     <!-- 尝试挂断呼叫-->
     <s:Button label="取消呼叫 {calleeInput.text} " click="onCancel(3)"/>
   </s:HGroup>
 
   <!--Call Established pane -->
   <s:HGroup includeIn="CallEstablished" verticalAlign="middle">
-    <s:Label text="Called  {calleeInput.text}"  />
+    <s:Label text="Called : {calleeInput.text}"  />
     <s:Button label="终止与 {calleeInput.text} 对话" click="onCancel(3)"/>
     <s:Label id="callTimerText" width="25"/>
   </s:HGroup>
 
   <s:HGroup includeIn="CallFailed" verticalAlign="middle">
-    <s:Label text="呼叫 {calleeInput.text}错误" />
+    <s:Label text="呼叫: {calleeInput.text}错误" />
     <!-- 发生错误，挂断连接-->
     <s:Button label="挂断" click="onCancel(3)"/>
   </s:HGroup>

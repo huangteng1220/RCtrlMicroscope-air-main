@@ -175,11 +175,11 @@
         <s:Label text="视频传输设置" backgroundColor="#ffb009" fontSize="15"/>
 
         <s:HGroup width="100%" verticalAlign="middle">
-            <s:Label text="视频编码"/>
+            <s:Label text="视频编码:"/>
             <mx:ComboBox id="comboVideoCodec"
                          dataProvider="{listVideoCodec}"
                          change="onVideoCodec()"/>
-            <s:Label text="关键帧"/>
+            <s:Label text="关键帧:"/>
             <s:NumericStepper id="keyframes"
                               cornerRadius="5"
                               height="20"
@@ -189,7 +189,7 @@
         </s:HGroup>
 
         <s:HGroup verticalAlign="middle">
-            <s:Label text="质量" id="labelT"/>
+            <s:Label text="质量:" id="labelT"/>
             <s:NumericStepper id="quality"
                               minimum="0" maximum="100"
                               change="onQuality()"
@@ -197,7 +197,7 @@
                               height="20"
                               toolTip="0 means variable"/>
             <s:Label text="%"/>
-            <s:Label text="分辨率"/>
+            <s:Label text="分辨率:"/>
             <mx:ComboBox id="comboResolution"
                          selectedItem="640x480"
                          dataProvider="{listResolution}"
@@ -205,7 +205,7 @@
         </s:HGroup>
 
     <s:HGroup verticalAlign="middle" width="100%">
-        <s:Label text="传输速度"/>
+        <s:Label text="传输速度:"/>
         <s:NumericStepper id="bandwith"
                           minimum="0" maximum="20480"
                           change="onQuality()"
@@ -218,7 +218,7 @@
     </s:HGroup>
 
      <s:HGroup verticalAlign="middle">
-         <s:Label text="捕获速度"/>
+         <s:Label text="捕获速度:"/>
          <s:NumericStepper id="fps"
                            minimum="1" maximum="60"
                            cornerRadius="5"
@@ -240,26 +240,26 @@
         <s:Label text="音频传输设置" backgroundColor="#ffb009" fontSize="15"/>
 
         <s:HGroup width="100%" verticalAlign="middle">
-            <s:Label text="编码"/>
+            <s:Label text="编码:"/>
             <mx:ComboBox id="comboAudioCodec"
                          dataProvider="{listAudioCodec}"
                          change="onEchoChanged()"/>
         </s:HGroup>
 
         <s:HGroup width="100%"  verticalAlign="middle">
-            <mx:Label text="回声消除类型"/>
+            <mx:Label text="回声消除类型:"/>
             <mx:ComboBox id="echoCancellation" dataProvider="{listEchoCancellation}" change="onEchoChanged();"/>
         </s:HGroup>
 
         <s:HGroup width="100%" verticalAlign="middle">
-            <s:Label text="静音级别" toolTip="设置音量" />
+            <s:Label text="静音级别:" toolTip="设置音量" />
             <s:NumericStepper id="silenceLevel"
                               minimum="0" maximum="100"
                               cornerRadius="5"
                               height="20"
                               change="onSilenceChange()"
                               value="10"/>
-            <s:Label text="噪音抑制" toolTip="声音压缩率" />
+            <s:Label text="噪音抑制:" toolTip="声音压缩率" />
             <s:NumericStepper id="noiseSuppression"
                               change="onNoiseChange()"
                               cornerRadius="5"

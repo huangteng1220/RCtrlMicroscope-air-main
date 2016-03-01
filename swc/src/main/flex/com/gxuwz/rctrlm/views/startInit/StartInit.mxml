@@ -106,7 +106,7 @@
   </fx:Script>
 
     <s:HGroup width="75%" verticalAlign="middle" >
-      <s:Label  text="请选择设备" fontSize="14" fontFamily="bold"/>
+      <s:Label  text="请选择设备:" fontSize="14" fontFamily="bold"/>
 
       <s:ComboBox id="cameraSelection_cb" selectedIndex ="0"
                   width="250" dataProvider="{cameraNames}"

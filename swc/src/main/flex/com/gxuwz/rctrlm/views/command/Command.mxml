@@ -6,6 +6,7 @@
                  xmlns:fx="http://ns.adobe.com/mxml/2009"
                  xmlns:commond="com.gxuwz.rctrlm.views.command.*"
                  xmlns:s="library://ns.adobe.com/flex/spark"
+                 creationPolicy="all"
                 creationComplete="appComplete()">
 
   <fx:Declarations>
@@ -162,7 +163,8 @@
       protected function normal_Handler(str:String):void {
           defaultValueLabel.text="";
           currentValueLabel.text="";
-          setSpeed_2.value=null;
+          machBox.selectedIndex=-1;
+          setSpeed_2.value=0;
           _lc.sendMessageFun(str);
       }
 
@@ -207,7 +209,7 @@
               temp += setSpeed_2.value + "!";
               trace(temp+"======temp");
               _lc.sendMessageFun(temp);
-              currentValueLabel.text=temp;
+              currentValueLabel.text=(setSpeed_2.value).toString();
           }
 //          currentValueLabel.text=comStr;
       }
@@ -719,87 +721,6 @@
       ]]>
   </fx:Script>
 
-    <s:NavigatorContent width="100%" height="100%" label="参数设置">
-
-        <s:layout >
-            <s:VerticalLayout padding="2"/>
-        </s:layout>
-        <s:BorderContainer cornerRadius="5" width="100%">
-
-            <s:layout >
-                <s:VerticalLayout padding="2"/>
-            </s:layout>
-            <s:Label text="电机设置" fontSize="15" backgroundColor="#ffb009"/>
-
-        <s:HGroup verticalAlign="middle" width="100%">
-            <s:Label text="加速度选择:" fontSize="15"/>
-            <s:ComboBox id="machBox" width="210"
-                        prompt="聚焦电机"
-                        change="machBox_changeHandler(event)"
-                        fontSize="15" >
-                <s:dataProvider>
-                    <mx:ArrayList>
-                        <fx:String>聚焦电机加速度</fx:String>
-                        <fx:String>聚焦电机减速度</fx:String>
-
-                        <fx:String>聚焦电机运行速度</fx:String>
-                        <fx:String>载物台横向电机加速度</fx:String>
-
-                        <fx:String>载物台横向电机减速度</fx:String>
-                        <fx:String>载物台横向电机运行速度</fx:String>
-
-                        <fx:String>载物台纵向电机加速度</fx:String>
-                        <fx:String>载物台纵向电机减速度</fx:String>
-
-                        <fx:String>载物台纵向电机运行速度</fx:String>
-                        <fx:String>物镜转换电机加速度</fx:String>
-
-                        <fx:String>物镜转换电机减速度</fx:String>
-                        <fx:String>物镜转换电机运行速度</fx:String>
-
-                    </mx:ArrayList>
-                </s:dataProvider>
-            </s:ComboBox>
-        </s:HGroup>
-
-        <s:HGroup width="100%" verticalAlign="middle">
-            <s:Label  text="初始值: " fontSize="15" />
-            <s:Label id="defaultValueLabel" backgroundColor="#ffdadc"  fontSize="15"/>
-            <s:Label  text="当前值: " fontSize="15" />
-            <s:Label id="currentValueLabel" backgroundColor="#ffdadc"  fontSize="15"/>
-        </s:HGroup>
-
-        <s:HGroup width="100%" verticalAlign="middle">
-            <s:Label text="速度值:" fontSize="15"/>
-            <s:NumericStepper  cornerRadius="5"
-                               height="20"
-                               id="setSpeed_2" />
-        </s:HGroup>
-
-        <!--<s:HGroup width="100%" >-->
-            <!--<s:Button label="+" click="value_add_clickHandler()"/>-->
-            <!--<s:Spacer width="20%"/>-->
-            <!--<s:Button label="-" click="value_dec_clickHandler()"/>-->
-        <!--</s:HGroup>-->
-
-        <s:HGroup width="100%">
-
-            <s:Button id="setConfictionButton" label="设置" click="set_speed_clickHandler()"/>
-
-            <s:Button id="setDefault" x="10"  y="325" label="恢复参数设置"
-                      click="normal_Handler(SET_DEFAULT)" fontSize="14"/>
-        </s:HGroup>
-        </s:BorderContainer>
-
-        <mx:HRule width="100%"  chromeColor="#2d1eff"/>
-
-        <commond:TransferSettingPanel id="transferSetPanel"
-                                      width="100%" height="100%"
-                                      h264Settings="{_h264Settings}"
-                                      camera="{_camera}" mic="{_mic}"/>
-
-    </s:NavigatorContent>
-
   <s:NavigatorContent width="100%" height="100%" label="控制面板">
 
     <s:Button id="backward" x="53" y="5" width="50" height="21" label="后移"
@@ -810,7 +731,7 @@
               click="normal_Handler(DIRECTED_LEFT)"/>
     <s:Button id="right" x="101" y="39" width="51" label="右移"
               click="normal_Handler(DIRECTED_RIGHT)"/>
-    <s:RichText x="53" y="104" fontSize="14" text="平台控制"/>
+    <s:RichText x="53" y="104" fontSize="15" text="平台控制"/>
     <s:Button x="10" y="145" width="49" height="19" label="聚焦+"/>
     <s:Button id="focus_sub" x="10" y="172" width="58" height="20" label="聚焦-"
               click="normal_Handler(FOCUS_SUB)"/>
@@ -865,13 +786,13 @@
               click="obj_con_3_clickHandler(event)"/>
     <s:Button id="obj_con_4" x="193" y="319" width="55" label="物镜4"
               click="obj_con_4_clickHandler(event)"/>
-    <s:Button id="obj_con_5" x="257" y="319" width="55" label="物镜5"
+    <s:Button id="obj_con_5" x="255" y="319" width="55" label="物镜5"
               click="obj_con_5_clickHandler(event)"/>
-    <s:RichText x="10" y="299" fontSize="13" text="物镜选择"/>
+    <s:RichText x="10" y="299" fontSize="15" text="物镜选择"/>
     <s:Button id="platforms_reset_bt" x="222" y="269" label="平台复位"
               click="platforms_reset_bt_clickHandler()"/>
     <s:RichText x="292" y="0" fontSize="16" text="+"/>
-    <s:RichText x="294" y="112" fontSize="16" text="-"/>
+    <s:RichText x="294" y="60" fontSize="16" text="-"/>
     <s:RichText x="292" y="133" fontSize="16" text="+"/>
     <s:RichText x="294" y="190" fontSize="16" text="-"/>
 
@@ -889,6 +810,86 @@
               click="obj_con_choose_reset_bt_clickHandler()"/>
   </s:NavigatorContent>
 
+    <s:NavigatorContent width="100%" height="100%" label="参数设置">
+
+        <s:layout >
+            <s:VerticalLayout padding="2"/>
+        </s:layout>
+        <s:BorderContainer cornerRadius="5" width="100%">
+
+            <s:layout >
+                <s:VerticalLayout padding="2"/>
+            </s:layout>
+            <s:Label text="电机设置" fontSize="15" backgroundColor="#ffb009"/>
+
+            <s:HGroup verticalAlign="middle" width="100%">
+                <s:Label text="加速度选择:" />
+                <s:ComboBox id="machBox" width="210"
+                            prompt="聚焦电机"
+                            change="machBox_changeHandler(event)"
+                            fontSize="15" >
+                    <s:dataProvider>
+                        <mx:ArrayList>
+                            <fx:String>聚焦电机加速度</fx:String>
+                            <fx:String>聚焦电机减速度</fx:String>
+
+                            <fx:String>聚焦电机运行速度</fx:String>
+                            <fx:String>载物台横向电机加速度</fx:String>
+
+                            <fx:String>载物台横向电机减速度</fx:String>
+                            <fx:String>载物台横向电机运行速度</fx:String>
+
+                            <fx:String>载物台纵向电机加速度</fx:String>
+                            <fx:String>载物台纵向电机减速度</fx:String>
+
+                            <fx:String>载物台纵向电机运行速度</fx:String>
+                            <fx:String>物镜转换电机加速度</fx:String>
+
+                            <fx:String>物镜转换电机减速度</fx:String>
+                            <fx:String>物镜转换电机运行速度</fx:String>
+
+                        </mx:ArrayList>
+                    </s:dataProvider>
+                </s:ComboBox>
+            </s:HGroup>
+
+            <s:HGroup width="100%" verticalAlign="middle">
+                <s:Label  text="默认值: "  />
+                <s:Label id="defaultValueLabel" backgroundColor="#ffdadc"  />
+                <s:Label  text="设置值: " />
+                <s:Label id="currentValueLabel" backgroundColor="#ffdadc"  />
+            </s:HGroup>
+
+            <s:HGroup width="100%" verticalAlign="middle">
+                <s:Label text="速度值: " />
+                <s:NumericStepper  cornerRadius="5"
+                                   height="20"
+                                   id="setSpeed_2" />
+            </s:HGroup>
+
+            <!--<s:HGroup width="100%" >-->
+            <!--<s:Button label="+" click="value_add_clickHandler()"/>-->
+            <!--<s:Spacer width="20%"/>-->
+            <!--<s:Button label="-" click="value_dec_clickHandler()"/>-->
+            <!--</s:HGroup>-->
+
+            <s:HGroup width="100%">
+
+                <s:Button id="setConfictionButton" label="设置" click="set_speed_clickHandler()"/>
+
+                <s:Button id="setDefault" x="10"  y="325" label="恢复默认设置"
+                          click="normal_Handler(SET_DEFAULT)" />
+            </s:HGroup>
+        </s:BorderContainer>
+
+        <mx:HRule width="100%"  chromeColor="#2d1eff"/>
+
+        <commond:TransferSettingPanel id="transferSetPanel"
+                                      width="100%" height="100%"
+                                      h264Settings="{_h264Settings}"
+                                      camera="{_camera}" mic="{_mic}"/>
+
+    </s:NavigatorContent>
 
 </mx:TabNavigator>
 
