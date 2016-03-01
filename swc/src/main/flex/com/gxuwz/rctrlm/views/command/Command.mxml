@@ -38,8 +38,7 @@
       [Bindable]
       private var _lc:LocalObject;
       [Bindable]
-      private var comStr;
-      String;
+      private var comStr:String;
       [Bindable]
       private var _camera:Camera;
       [Bindable]
