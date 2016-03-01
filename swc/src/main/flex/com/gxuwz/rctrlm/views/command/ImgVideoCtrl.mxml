@@ -8,7 +8,7 @@
           xmlns:img="com.gxuwz.rctrlm.views.imgShowList.*"
           xmlns:start="com.gxuwz.rctrlm.views.startInit.*"
           xmlns:commands="com.gxuwz.rctrlm.views.command.*"
-          xmlns:sendPanel="com.gxuwz.rctrlm.views.chat.*"
+          xmlns:sendPanel="com.gxuwz.rctrlm.views.chat.*" xmlns:mx="library://ns.adobe.com/flex/mx"
           creationComplete="creationCompleteHandler()">
     <!--
     Class introduce:initialize
@@ -50,25 +50,16 @@
     -->
 
     <fx:Script><![CDATA[
-        import com.gxuwz.rctrlm.events.CommandEvent;
         import com.gxuwz.rctrlm.events.ConServerBarEvent;
         import com.gxuwz.rctrlm.events.EventDispatcherFactory;
-        import com.gxuwz.rctrlm.events.SendPanelEvent;
         import com.gxuwz.rctrlm.model.Services;
-        import com.gxuwz.rctrlm.utils.WriteToText;
         import com.gxuwz.rctrlm.utils.fluorinefx.aperture.LocalObject;
         import com.gxuwz.rctrlm.views.imgShowList.ImageShow;
-
-        import flash.media.Camera;
 
         import mx.controls.Alert;
 
         import com.gxuwz.rctrlm.events.SendPanelEvent;
-
-        import mx.core.FlexGlobals;
-
         import mx.core.SoundAsset;
-
         /**
          * 调用融合图片主程序的exe所需的全局变量
          */
@@ -78,14 +69,12 @@
         private var inStream:NetStream;
         [Bindable]
         private var outStream:NetStream;
-
         [Bindable]
         private var _netConnection:NetConnection;
         [Bindable]
         private var _lc:LocalObject;
         [Bindable]
         private var _playoff:Boolean;
-
         [Bindable]
         private var cameraIndex:int = 0;
         [Bindable]
@@ -94,6 +83,9 @@
         private var mic:Microphone;
         [Bindable]
         private var video:Video = new Video(); //只为关闭显微镜初始话操作
+        [Bindable]
+        private var h264Settings:H264VideoStreamSettings = new H264VideoStreamSettings();
+
         private var localSO:SharedObject;
         public var _autoFocusProcess:NativeProcess = new NativeProcess();
         /**
@@ -109,7 +101,6 @@
 
         public function set lc(value:LocalObject):void {
             _lc = value;
-            writeToTxt(_lc.toString());
         }
 
         public function get netConnection():NetConnection {
@@ -126,17 +117,21 @@
 
         public function set playoff(value:Boolean):void {
             _playoff = value;
-            if (_playoff) {
-                //发布视频
+            if(_playoff && camera){
                 publicVideo();
-            } else if (_playoff == false) {
-                //Alert.show("请连接显微镜");
-                cameraIndex = 0;
-                inStream = null;
-                outStream = null;
-            } else {
-                Alert.show("请连接显微镜再操作", "提示");
             }
+//            if (_playoff && camera) {
+//                //发布视频
+//                publicVideo();
+//            } else if (_playoff == false && camera) {
+//                //Alert.show("请连接显微镜");
+////                cameraIndex = 0;
+////                inStream = null;
+////                outStream = null;
+//                publicLocal();
+//            } else {
+//                Alert.show("请连接显微镜再操作", "提示");
+//            }
         }
 
         private function creationCompleteHandler():void {
@@ -144,6 +139,7 @@
                     .addEventListener(ConServerBarEvent.SHOW_MESSAGE_EVENT,
                     showMessageEventHandler);
         }
+
 
         /**************   图片处理   开始 ******************/
         private function picHandler_takePicEventHandler():void {
@@ -158,8 +154,8 @@
             }
 
             var imgShow:ImageShow = new ImageShow();  //取得相片并保存
-            imgShow.padding=0;
-            imgShow.percentHeight=100;
+            imgShow.padding = 0;
+            imgShow.percentHeight = 100;
             imgShow.image.source = bmpd;
             imgShwList.addElement(imgShow);
             imgShow.addEventListener("onDeleteImgShowEvent", deleteBitmap, false, 0, true);
@@ -230,7 +226,6 @@
                 picHandler.edit_bt.enabled = false;
                 picHandler.merge_bt.enabled = true;
             }
-
         }
 
         public function saveBitmap(event:Event):void {
@@ -288,7 +283,6 @@
             }
 
         }
-
         /**************   图片处理   结束 ******************/
 
         /**************   显微镜处理  开始 ******************/
@@ -330,13 +324,13 @@
 
             vdCtrl.localVdCam_vd.attachCamera(null);
             startInit.dispatchEvent(new MouseEvent("CloseComEvent"));
-            No_autoFocus(); //before connect to camera we set focus to reset
+//            No_autoFocus(); //before connect to camera we set focus to reset
             if (_autoFocus != 0) {
                 commandPanel.enabled = false;
                 picHandler.enabled = false;
                 _autoFocus = 0;
             }
-//            initAfterOpenCom();
+            initAfterOpenCom();
         }
 
         private function No_autoFocus():void {
@@ -353,10 +347,7 @@
         }
 
         private function onExit_NoFocus(e:NativeProcessExitEvent):void {
-
-            writeToTxt("从自动对焦程序中返回的代码：" + e.exitCode + "执行打开端口程序；得到的数据 COM" + e.exitCode);
             _autoFocus = e.exitCode;
-            Alert.show(_autoFocus + "是打开端口程序返回的结果");
             if (_autoFocus) {
                 commandPanel.enabled = true;
                 picHandler.enabled = true;
@@ -431,9 +422,12 @@
          * 3.启动摄像头并通过startInit_CameraSelectionEventHandler（）方法传到VideoCrtl中显示
          */
         private function initAfterOpenCom():void {
-
-            publicLocal();
-
+//            video.attachCamera(null);//释放摄像头
+            //vdCtrl.localVdCam_vd.attachCamera(null);//无效的
+            //camera=null;//关闭摄像头无效
+            cameraIndex = startInit.cameraSelection_cb.selectedIndex; //get the camera index
+            camera = Camera.getCamera(cameraIndex.toString()); //get the camera
+            connectCamera();
             // selected camera device
 //            if (localSO.data.hasOwnProperty("cameraIndex")) {
 //                trace("camera open:" + cameraIndex);
@@ -451,16 +445,31 @@
 //          }
         }
 
+        private function connectCamera():void {
+
+            if (_playoff && camera) {
+                //发布视频
+                publicVideo();
+            } else if (_playoff == false && camera) {
+                //Alert.show("请连接显微镜");
+//                cameraIndex = 0;
+//                inStream = null;
+//                outStream = null;
+//                outStream.close();
+                publicLocal();
+            }
+        }
+
         private function publicLocal():void {
-            video.attachCamera(null);//释放摄像头
-            //vdCtrl.localVdCam_vd.attachCamera(null);//无效的
-            //camera=null;//关闭摄像头无效
-            cameraIndex = startInit.cameraSelection_cb.selectedIndex; //get the camera index
-            camera = Camera.getCamera(cameraIndex.toString()); //get the camera
+//            video.attachCamera(null);//释放摄像头
+//            //vdCtrl.localVdCam_vd.attachCamera(null);//无效的
+//            //camera=null;//关闭摄像头无效
+//            cameraIndex = startInit.cameraSelection_cb.selectedIndex; //get the camera index
+//            camera = Camera.getCamera(cameraIndex.toString()); //get the camera
             //  cameraIndex = startInit.cameraSelection_cb.selectedIndex; //get the camera index
             //startInit.cameraSelection_cb.enabled=false;
+
             if (camera) {
-                camera.setMode(2592, 1944, 24, true);
                 var vi:Video = new Video(camera.width, camera.height); //初始化已经定义
                 vi.height = vdCtrl.localVdCam_vd.height;
                 vi.width = vdCtrl.localVdCam_vd.width;
@@ -475,22 +484,14 @@
 
         //public video and play after the expert accept
         private function publicVideo():void {
-//            vdCtrl.localVdCam_vd.attachCamera(null);
-//            camera=Camera.getCamera(null);
+
             video.attachCamera(null);// 关闭显微镜
-//            cameraIndex = startInit.cameraSelection_cb.selectedIndex; //get the camera index
-//            camera = Camera.getCamera(cameraIndex.toString()); //get the camera
             try {
-                mic = Microphone.getEnhancedMicrophone();
-//                mic.gain = 50;
-                var h264Settings:H264VideoStreamSettings = new H264VideoStreamSettings();
-                // h264Settings.setProfileLevel(H264Profile.BASELINE, H264Level.LEVEL_3_1);
-                h264Settings.setProfileLevel(H264Profile.BASELINE, H264Level.LEVEL_5_1);
                 h264Settings.setMode(2592, 1944, 24);
-                h264Settings.setQuality(0, 100);
-                camera.setQuality(0, 100);
-                camera.setMode(2592, 1944, 24, true);
-                camera.setKeyFrameInterval(15);
+//              camera.setQuality(transferSetModel.bandWidth * 125, transferSetModel.quality);
+//               camera.setMode(2592, 1944, 24, true);
+//               camera.setMode(transferSetModel.width, transferSetModel.height, transferSetModel.fps, true);
+//                camera.setKeyFrameInterval(transferSetModel.keyFrame);
 
                 var vi:Video = new Video(camera.width, camera.height);
                 vi.width = vdCtrl.localVdCam_vd.width;
@@ -559,14 +560,10 @@
                     .scroller.verticalScrollBar.maximum;
         }
 
-        /*********************    对话完成，页面操作写到txt文件中            *******************/
-        private function writeToTxt(obj:Object):void {
-            WriteToText.writeToTxtLog(obj.toString());
-        }
-
         private function startInit_release_cameraHandler(event:MouseEvent):void {
             video.attachCamera(null);// 关闭显微镜
         }
+
         ]]>
     </fx:Script>
 
@@ -579,28 +576,38 @@
             No_FocusInitEvent="No_focusInit()"
             FocusInitEvent="focusInit()"
             Obj_con_rest="focusReset()"
+
             CameraSelectionEvent="startInit_CameraSelectionEventHandler(event)"
             release_camera="startInit_release_cameraHandler(event)"/>
 
     <!-- 显微镜控制和图像-->
     <s:HGroup width="100%" height="80%">
 
-        <s:Panel id="bcContainer"
-                 title="设备管理器"
-                 width="25%" height="100%"
-                 cornerRadius="5">
+    <!--<mx:TabNavigator width="25%" height="100%">-->
 
-            <s:layout>
-                <s:VerticalLayout
-                        paddingLeft="2"
-                        paddingBottom="2"
-                        paddingTop="2"
-                        paddingRight="2"/>
-            </s:layout>
-            <!-- 显微镜控制-->
-            <commands:Command id="commandPanel" width="100%" height="100%" lc="{_lc}"/>
-        </s:Panel>
+        <!--<s:NavigatorContent label="显微镜控制">-->
+            <s:Panel id="bcContainer"
+                     title="设备管理器"
+                     cornerRadius="6"
+                     chromeColor="#B0BDC4"
+                     dropShadowVisible="true"
+                     width="25%" height="100%">
 
+                <s:layout>
+                    <s:VerticalLayout
+                            paddingLeft="2"
+                            paddingBottom="2"
+                            paddingTop="2"
+                            paddingRight="2"/>
+                </s:layout>
+                <!-- 显微镜控制-->
+                <commands:Command id="commandPanel"
+                                  width="100%" height="100%"
+                                  lc="{_lc}"
+                                  h264Settings="{h264Settings}"
+                                  camera="{camera}"
+                                  mic="{mic}"/>
+            </s:Panel>
         <videoContext:VideoCtrl id="vdCtrl" width="75%"
                                 height="100%" lc="{_lc}"/>
     </s:HGroup>

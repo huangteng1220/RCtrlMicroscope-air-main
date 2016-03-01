@@ -5,7 +5,7 @@
 <s:VGroup
         xmlns:fx="http://ns.adobe.com/mxml/2009"
         xmlns:s="library://ns.adobe.com/flex/spark"
-        creationComplete="creationCompleteHandler(event)"
+        creationComplete="creationCompleteHandler()"
         paddingBottom="2" paddingLeft="2"
         paddingRight="2" paddingTop="2">
 
@@ -27,21 +27,18 @@
 
   <fx:Script>
     <![CDATA[
-
-
     import mx.collections.ArrayList;
     import mx.events.FlexEvent;
 
-    [Bindable] private var cameraNames:ArrayList = new ArrayList();
-    protected function creationCompleteHandler(event:FlexEvent):void
-    {
+    [Bindable]
+    private var cameraNames:ArrayList = new ArrayList();
+
+    protected function creationCompleteHandler():void {
       var cameras:Array = Camera.names;
-      if (cameras)
-      {
+      if (cameras) {
         cameraNames.source = cameras;
       }
-      else
-      {
+      else {
         trace("No camera available.\n");
       }
     }
@@ -53,49 +50,58 @@
      * 3.显示当前视频的窗口要改变视频
      * 4.如果当前正处于视频传输状态，则要改变传输的视频流
      */
-    private function cameraChanged(event:Event = null):void
-    {
+    private function cameraChanged(event:Event = null):void {
       trace("dispatch  CameraSelectionEvent");
       dispatchEvent(new Event("CameraSelectionEvent"));
     }
 
 
     //自动调焦
-    protected function initFocus_clickHandler(event:MouseEvent):void
-    {
+    protected function initFocus_clickHandler(event:MouseEvent):void {
       //物镜复位
       dispatchEvent(new MouseEvent("Obj_con_rest"));
-      var firstFocus:Timer = new Timer(3000,1);
-      firstFocus.addEventListener(TimerEvent.TIMER, firstFocusEXE,false,0,true);
+      var firstFocus:Timer = new Timer(3000, 1);
+      firstFocus.addEventListener(TimerEvent.TIMER, firstFocusEXE, false, 0, true);
       firstFocus.start();
 
     }
+
     //首次调焦
-    private function firstFocusEXE(event:TimerEvent):void{
-      trace(event.target.currentCount+"  in StartInit.mxml's firstFocusEXE");
-      switch(event.target.currentCount)
-      {
+    private function firstFocusEXE(event:TimerEvent):void {
+      trace(event.target.currentCount + "  in StartInit.mxml's firstFocusEXE");
+      switch (event.target.currentCount) {
         //自动聚焦
-        case 1:dispatchEvent(new MouseEvent("FocusInitEvent"));break;
+        case 1:
+          dispatchEvent(new MouseEvent("FocusInitEvent"));
+          break;
       }
 
     }
 
     // 连接显微镜
-    protected function initFocus_no_Focus_clickHandler(event:MouseEvent):void
-    {
+    protected function initFocus_no_Focus_clickHandler(event:MouseEvent):void {
       //dispatch No_FocusInitEvent for outside (ImgVideoCtrl Class) to set the camera
-     // WriteToText.writeToTxtLog("dispatch  No_FocusInitEvent in StartInit MXML");
+      // WriteToText.writeToTxtLog("dispatch  No_FocusInitEvent in StartInit MXML");
       dispatchEvent(new MouseEvent("No_FocusInitEvent"));
     }
 
     //断开显微镜连接
-    protected function release_camera_clickHandler(event:MouseEvent):void
-    {
+    protected function release_camera_clickHandler(event:MouseEvent):void {
       // TODO Auto-generated method stub
       dispatchEvent(new MouseEvent("release_camera"));
     }
 
+    private function reCheckCamera_clickHandler():void {
+      var cameras:Array = Camera.names;
+      if (cameras)
+      {
+        cameraNames.source = cameras;
+      }
+      else
+      {
+        trace("No camera available.\n");
+      }
+    }
     ]]>
   </fx:Script>
 
@@ -109,9 +115,10 @@
       <s:Button id="initFocus_no_Focus" label="连接显微镜"
                 click="initFocus_no_Focus_clickHandler(event)" />
 
-      <s:Button id="disconnectCamera" label="断开"
-                click="release_camera_clickHandler(event)"/>
-
+      <!--<s:Button id="disconnectCamera" label="断开"-->
+                <!--click="release_camera_clickHandler(event)"/>-->
+      <s:Button id="reCheckCamera" label="检测显微镜"
+                click="reCheckCamera_clickHandler()"/>
       <s:Button id="initFocus" label="自动调焦"
                 click="initFocus_clickHandler(event)"/>
 

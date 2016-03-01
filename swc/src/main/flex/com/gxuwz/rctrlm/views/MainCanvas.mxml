@@ -16,17 +16,12 @@
         import com.gxuwz.rctrlm.events.CommandEvent;
         import com.gxuwz.rctrlm.events.ConServerBarEvent;
         import com.gxuwz.rctrlm.events.EventDispatcherFactory;
-        import com.gxuwz.rctrlm.events.SendPanelEvent;
         import com.gxuwz.rctrlm.events.UserAddEvent;
         import com.gxuwz.rctrlm.model.Services;
-        import com.gxuwz.rctrlm.views.chat.SendPanel
-
         import mx.collections.ArrayCollection;
-
         import mx.rpc.events.FaultEvent;
         import mx.rpc.events.ResultEvent;
         import mx.utils.ObjectUtil;
-
         import spark.components.Alert;
 
         /**
@@ -67,6 +62,8 @@
                     callRemoteUserStatusEventHandler);
             userList = new ArrayCollection();
             _lc = lc;//为内部组件传值
+
+
         }
 
         /***************************************************************************/

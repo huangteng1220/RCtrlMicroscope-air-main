@@ -9,8 +9,7 @@
                 creationComplete="appComplete()">
 
   <fx:Declarations>
-    <!--<fx:XML id="obj_con_list_default" source=" G:/projects/microscope/rCtrlMicroscope-air-main/swc/src/main/resources/assets/obj_con_list_default.xml" />-->
-<!-- -->
+
     <fx:XML id="obj_con_list_default"  source="/obj_con_list_default.xml"/>
       <!--<fx:XML id="obj_con_list" source="obj_con_list_default.xml"  />-->
   </fx:Declarations>
@@ -19,10 +18,10 @@
     <![CDATA[
       import com.gxuwz.rctrlm.model.Objective;
       import com.gxuwz.rctrlm.model.Regulate;
+
       import com.gxuwz.rctrlm.utils.fluorinefx.aperture.LocalObject;
 
       import mx.collections.XMLListCollection;
-      import mx.events.FlexEvent;
 
       import spark.components.Alert;
       import spark.events.IndexChangeEvent;
@@ -34,8 +33,6 @@
       public var stream:FileStream; // The FileStream object used to read and write prefsFile data.
       [Bindable]
       public var obj_con_list_xmlCl:XMLListCollection;
-      //    [Bindable] public var obj_con_list_default:XML;
-
       [Bindable]
       private var _netStream:NetStream;
       [Bindable]
@@ -43,6 +40,13 @@
       [Bindable]
       private var comStr;
       String;
+      [Bindable]
+      private var _camera:Camera;
+      [Bindable]
+      private var _mic:Microphone;
+      [Bindable]
+      private var _h264Settings:H264VideoStreamSettings;
+
       public function get lc():LocalObject {
           return _lc;
       }
@@ -52,6 +56,24 @@
           trace(_lc.toString() + "  in  Command  value   ");
       }
 
+
+      public function get camera():Camera {
+          return _camera;
+      }
+
+      public function set camera(value:Camera):void {
+          _camera = value;
+      }
+
+      public function get mic():Microphone {
+          return _mic;
+      }
+
+      public function set mic(value:Microphone):void {
+          _mic = value;
+      }
+
+
       public function get netStream():NetStream {
           return _netStream;
       }
@@ -60,6 +82,13 @@
           _netStream = value;
       }
 
+      public function get h264Settings():H264VideoStreamSettings {
+          return _h264Settings;
+      }
+
+      public function set h264Settings(value:H264VideoStreamSettings):void {
+          _h264Settings = value;
+      }
 
       //一般按钮事件
       public const FOCUS_ADD:String = "$0MU10000000015!";//焦距加
@@ -132,6 +161,8 @@
       /*************     显微镜控制            ************/
 
       protected function normal_Handler(str:String):void {
+          defaultValueLabel.text="";
+          setSpeed_2
           _lc.sendMessageFun(str);
       }
 
@@ -169,8 +200,11 @@
       }
 
       protected function set_speed_clickHandler():void {
-          comStr += setSpeed_2.text + "!";
+          comStr += setSpeed_2.value + "!";
           _lc.sendMessageFun(comStr);
+
+          currentValueLabel.text="";
+          currentValueLabel.text=comStr;
       }
 
       //////////////////////////////////物镜的直接跳转///////////////////////////////////////////
@@ -459,7 +493,6 @@
                           "$0EU10000000",
                           "$0EU10000000180!",
                           10);//背光亮度
-
       }
 
       /**
@@ -613,57 +646,204 @@
           switch (machBox.selectedIndex) {
               case 0:
                   comStr = FOUS_ACCELERATION;
+                  defaultValueLabel.text = "";
+                  defaultValueLabel.text = FOUS_ACCELERATION;
                   break;
               case  1:
                   comStr = FOUS_DECELERATION;
+                  defaultValueLabel.text = "";
+                  defaultValueLabel.text = FOUS_DECELERATION;
                   break;
               case 2:
                   comStr = FOUS_RUN_SPEED;
+                  defaultValueLabel.text = "";
+                  defaultValueLabel.text = FOUS_RUN_SPEED;
                   break;
               case 3:
                   comStr = STAGETR_ACCELERATION;
+                  defaultValueLabel.text = "";
+                  defaultValueLabel.text = STAGETR_ACCELERATION;
                   break;
               case 4:
                   comStr = STAGETR_DECELERATION;
+                  defaultValueLabel.text = "";
+                  defaultValueLabel.text = STAGETR_DECELERATION;
                   break;
               case 5:
                   comStr = STAGETR_RUN_SPEED;
+                  defaultValueLabel.text = "";
+                  defaultValueLabel.text = STAGETR_RUN_SPEED;
                   break;
               case 6:
                   comStr = STAGELT_ACCELERATION;
+                  defaultValueLabel.text = "";
+                  defaultValueLabel.text = STAGELT_ACCELERATION;
                   break;
               case 7:
                   comStr = STAGELT_DECELERATION;
+                  defaultValueLabel.text = "";
+                  defaultValueLabel.text = STAGELT_DECELERATION;
                   break;
               case 8:
                   comStr = STAGELT_RUN_SPEED;
+                  defaultValueLabel.text = "";
+                  defaultValueLabel.text = STAGELT_RUN_SPEED;
                   break;
               case 9:
                   comStr = OBJLEN_ACCELERATION;
+                  defaultValueLabel.text = "";
+                  defaultValueLabel.text = OBJLEN_ACCELERATION;
                   break;
               case 10:
                   comStr = OBJLEN_DECELERATION;
+                  defaultValueLabel.text = "";
+                  defaultValueLabel.text = OBJLEN_DECELERATION;
                   break;
               case 11:
                   comStr = OBJLEN_RUN_SPEED;
+                  defaultValueLabel.text = "";
+                  defaultValueLabel.text = OBJLEN_RUN_SPEED;
                   break;
           }
       }
 
       private function value_add_clickHandler():void {
-          var temp:Number=new Number(setSpeed_2.text);
+          var temp:Number =setSpeed_2.value as Number;
           temp++;
-          setSpeed_2.text=temp.toString();
+          setSpeed_2.value = temp;
       }
 
       private function value_dec_clickHandler():void {
-          var temp:Number=new Number(setSpeed_2.text);
+          var temp:Number = setSpeed_2.value as Number;
           temp--;
-          setSpeed_2.text=temp.toString();
+          setSpeed_2.value = temp;
       }
       ]]>
   </fx:Script>
 
+    <s:NavigatorContent width="100%" height="100%" label="参数">
+        <!--<s:Button id="set_fous_acceleration" x="173" y="113" width="143" label="聚焦电机加速度"-->
+        <!--click="set_speed_clickHandler(FOUS_ACCELERATION)"/>-->
+
+        <!--<s:CheckBox label="聚焦电机加速度"/>-->
+
+        <!--<s:Button id="set_fous_deceleration" x="170" y="145" width="146" label="聚焦电机减速度"-->
+        <!--click="set_speed_clickHandler(FOUS_DECELERATION)"/>-->
+
+        <!--<s:CheckBox label="聚焦电机减速度"/>-->
+
+        <!--<s:Button id="set_fous_run_speed" x="170" y="175" width="146" label="聚焦电机运行速度"-->
+        <!--click="set_speed_clickHandler(FOUS_RUN_SPEED)"/>-->
+
+        <!--<s:CheckBox label="聚焦电机运行速度"/>-->
+
+        <!--<s:Button id="set_stageTr_acceleration" x="10" y="10" width="153" label="载物台横向电机加速度"-->
+        <!--click="set_speed_clickHandler(STAGETR_ACCELERATION)"/>-->
+        <!--<s:CheckBox label="载物台横向电机加速度"/>-->
+
+        <!--<s:Button id="set_stageTr_deceleration" x="10" y="40" width="152" label="载物台横向电机减速度"-->
+        <!--click="set_speed_clickHandler(STAGETR_DECELERATION)"/>-->
+        <!--<s:CheckBox label="载物台横向电机减速度"/>-->
+        <!--<s:Button id="set_stageTr_run_speed" x="10" y="70" label="载物台横向电机运行速度"-->
+        <!--click="set_speed_clickHandler(STAGETR_RUN_SPEED)"/>-->
+        <!--<s:CheckBox label="载物台横向电机运行速度"/>-->
+
+        <!--<s:Button id="set_stageLt_acceleration" x="168" y="10" label="载物台纵向电机加速度"-->
+        <!--click="set_speed_clickHandler(STAGELT_ACCELERATION)"/>-->
+        <!--<s:CheckBox label="载物台纵向电机加速度"/>-->
+        <!--<s:Button id="set_stageLt_deceleration" x="170" y="40" width="138" label="载物台纵向电机减速度"-->
+        <!--click="set_speed_clickHandler(STAGELT_DECELERATION)"/>-->
+        <!--<s:CheckBox label="载物台纵向电机减速度"/>-->
+
+        <!--<s:Button id="set_stageLt_run_speed" x="170" y="70" width="156" label="载物台纵向电机运行速度"-->
+        <!--click="set_speed_clickHandler(STAGELT_RUN_SPEED)"/>-->
+
+
+        <!--<s:CheckBox label="载物台纵向电机运行速度"/>-->
+        <!--<s:Button id="set_objlen_acceleration" x="9" y="112" width="152" height="25" label="物镜转换电机加速度"-->
+        <!--click="set_speed_clickHandler(OBJLEN_ACCELERATION)"/>-->
+        <!--<s:CheckBox label="物镜转换电机加速度"/>-->
+
+        <!--<s:Button id="set_objlen_deceleration" x="10" y="145" width="152" label="物镜转换电机减速度"-->
+        <!--click="set_speed_clickHandler(OBJLEN_DECELERATION)"/>-->
+
+
+
+        <!--<s:CheckBox label="物镜转换电机减速度"/>-->
+        <!--<s:Button id="set_objlen_run_speed" x="10" y="175" width="152" label="物镜转换电机运行速度"-->
+        <!--click="set_speed_clickHandler(OBJLEN_RUN_SPEED)"/>-->
+        <!--<s:CheckBox label="物镜转换电机运行速度"/>-->
+
+        <!--&lt;!&ndash; &ndash;&gt;-->
+
+        <!--<s:RichText x="10" y="295" fontSize="16" text="速度设定"/>-->
+
+
+        <s:layout >
+            <s:VerticalLayout padding="2"/>
+        </s:layout>
+
+        <s:Label text="电机加速度选择" fontSize="15"/>
+        <s:ComboBox id="machBox" width="210"
+                    prompt="聚焦电机"
+                    change="machBox_changeHandler(event)"
+                    fontSize="15" >
+            <s:dataProvider>
+                <mx:ArrayList>
+                    <fx:String>聚焦电机加速度</fx:String>
+                    <fx:String>聚焦电机减速度</fx:String>
+
+                    <fx:String>聚焦电机运行速度</fx:String>
+                    <fx:String>载物台横向电机加速度</fx:String>
+
+                    <fx:String>载物台横向电机减速度</fx:String>
+                    <fx:String>载物台横向电机运行速度</fx:String>
+
+                    <fx:String>载物台纵向电机加速度</fx:String>
+                    <fx:String>载物台纵向电机减速度</fx:String>
+
+                    <fx:String>载物台纵向电机运行速度</fx:String>
+                    <fx:String>物镜转换电机加速度</fx:String>
+
+                    <fx:String>物镜转换电机减速度</fx:String>
+                    <fx:String>物镜转换电机运行速度</fx:String>
+
+                </mx:ArrayList>
+            </s:dataProvider>
+        </s:ComboBox>
+
+        <s:HGroup width="100%" verticalAlign="middle">
+            <s:Label  text="初始值: " fontSize="15" />
+            <s:Label id="defaultValueLabel" backgroundColor="#ffdadc"  fontSize="15"/>
+            <s:Label  text="当前值: " fontSize="15" />
+            <s:Label id="currentValueLabel" backgroundColor="#ffdadc"  fontSize="15"/>
+        </s:HGroup>
+
+        <s:HGroup width="100%" verticalAlign="middle">
+            <s:Label text="速度值" fontSize="15"/>
+            <s:NumericStepper  id="setSpeed_2" />
+        </s:HGroup>
+
+        <s:HGroup width="100%" >
+            <s:Button label="+" click="value_add_clickHandler()"/>
+            <s:Spacer width="20%"/>
+            <s:Button label="-" click="value_dec_clickHandler()"/>
+        </s:HGroup>
+
+        <s:HGroup width="100%">
+
+            <s:Button id="setConfictionButton" label="设置" click="set_speed_clickHandler()"/>
+
+            <s:Button id="setDefault" x="10"  y="325" label="恢复参数设置"
+                      click="normal_Handler(SET_DEFAULT)" fontSize="14"/>
+        </s:HGroup>
+
+        <commond:TransferSettingPanel id="transferSetPanel"
+                                      width="100%" height="100%"
+                                      h264Settings="{_h264Settings}"
+                                      camera="{_camera}" mic="{_mic}"/>
+
+    </s:NavigatorContent>
 
   <s:NavigatorContent width="100%" height="100%" label="控制">
 
@@ -753,116 +933,7 @@
     <s:Button id="obj_con_choose_reset_bt" x="174" y="204" label="恢复默认值"
               click="obj_con_choose_reset_bt_clickHandler()"/>
   </s:NavigatorContent>
-  <s:NavigatorContent width="100%" height="100%" label="参数">
-    <!--<s:Button id="set_fous_acceleration" x="173" y="113" width="143" label="聚焦电机加速度"-->
-              <!--click="set_speed_clickHandler(FOUS_ACCELERATION)"/>-->
 
-      <!--<s:CheckBox label="聚焦电机加速度"/>-->
-
-    <!--<s:Button id="set_fous_deceleration" x="170" y="145" width="146" label="聚焦电机减速度"-->
-              <!--click="set_speed_clickHandler(FOUS_DECELERATION)"/>-->
-
-      <!--<s:CheckBox label="聚焦电机减速度"/>-->
-
-    <!--<s:Button id="set_fous_run_speed" x="170" y="175" width="146" label="聚焦电机运行速度"-->
-              <!--click="set_speed_clickHandler(FOUS_RUN_SPEED)"/>-->
-
-      <!--<s:CheckBox label="聚焦电机运行速度"/>-->
-
-    <!--<s:Button id="set_stageTr_acceleration" x="10" y="10" width="153" label="载物台横向电机加速度"-->
-              <!--click="set_speed_clickHandler(STAGETR_ACCELERATION)"/>-->
-      <!--<s:CheckBox label="载物台横向电机加速度"/>-->
-
-    <!--<s:Button id="set_stageTr_deceleration" x="10" y="40" width="152" label="载物台横向电机减速度"-->
-              <!--click="set_speed_clickHandler(STAGETR_DECELERATION)"/>-->
-      <!--<s:CheckBox label="载物台横向电机减速度"/>-->
-    <!--<s:Button id="set_stageTr_run_speed" x="10" y="70" label="载物台横向电机运行速度"-->
-              <!--click="set_speed_clickHandler(STAGETR_RUN_SPEED)"/>-->
-      <!--<s:CheckBox label="载物台横向电机运行速度"/>-->
-
-    <!--<s:Button id="set_stageLt_acceleration" x="168" y="10" label="载物台纵向电机加速度"-->
-              <!--click="set_speed_clickHandler(STAGELT_ACCELERATION)"/>-->
-      <!--<s:CheckBox label="载物台纵向电机加速度"/>-->
-    <!--<s:Button id="set_stageLt_deceleration" x="170" y="40" width="138" label="载物台纵向电机减速度"-->
-              <!--click="set_speed_clickHandler(STAGELT_DECELERATION)"/>-->
-      <!--<s:CheckBox label="载物台纵向电机减速度"/>-->
-
-    <!--<s:Button id="set_stageLt_run_speed" x="170" y="70" width="156" label="载物台纵向电机运行速度"-->
-              <!--click="set_speed_clickHandler(STAGELT_RUN_SPEED)"/>-->
-
-
-      <!--<s:CheckBox label="载物台纵向电机运行速度"/>-->
-    <!--<s:Button id="set_objlen_acceleration" x="9" y="112" width="152" height="25" label="物镜转换电机加速度"-->
-              <!--click="set_speed_clickHandler(OBJLEN_ACCELERATION)"/>-->
-      <!--<s:CheckBox label="物镜转换电机加速度"/>-->
-
-    <!--<s:Button id="set_objlen_deceleration" x="10" y="145" width="152" label="物镜转换电机减速度"-->
-              <!--click="set_speed_clickHandler(OBJLEN_DECELERATION)"/>-->
-
-
-
-      <!--<s:CheckBox label="物镜转换电机减速度"/>-->
-    <!--<s:Button id="set_objlen_run_speed" x="10" y="175" width="152" label="物镜转换电机运行速度"-->
-              <!--click="set_speed_clickHandler(OBJLEN_RUN_SPEED)"/>-->
-      <!--<s:CheckBox label="物镜转换电机运行速度"/>-->
-
-      <!--&lt;!&ndash; &ndash;&gt;-->
-
-    <!--<s:RichText x="10" y="295" fontSize="16" text="速度设定"/>-->
-
-
-      <s:layout >
-          <s:VerticalLayout padding="5"/>
-      </s:layout>
-
-      <s:Label text="电机加速度选择" fontSize="16"/>
-      <s:ComboBox id="machBox" width="210"
-                  prompt="聚焦电机"
-                  change="machBox_changeHandler(event)"
-                  fontSize="15" >
-          <s:dataProvider>
-              <mx:ArrayList>
-                  <fx:String>聚焦电机加速度</fx:String>
-                  <fx:String>聚焦电机减速度</fx:String>
-
-                  <fx:String>聚焦电机运行速度</fx:String>
-                  <fx:String>载物台横向电机加速度</fx:String>
-
-                  <fx:String>载物台横向电机减速度</fx:String>
-                  <fx:String>载物台横向电机运行速度</fx:String>
-
-                  <fx:String>载物台纵向电机加速度</fx:String>
-                  <fx:String>载物台纵向电机减速度</fx:String>
-
-                  <fx:String>载物台纵向电机运行速度</fx:String>
-                  <fx:String>物镜转换电机加速度</fx:String>
-
-                  <fx:String>物镜转换电机减速度</fx:String>
-                  <fx:String>物镜转换电机运行速度</fx:String>
-
-              </mx:ArrayList>
-          </s:dataProvider>
-      </s:ComboBox>
-
-
-      <s:Label text="速度值" fontSize="16"/>
-      <!--<s:TextInput id="setSpeed_2"  x="150" y="295"/>-->
-      <s:TextInput id="setSpeed_2" />
-      <s:HGroup width="100%" >
-          <s:Button label="+" click="value_add_clickHandler()"/>
-          <s:Spacer width="20%"/>
-          <s:Button label="-" click="value_dec_clickHandler()"/>
-      </s:HGroup>
-
-      <s:HGroup width="100%">
-
-          <s:Button id="setConfictionButton" label="设置" click="set_speed_clickHandler()"/>
-
-          <s:Button id="setDefault" x="10"  y="325" label="恢复参数设置"
-                    click="normal_Handler(SET_DEFAULT)" fontSize="14"/>
-      </s:HGroup>
-
-  </s:NavigatorContent>
 
 </mx:TabNavigator>
 

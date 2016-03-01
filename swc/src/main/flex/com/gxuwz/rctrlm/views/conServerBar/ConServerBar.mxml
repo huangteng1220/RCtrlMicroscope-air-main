@@ -240,7 +240,7 @@ import spark.components.Alert;
     <s:Label  text="用户名"  toolTip="请输入用户名"/>
     <s:TextInput id="userNameInput" width="120" text="Control" enter="{userNameInput.text.length > 0?onConnect():setFocus()}"/>
     <s:Button label="连接"  id="conButton" click="onConnect()" enabled="{userNameInput.text.length > 0}"/>
-    <s:Button label="终止摄像头发布服务" click="onCancel(2)" />
+    <!--<s:Button label="终止摄像头发布服务" click="onCancel(2)" />-->
   </s:HGroup>
 
   <!-- Login Connecting pane -->
