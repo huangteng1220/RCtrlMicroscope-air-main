@@ -1,0 +1,278 @@
+<?xml version="1.0"?>
+<!--
+  Created by Administrator on 2016/2/29.
+-->
+<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009"
+         xmlns:mx="library://ns.adobe.com/flex/mx"
+         title="显微镜传输设置" width="100%"
+         xmlns:s="library://ns.adobe.com/flex/spark"
+         cornerRadius="6"
+         chromeColor="#B0BDC4"
+         dropShadowVisible="true"
+         creationComplete="appComplete()">
+
+    <fx:Script><![CDATA[
+        import mx.collections.ArrayList;
+
+
+        [Bindable]
+        private var listResolution:ArrayList =
+                new ArrayList(["160x120", "320x240", "480x360", "320x180", "480x270", "640x360","640x480",
+                        "1280x720","1280x960", "1440x900","2592x1944"]);
+        [Bindable]
+        private var listVideoCodec:ArrayList =
+                new ArrayList(["H264 Baseline", "H264 Main", "Sorenson"]);
+
+        [Bindable]
+        private var listAudioCodec:ArrayList = new ArrayList(["NellyMoser", "Speex", "Off"]);
+        [Bindable]
+        private var listEchoCancellation:ArrayList =
+                new ArrayList(["Normal", "Headphones", "Usb Device", "Off", "Basic Micro"]);
+
+        [Bindable]
+        private var _camera:Camera;
+        [Bindable]
+        private var _mic:Microphone;
+        [Bindable]
+        private var _h264Settings:H264VideoStreamSettings;
+
+        public function get camera():Camera {
+            return _camera;
+        }
+
+        public function set camera(value:Camera):void {
+            _camera = value;
+        }
+
+        public function get mic():Microphone {
+            return _mic;
+        }
+
+        public function set mic(value:Microphone):void {
+            _mic = value;
+        }
+
+        public function get h264Settings():H264VideoStreamSettings {
+            return _h264Settings;
+        }
+
+        public function set h264Settings(value:H264VideoStreamSettings):void {
+            _h264Settings = value;
+        }
+
+
+        private function appComplete():void {
+            onQuality();
+            onResolutionChange();
+            onKeyframes();
+        }
+
+        private function onCamChange():void {
+            onResolutionChange();
+            onQuality();
+            onKeyframes();
+        }
+
+
+        private function onQuality():void {
+            //设置带宽和编码
+            if(_camera)
+                _camera.setQuality(bandwith.value * 125, quality.value);
+        }
+
+
+        private function onVideoCodec():void {
+            //视频编码
+            trace(comboVideoCodec.selectedLabel + " in Command line 688 ");
+
+            switch (comboVideoCodec.selectedLabel) {
+                case "Sorenson":
+                    _h264Settings = null;
+                    break;
+                case "H264 Baseline":
+                    _h264Settings = new H264VideoStreamSettings();
+                    _h264Settings.setProfileLevel(H264Profile.BASELINE, "3");
+                    break;
+                case "H264 Main":
+                    _h264Settings = new H264VideoStreamSettings();
+                    _h264Settings.setProfileLevel(H264Profile.MAIN, "3");
+                    break;
+            }
+
+        }
+
+        private function onEchoChanged():void {
+            if (comboAudioCodec.selectedLabel == "Off") {
+                _mic = null;
+            } else if(_mic) {
+//                _mic = Microphone.getMicrophone();// default microphone
+                if (echoCancellation.selectedItem == "Basic Micro") {
+                    _mic.setUseEchoSuppression(cbEchoSuppression.selected);
+                } else if (Microphone.getEnhancedMicrophone()) {
+                    var options:MicrophoneEnhancedOptions = new MicrophoneEnhancedOptions();
+                    _mic = Microphone.getEnhancedMicrophone();
+                    switch (echoCancellation.selectedItem) {
+                        case "Normal":
+                            options.mode = MicrophoneEnhancedMode.FULL_DUPLEX;
+                            break;
+                        case "Headphones":
+                            options.mode = MicrophoneEnhancedMode.HEADSET;
+                            break;
+                        case "Usb Device":
+                            options.mode = MicrophoneEnhancedMode.HALF_DUPLEX;
+                            break;
+                        case "Off":
+                            options.mode = MicrophoneEnhancedMode.OFF;
+                            break;
+                    }
+                    options.echoPath = (cbEchoPath.selected) ? 256 : 128;
+                    _mic.enhancedOptions = options;
+                } else
+                    trace(" nothing in TransferSettingPanel");
+
+                if (!_mic) {
+                    return;
+                }
+                _mic.codec = comboAudioCodec.selectedLabel;
+            }
+        }
+
+        private function onKeyframes():void {
+            //关键帧
+            if(_camera)
+                 _camera.setKeyFrameInterval(keyframes.value);
+        }
+
+        private function onResolutionChange():void {
+            //编码方案
+            //cam.setMode;
+            var resolution:Array = comboResolution.selectedLabel.split("x");
+            var w:int = resolution[0];
+            var h:int = resolution[1];
+
+            if (_camera) {
+                _camera.setMode(w, h, fps.value, true);
+            }
+        }
+
+        private function onSilenceChange():void {
+            //设置声音跳步
+            if(_mic){
+                _mic.setSilenceLevel(silenceLevel.value);
+            }
+        }
+
+        private function onNoiseChange():void {
+            //设置声音压缩
+            if(_mic){
+                _mic.noiseSuppressionLevel = -noiseSuppression.value;
+            }
+
+        }
+        ]]></fx:Script>
+
+
+        <s:layout>
+            <s:VerticalLayout padding="3"/>
+        </s:layout>
+
+        <s:HGroup verticalAlign="middle">
+            <s:Label text="Quality" id="labelT"/>
+            <s:NumericStepper id="quality"
+                              minimum="0" maximum="100"
+                              change="onQuality()"
+                              cornerRadius="5"
+                              height="20"
+                              toolTip="0 means variable"/>
+            <s:Label text="%"/>
+            <mx:ComboBox id="comboResolution"
+                         selectedItem="640x480"
+                         dataProvider="{listResolution}"
+                         change="onResolutionChange()"/>
+        </s:HGroup>
+
+    <s:HGroup verticalAlign="middle" width="100%">
+
+        <s:NumericStepper id="bandwith"
+                          minimum="0" maximum="20480"
+                          change="onQuality()"
+                          cornerRadius="5"
+                          height="20"
+                          stepSize="1"
+                          value="128"
+                          toolTip="0 传输字节 (是字节)"/>
+        <s:Label text="Kbps"/>
+
+
+        <s:NumericStepper id="fps"
+                          minimum="1" maximum="60"
+                          cornerRadius="5"
+                          height="20"
+                          change="onCamChange()"
+                          value="15" />
+        <mx:Label text="Fps"/>
+
+    </s:HGroup>
+
+
+        <s:HGroup width="100%" verticalAlign="middle">
+            <s:Label text="视频编码"/>
+            <mx:ComboBox id="comboVideoCodec"
+                         dataProvider="{listVideoCodec}"
+                         change="onVideoCodec()"/>
+            <s:Label text="关键帧"/>
+            <s:NumericStepper id="keyframes"
+                              cornerRadius="5"
+                              height="20"
+                              minimum="1" maximum="48"
+                              change="onKeyframes()"
+                              value="15"/>
+        </s:HGroup>
+    <mx:HRule width="100%"  chromeColor="#2d1eff"/>
+        <s:Label text="音频传输编码" backgroundColor="#ffb009" fontSize="15"/>
+
+        <s:HGroup width="100%" height="100%" verticalAlign="middle">
+            <mx:Label text="耳麦类型"/>
+            <mx:ComboBox id="echoCancellation" dataProvider="{listEchoCancellation}" change="onEchoChanged();"/>
+        </s:HGroup>
+
+         <s:HGroup width="100%"  verticalAlign="middle">
+            <s:CheckBox selected="false"
+                        label="输出模式"
+                        change="onEchoChanged()"
+                        id="cbEchoPath"
+                        toolTip="enhanced option, change echo path length (default is 128ms)" />
+            <s:CheckBox selected="false"
+                        label="语音压缩"
+                        change="onEchoChanged()"
+                        id="cbEchoSuppression"
+                        toolTip="works only with Basic Microphone" />
+        </s:HGroup>
+
+
+        <s:HGroup width="100%" verticalAlign="middle">
+            <s:Label text="编码"/>
+            <mx:ComboBox id="comboAudioCodec"
+                         dataProvider="{listAudioCodec}"
+                         change="onEchoChanged()()"/>
+        </s:HGroup>
+        <s:HGroup width="100%" verticalAlign="middle">
+            <s:Label text="音量跨度" toolTip="设置音量" />
+            <s:NumericStepper id="silenceLevel"
+                              minimum="0" maximum="100"
+                              cornerRadius="5"
+                              height="20"
+                              change="onSilenceChange()"
+                              value="10"/>
+            <s:Label text="声音压缩" toolTip="声音压缩率" />
+            <s:NumericStepper id="noiseSuppression"
+                              change="onNoiseChange()"
+                              cornerRadius="5"
+                              height="20"
+                              minimum="0" maximum="100"
+                              value="30"/>
+        </s:HGroup>
+
+    </s:Panel>
+
+
