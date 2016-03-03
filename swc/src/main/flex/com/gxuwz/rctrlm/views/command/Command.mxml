@@ -579,8 +579,12 @@
           obj_con_list.obj_con_5.spot_light = obj_con_set.getElementAt(4, 1);
           obj_con_list.obj_con_5.set_light = obj_con_set.getElementAt(4, 2);
           obj_con_list.obj_con_5.condenser_insert = obj_con_set.getElementAt(4, 3);
-          obj_con_list.obj_con_1.focus_set = obj_con_set.getElementAt(4, 4);
+          obj_con_list.obj_con_1.focus_set = obj_con_set.getElementAt(4, 4)
 
+//          for(var i:int=0;i<obj_con_set.dataProvider.length;i++){
+//              var row:Object=obj_con_set.dataProvider.getItemAt(i);
+//                trace(row+" here in 592");
+//          }
       }
 
       /**
@@ -800,7 +804,6 @@
   <s:NavigatorContent id="obj_con_choose" width="100%" height="100%" label="物镜设置">
     <commond:Obj_con_set_DataGrid id="obj_con_set" y="0" width="306" height="160"
                                   dataProvider="{obj_con_list_xmlCl}" horizontalCenter="0"
-                                  requestedRowCount="5"
                                   variableRowHeight="false"
                                   sortableColumns="false"
                                   editable="true"/>
