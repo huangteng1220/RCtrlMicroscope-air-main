@@ -48,7 +48,7 @@
     <!--</s:ArrayList>-->
   <!--</s:columns>-->
   <mx:columns>
-    <mx:DataGridColumn headerText="序号" dataField="number"/>
+    <mx:DataGridColumn headerText="序号" dataField="number" editable="false"/>
     <mx:DataGridColumn headerText="聚光栏" dataField="spot_light" editorDataField="value">
         <mx:itemEditor>
           <fx:Component>
@@ -70,6 +70,5 @@
         </fx:Component>
       </mx:itemEditor>
     </mx:DataGridColumn>
-
   </mx:columns>
 </mx:DataGrid>

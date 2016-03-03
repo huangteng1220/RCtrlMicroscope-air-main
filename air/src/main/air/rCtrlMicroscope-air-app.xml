@@ -59,7 +59,7 @@
 		<content>${output}</content>
 		
 		<!-- The title of the main window. Optional. -->
-		<!-- <title></title> -->
+		 <title>远程显微镜控制端</title>
 
 		<!-- The type of system chrome to use (either "standard" or "none"). Optional. Default standard. -->
 		<!-- <systemChrome></systemChrome> -->

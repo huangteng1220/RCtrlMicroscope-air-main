@@ -119,6 +119,7 @@
             _playoff = value;
             if(_playoff && camera){
                 publicVideo();
+                messageVGroup.enabled=true;
             }
 //            if (_playoff && camera) {
 //                //发布视频
@@ -324,13 +325,13 @@
 
             vdCtrl.localVdCam_vd.attachCamera(null);
             startInit.dispatchEvent(new MouseEvent("CloseComEvent"));
-//            No_autoFocus(); //before connect to camera we set focus to reset
+            No_autoFocus(); //before connect to camera we set focus to reset
             if (_autoFocus != 0) {
                 commandPanel.enabled = false;
                 picHandler.enabled = false;
                 _autoFocus = 0;
             }
-            initAfterOpenCom();
+//            initAfterOpenCom();
         }
 
         private function No_autoFocus():void {
@@ -616,7 +617,7 @@
     <s:HGroup width="100%" height="25%">
 
         <!-- chatting panel-->
-        <s:VGroup  width="30%" height="100%">
+        <s:VGroup id="messageVGroup"  width="30%" height="100%" enabled="false">
             <s:HGroup width="100%" height="100%">
                 <s:TextArea width="100%" id="msgArea" height="100%" />
             </s:HGroup>
