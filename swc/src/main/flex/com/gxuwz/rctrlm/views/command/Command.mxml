@@ -618,6 +618,7 @@
       protected function obj_con_choose_reset_bt_clickHandler():void {
           // TODO Auto-generated method stub obj_con_list_default
           obj_con_list_xmlCl = new XMLListCollection(obj_con_list_default.children());
+          obj_con_list_xmlCl.refresh();
           saveData();
           Alert.show("成功恢复默认值！！！");
       }
