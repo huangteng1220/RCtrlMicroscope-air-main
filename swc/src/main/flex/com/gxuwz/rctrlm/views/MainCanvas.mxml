@@ -44,7 +44,7 @@
         [Bindable] private var netConn:NetConnection;
         [Bindable] private var netStr:NetStream;
         [Bindable] private var userList:ArrayCollection;
-
+        [Bindable] private var otherUser:String;
         /**
          * 监听连接服务状况
          */
@@ -84,6 +84,10 @@
             }else if(e.action == "Disconnect"){
                 netConn.close();
                 netConn=null;
+                csBar.currentState=csBar.loginNotConnected;
+            }else if(e.action=="HasUser"){
+                netConn.call("callUser", null, _remoteUser, "Disconnect");
+                Alert.show("重名登记，被禁止");
             }
             csBar.ringerChooseBool = false;
         }
@@ -140,8 +144,7 @@
             var netStatus:String = e.info.code as String;
             switch (netStatus) {
                 case "NetConnection.Connect.Success":
-                    netConn.call("onIdentification", null, csBar.userNameInput.text);
-                    csBar.currentState = csBar.callReady; //状态改变
+                    netConn.call("onIdentification", new Responder(onStatus,onResult), csBar.userNameInput.text);
                     break;
                 case "NetConnection.Connect.Closed":
                         Alert.show("连接关闭", "提示");
@@ -156,12 +159,39 @@
             }
         }
 
+        /**
+         *
+         * @param status
+         */
+        private function onStatus(status:Object):void {
+            trace(status.toString());
+            if(status.toString()=="Agree"){
+                csBar.currentState=csBar.callReady;
+            }else if(status.toString()=="Reject"){
+                if(netConn){
+                    netConn.close();
+                    netConn=null;
+                }
+                csBar.currentState=csBar.loginNotConnected;
+                Alert.show("该用户名已经被注册，请改用户名登录\n谢谢！","提示");
+            }
+        }
+
+        private function onResult(response:Object):void {
+            trace(response.toString()); // displays "Hello François-Marie Arouet"
+        }
+
         //check  and add user
         private function userConnectWithServiceEventHandler(evt:UserAddEvent):void {
 
             if (evt.action =="connection") {
                 if ((evt.user).toString() != (csBar.userNameInput.text).toString())
-                    userList.addItem(evt.user);
+                    if(userList.contains(evt.user)){
+                        otherUser=evt.user as String;
+                        netConn.call("callUser", null, otherUser, "HasUser");
+                    }else{
+                        userList.addItem(evt.user);
+                    }
                 trace("here ");
                 csBar.currentState = csBar.callReady; //状态改变
             } else {

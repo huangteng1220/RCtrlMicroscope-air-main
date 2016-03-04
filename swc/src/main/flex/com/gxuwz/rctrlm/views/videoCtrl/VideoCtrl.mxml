@@ -28,7 +28,7 @@
     public function set lc(value:LocalObject):void {
       _lc = value;
     }
-
+    [Bindable] private var _netStream:NetStream;
     private var gesture:MGesture;				//Instance of MGesture class we've written
     private var gestureMag:Number;			//Magnitude of current gesture made
 
@@ -42,6 +42,14 @@
 
     public var cmdString:String;  //保存命令
 
+    public function get netStream():NetStream {
+        return _netStream;
+    }
+
+    public function set netStream(value:NetStream):void {
+        _netStream = value;
+    }
+
     protected function creationCompleteHandler(event:FlexEvent):void {
 
       gesture = new MGesture(this);	//Initiate MGesture for gesture detection
@@ -49,7 +57,7 @@
       this.addElement(lineLabel);
       _camera = Camera.getCamera() as Camera;
 
-        lineMSG = new Object();
+//        lineMSG = new Object();
 //        //add some extra data to ensure every sent object is unique
 //        lineMSG.id = new Date().time;
 //        gesture.start();
@@ -61,12 +69,20 @@
             .addEventListener(DrawingLineFromExpertEvent.CLEAN_DRAWING_LINE_FROM_EXPERT,
              clearnDrawingLineFromExpert);
     }
+    private function initStart():void{
+        lineMSG = new Object();
+        //add some extra data to ensure every sent object is unique
+        lineMSG.id = new Date().time;
+        gesture.start();
+    }
+
     private function drawingLineFromExpert(e:DrawingLineFromExpertEvent):void{
       trace(e.data +" from Service Class which get from Expert");
-      gesture.start();
+//      gesture.start();
+        initStart();
+      startDrawingLine(e.data);
       mouseMoveDirection(e.data);
       onDrawingLine(e.data);
-
     }
 
     private function clearnDrawingLineFromExpert(e:DrawingLineFromExpertEvent):void{
@@ -77,9 +93,9 @@
 
 //        lineMSG = new Object();
         //add some extra data to ensure every sent object is unique
-        lineMSG.id = new Date().time;
-        gesture.start();
-
+//        lineMSG.id = new Date().time;
+//        gesture.start();
+        initStart();
         var lineStartPoint:Point = new Point(this.mouseX, this.mouseY);
         lineMSG.lineStartPoint = lineStartPoint;
 
@@ -103,8 +119,13 @@
         lineMSG.lineEndPoint = lineEndPoint;
         mouseMoveDirection(lineMSG);
         onDrawingLine(lineMSG);
+          if(_netStream){
+//              lineMSG.lineText=lineLabel.text;
+              _netStream.send("onDrawingLine",lineMSG);
+          }
       } else {
         drawLineUI.graphics.clear();
+          _netStream.send("onCleanUI");
       }
     }
 
@@ -151,7 +172,7 @@
      // trace( _lc+"   _lc.sendMessageFun")
       cmdString = null;
       lineLabel.text = "";
-
+        _netStream.send("onCleanUI");
       drawLineUI.graphics.clear();
       trace("on vdDisplay onMouseUp  ");
       this.removeEventListener(MouseEvent.MOUSE_UP, onMouseUp);

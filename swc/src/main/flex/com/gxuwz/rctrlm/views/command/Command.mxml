@@ -582,10 +582,6 @@
           obj_con_list.obj_con_5.condenser_insert = obj_con_set.getElementAt(4, 3);
           obj_con_list.obj_con_1.focus_set = obj_con_set.getElementAt(4, 4)
 
-//          for(var i:int=0;i<obj_con_set.dataProvider.length;i++){
-//              var row:Object=obj_con_set.dataProvider.getItemAt(i);
-//                trace(row+" here in 592");
-//          }
       }
 
       /**
@@ -821,11 +817,11 @@
               click="obj_con_1_clickHandler(event)"/>
     <s:Button id="obj_con_2" x="69" y="319" width="55" label="物镜2"
               click="obj_con_2_clickHandler(event)"/>
-    <s:Button id="obj_con_3" x="130" y="319" width="55" label="物镜3"
+    <s:Button id="obj_con_3" x="129" y="319" width="55" label="物镜3"
               click="obj_con_3_clickHandler(event)"/>
-    <s:Button id="obj_con_4" x="193" y="319" width="55" label="物镜4"
+    <s:Button id="obj_con_4" x="191" y="319" width="55" label="物镜4"
               click="obj_con_4_clickHandler(event)"/>
-    <s:Button id="obj_con_5" x="255" y="319" width="55" label="物镜5"
+    <s:Button id="obj_con_5" x="253" y="319" width="55" label="物镜5"
               click="obj_con_5_clickHandler(event)"/>
     <s:RichText x="10" y="299" fontSize="15" text="物镜选择"/>
     <s:Button id="platforms_reset_bt" x="222" y="269" label="平台复位"
