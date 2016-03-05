@@ -80,6 +80,7 @@ public class Services {
     }
 
     public function onCleanUI(user:String):void{
+        trace("localUser  "+localUser);
         if(localUser==user){
             var e:DrawingLineFromExpertEvent=new DrawingLineFromExpertEvent(DrawingLineFromExpertEvent.CLEAN_DRAWING_LINE_FROM_EXPERT);
             EventDispatcherFactory.getEventDispatcher().dispatchEvent(e);

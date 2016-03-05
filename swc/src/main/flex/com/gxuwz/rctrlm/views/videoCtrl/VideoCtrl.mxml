@@ -88,7 +88,6 @@
     private function drawingLineFromExpert(e:DrawingLineFromExpertEvent):void{
       trace(e.data +" from Service Class which get from Expert");
 //      gesture.start();
-        initStart();
       startDrawingLine(e.data);
       mouseMoveDirection(e.data);
       onDrawingLine(e.data);
