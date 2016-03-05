@@ -279,6 +279,7 @@
                           netConnection="{netConn}"
                           lc="{lc}"
                           playoff="{_playoff}"
+                          localUser="{csBar.userNameInput.text}"
                           remoteUser="{_remoteUser}"/>
 
 </s:VGroup>

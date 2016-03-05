@@ -8,7 +8,8 @@
           xmlns:img="com.gxuwz.rctrlm.views.imgShowList.*"
           xmlns:start="com.gxuwz.rctrlm.views.startInit.*"
           xmlns:commands="com.gxuwz.rctrlm.views.command.*"
-          xmlns:sendPanel="com.gxuwz.rctrlm.views.chat.*" xmlns:mx="library://ns.adobe.com/flex/mx"
+          xmlns:sendPanel="com.gxuwz.rctrlm.views.chat.*"
+          xmlns:mx="library://ns.adobe.com/flex/mx"
           creationComplete="creationCompleteHandler()">
     <!--
     Class introduce:initialize
@@ -94,6 +95,15 @@
         public var _autoFocus:Number = 0;
 
         public var comNum:String = "COM1";
+        [Bindable]
+        private var _localUser:String;
+        public function get localUser():String {
+            return _localUser;
+        }
+
+        public function set localUser(value:String):void {
+            _localUser = value;
+        }
 
         public function get lc():LocalObject {
             return _lc;
@@ -325,13 +335,13 @@
 
             vdCtrl.localVdCam_vd.attachCamera(null);
             startInit.dispatchEvent(new MouseEvent("CloseComEvent"));
-            No_autoFocus(); //before connect to camera we set focus to reset
+//            No_autoFocus(); //before connect to camera we set focus to reset
             if (_autoFocus != 0) {
                 commandPanel.enabled = false;
                 picHandler.enabled = false;
                 _autoFocus = 0;
             }
-//            initAfterOpenCom();
+            initAfterOpenCom();
         }
 
         private function No_autoFocus():void {
@@ -502,7 +512,7 @@
                 inStream = new NetStream(_netConnection);
                 vi.attachNetStream(inStream);
                 inStream.client = new Services();
-                inStream.play("media-sound");
+                inStream.play(remoteUser+"Media-sound");
                 vi.attachCamera(camera);  //get the local camera
                 vdCtrl.localVdCam_vd.addChild(vi);
                 video = vi;
@@ -512,7 +522,7 @@
                 outStream.client = new Services();
                 outStream.attachCamera(camera);
                 outStream.attachAudio(mic);
-                outStream.publish("media-call");
+                outStream.publish(_localUser+"Media-call");
 
             } catch (e:ErrorEvent) {
                 Alert.show("发布视频出错");
