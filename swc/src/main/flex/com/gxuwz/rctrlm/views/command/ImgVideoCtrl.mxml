@@ -335,13 +335,13 @@
 
             vdCtrl.localVdCam_vd.attachCamera(null);
             startInit.dispatchEvent(new MouseEvent("CloseComEvent"));
-//            No_autoFocus(); //before connect to camera we set focus to reset
+            No_autoFocus(); //before connect to camera we set focus to reset
             if (_autoFocus != 0) {
                 commandPanel.enabled = false;
                 picHandler.enabled = false;
                 _autoFocus = 0;
             }
-            initAfterOpenCom();
+//            initAfterOpenCom();
         }
 
         private function No_autoFocus():void {
@@ -621,6 +621,7 @@
                                   mic="{mic}"/>
             </s:Panel>
         <videoContext:VideoCtrl id="vdCtrl" width="75%"
+                                remoteUser="{_remoteUser}"
                                 netStream="{outStream}"
                                 height="100%" lc="{_lc}"/>
     </s:HGroup>

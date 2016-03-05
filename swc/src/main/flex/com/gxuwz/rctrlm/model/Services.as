@@ -14,7 +14,7 @@ public class Services {
     //定义几个公共变量。供外部程序访问
 
     [Bindable] public var _msg:String="";
-    [Bindable] public var _remoteUser:String="";
+    [Bindable] public var localUser:String;
 
     public function Services() {
 
@@ -70,16 +70,20 @@ public class Services {
 //        EventDispatcherFactory.getEventDispatcher().dispatchEvent(event);
     }
 
-    public function onDrawingLine(obj:Object):void{
+    public function onDrawingLine(obj:Object,user:String):void{
         trace(obj.lineStartPoint.x+" in Server from Expert line 75");
-        var e:DrawingLineFromExpertEvent =new DrawingLineFromExpertEvent(DrawingLineFromExpertEvent.DRAWING_LINE_FROM_EXPERT);
-        e.data=obj;
-        EventDispatcherFactory.getEventDispatcher().dispatchEvent(e);
+        if(localUser==user){
+            var e:DrawingLineFromExpertEvent =new DrawingLineFromExpertEvent(DrawingLineFromExpertEvent.DRAWING_LINE_FROM_EXPERT);
+            e.data=obj;
+            EventDispatcherFactory.getEventDispatcher().dispatchEvent(e);
+        }
     }
 
-    public function onCleanUI():void{
-        var e:DrawingLineFromExpertEvent=new DrawingLineFromExpertEvent(DrawingLineFromExpertEvent.CLEAN_DRAWING_LINE_FROM_EXPERT);
-        EventDispatcherFactory.getEventDispatcher().dispatchEvent(e);
+    public function onCleanUI(user:String):void{
+        if(localUser==user){
+            var e:DrawingLineFromExpertEvent=new DrawingLineFromExpertEvent(DrawingLineFromExpertEvent.CLEAN_DRAWING_LINE_FROM_EXPERT);
+            EventDispatcherFactory.getEventDispatcher().dispatchEvent(e);
+        }
     }
 }
 }

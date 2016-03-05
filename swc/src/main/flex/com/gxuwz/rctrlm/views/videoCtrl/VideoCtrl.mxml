@@ -18,8 +18,8 @@
     import mx.events.FlexEvent;
     import spark.components.Alert;
 
-    [Bindable]
-    private var _lc:LocalObject;
+    [Bindable]private var _lc:LocalObject;
+    [Bindable]private var _remoteUser:String;
 
     public function get lc():LocalObject {
       return _lc;
@@ -28,6 +28,15 @@
     public function set lc(value:LocalObject):void {
       _lc = value;
     }
+
+    public function get remoteUser():String {
+        return _remoteUser;
+    }
+
+    public function set remoteUser(value:String):void {
+        _remoteUser = value;
+    }
+
     [Bindable] private var _netStream:NetStream;
     private var gesture:MGesture;				//Instance of MGesture class we've written
     private var gestureMag:Number;			//Magnitude of current gesture made
@@ -55,7 +64,7 @@
       gesture = new MGesture(this);	//Initiate MGesture for gesture detection
       lineLabel = new Label();
       this.addElement(lineLabel);
-      _camera = Camera.getCamera() as Camera;
+//      _camera = Camera.getCamera() as Camera;
 
 //        lineMSG = new Object();
 //        //add some extra data to ensure every sent object is unique
@@ -121,11 +130,11 @@
         onDrawingLine(lineMSG);
           if(_netStream){
 //              lineMSG.lineText=lineLabel.text;
-              _netStream.send("onDrawingLine",lineMSG);
+              _netStream.send("onDrawingLine",lineMSG,_remoteUser);
           }
       } else {
         drawLineUI.graphics.clear();
-          _netStream.send("onCleanUI");
+          _netStream.send("onCleanUI",_remoteUser);
       }
     }
 
@@ -172,7 +181,7 @@
      // trace( _lc+"   _lc.sendMessageFun")
       cmdString = null;
       lineLabel.text = "";
-        _netStream.send("onCleanUI");
+        _netStream.send("onCleanUI",_remoteUser);
       drawLineUI.graphics.clear();
       trace("on vdDisplay onMouseUp  ");
       this.removeEventListener(MouseEvent.MOUSE_UP, onMouseUp);

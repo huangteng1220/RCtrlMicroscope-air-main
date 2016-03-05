@@ -123,8 +123,10 @@
         /******************************************************************************/
 
         private function csBar_ConnectToServerEventHandler(event:MouseEvent):void {
+            var service:Services=new Services();
             netConn = new NetConnection();
-            netConn.client = new Services();
+            netConn.client = service;
+            service.localUser=csBar.userNameInput.text as String;
             netConn.addEventListener(NetStatusEvent.NET_STATUS, netConnectionStatusHandler);
             try {
                 netConn.connect(csBar.serverAddrInput.text); //连接网络
