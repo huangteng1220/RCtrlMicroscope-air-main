@@ -60,10 +60,13 @@
                     callRemoteUserStatusEventHandler);
             userList = new ArrayCollection();
             _lc = lc;//为内部组件传值
-
-
         }
 
+        public function closeApplicationEventHandler():void{
+            if(netConn){
+                netConn.call("callUser", null, _remoteUser, "Disconnect");
+            }
+        }
         /***************************************************************************/
 
         /**
@@ -72,6 +75,7 @@
          * @param e
          */
         private function callRemoteUserStatusEventHandler(e:ConServerBarEvent):void {
+            trace(e.action +"here in MainCanvas 81");
             if (e.action == "Accept") {
                 csBar.currentState = csBar.callEstablished;
                 _playoff = true;
@@ -80,6 +84,7 @@
                 _playoff = false;
                 csBar.currentState = csBar.callFailed;
             }else if(e.action == "Disconnect"){
+                Alert.show("对方已经下线");
                 netConn.close();
                 netConn=null;
                 csBar.currentState=csBar.loginNotConnected;

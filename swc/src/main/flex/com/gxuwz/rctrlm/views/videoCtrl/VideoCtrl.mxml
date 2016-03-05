@@ -119,13 +119,15 @@
         lineMSG.lineEndPoint = lineEndPoint;
         mouseMoveDirection(lineMSG);
         onDrawingLine(lineMSG);
-          if(_netStream){
+          if(_netStream && _remoteUser){
 //              lineMSG.lineText=lineLabel.text;
               _netStream.send("onDrawingLine",lineMSG,_remoteUser);
           }
       } else {
         drawLineUI.graphics.clear();
-          _netStream.send("onCleanUI",_remoteUser);
+          if(_remoteUser){
+              _netStream.send("onCleanUI",_remoteUser);
+          }
       }
     }
 
@@ -170,7 +172,9 @@
      // trace( _lc+"   _lc.sendMessageFun")
       cmdString = null;
       lineLabel.text = "";
-        _netStream.send("onCleanUI",_remoteUser);
+        if(_remoteUser){
+            _netStream.send("onCleanUI",_remoteUser);
+        }
       drawLineUI.graphics.clear();
       this.removeEventListener(MouseEvent.MOUSE_UP, onMouseUp);
       this.removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);

@@ -68,7 +68,7 @@ public class MGesture
         return vecUpdate;
     }
 
-    public function updateFromExpert(endDrawingFromExpertX:Number,endDrawingFromExpertY:Number){
+    public function updateFromExpert(endDrawingFromExpertX:Number,endDrawingFromExpertY:Number):Vector2D{
         _latter = new Vector2D(endDrawingFromExpertX, endDrawingFromExpertY);
         var vecUpdate:Vector2D = _latter.minus(_earlier);
         return vecUpdate;

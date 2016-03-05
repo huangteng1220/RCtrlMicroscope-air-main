@@ -9,7 +9,6 @@
           xmlns:start="com.gxuwz.rctrlm.views.startInit.*"
           xmlns:commands="com.gxuwz.rctrlm.views.command.*"
           xmlns:sendPanel="com.gxuwz.rctrlm.views.chat.*"
-          xmlns:mx="library://ns.adobe.com/flex/mx"
           creationComplete="creationCompleteHandler()">
     <!--
     Class introduce:initialize
@@ -440,6 +439,7 @@
             camera = Camera.getCamera(cameraIndex.toString()); //get the camera
             mic=Microphone.getEnhancedMicrophone();
             connectCamera();
+            vdCtrl.enabled=true;
             // selected camera device
 //            if (localSO.data.hasOwnProperty("cameraIndex")) {
 //                trace("camera open:" + cameraIndex);
@@ -621,6 +621,7 @@
                                   mic="{mic}"/>
             </s:Panel>
         <videoContext:VideoCtrl id="vdCtrl" width="75%"
+                                enabled="false"
                                 remoteUser="{_remoteUser}"
                                 netStream="{outStream}"
                                 height="100%" lc="{_lc}"/>
