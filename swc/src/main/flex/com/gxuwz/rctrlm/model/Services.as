@@ -14,7 +14,7 @@ public class Services {
     //定义几个公共变量。供外部程序访问
 
     [Bindable] public var _msg:String="";
-    [Bindable] public var localUser:String;
+    [Bindable] public static var localUser:String;
 
     public function Services() {
 
@@ -45,7 +45,7 @@ public class Services {
     }
     //get the disconection information
     public function onDisconnection():void{
-        Alert.show("DIS");
+        Alert.show("关闭连接");
     }
 
     public function onEvent(event:String, nameUser:String):void {
@@ -62,16 +62,11 @@ public class Services {
     }
     public function onReceptionAction(sx:String,sy:String,ex:String,ey:String,remoteUser:String):void{
         trace(sx+" in Service Class 66");
-//        var event:CommandEvent=new CommandEvent(CommandEvent.DRAWING_LINE_FROM_EXPERT);
-//        event.startX=sx;
-//        event.startY=sy;
-//        event.endX=ex;
-//        event.endY=ey;
-//        EventDispatcherFactory.getEventDispatcher().dispatchEvent(event);
     }
 
     public function onDrawingLine(obj:Object,user:String):void{
-        trace(obj.lineStartPoint.x+" in Server from Expert line 75");
+        trace(obj.lineStartPoint.x+" in Server from Expert line 74");
+        trace(user+" in Server from Expert line 75 and localuser"+localUser);
         if(localUser==user){
             var e:DrawingLineFromExpertEvent =new DrawingLineFromExpertEvent(DrawingLineFromExpertEvent.DRAWING_LINE_FROM_EXPERT);
             e.data=obj;

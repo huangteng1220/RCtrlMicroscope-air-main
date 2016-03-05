@@ -66,7 +66,7 @@ public class Vector2D
      */
     public function getVector ():Vector.<Number>
     {
-        return new <Number>[_vecX, _vecY]
+        return new <Number>[_vecX, _vecY];
     }
 
     /**

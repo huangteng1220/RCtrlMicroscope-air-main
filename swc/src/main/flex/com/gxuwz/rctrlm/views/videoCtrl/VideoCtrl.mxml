@@ -9,18 +9,19 @@
 
   <fx:Script>
     <![CDATA[
-    import com.gxuwz.rctrlm.events.CommandEvent;
+
     import com.gxuwz.rctrlm.events.DrawingLineFromExpertEvent;
     import com.gxuwz.rctrlm.events.EventDispatcherFactory;
     import com.gxuwz.rctrlm.utils.fluorinefx.aperture.LocalObject;
     import com.gxuwz.rctrlm.views.videoCtrl.mangerGesture.MGesture;
     import mx.controls.Label;
     import mx.events.FlexEvent;
-    import spark.components.Alert;
+
 
     [Bindable]private var _lc:LocalObject;
     [Bindable]private var _remoteUser:String;
-
+    [Bindable]private var _netStream:NetStream;
+    [Bindable]private var drawingFromExpertBoolean:Boolean=false;
     public function get lc():LocalObject {
       return _lc;
     }
@@ -37,7 +38,6 @@
         _remoteUser = value;
     }
 
-    [Bindable] private var _netStream:NetStream;
     private var gesture:MGesture;				//Instance of MGesture class we've written
     private var gestureMag:Number;			//Magnitude of current gesture made
 
@@ -64,13 +64,8 @@
       gesture = new MGesture(this);	//Initiate MGesture for gesture detection
       lineLabel = new Label();
       this.addElement(lineLabel);
-//      _camera = Camera.getCamera() as Camera;
 
-//        lineMSG = new Object();
-//        //add some extra data to ensure every sent object is unique
-//        lineMSG.id = new Date().time;
-//        gesture.start();
-
+        initStart();
         EventDispatcherFactory.getEventDispatcher()
             .addEventListener(DrawingLineFromExpertEvent.DRAWING_LINE_FROM_EXPERT,
               drawingLineFromExpert);
@@ -86,11 +81,13 @@
     }
 
     private function drawingLineFromExpert(e:DrawingLineFromExpertEvent):void{
-      trace(e.data +" from Service Class which get from Expert");
-//      gesture.start();
+       drawingFromExpertBoolean=true;
+       gesture.startFromExpert(e.data.lineStartPoint.x,e.data.lineStartPoint.y);
+      trace(e.data+" e.data im videoCtrl on line 92");
       startDrawingLine(e.data);
       mouseMoveDirection(e.data);
       onDrawingLine(e.data);
+
     }
 
     private function clearnDrawingLineFromExpert(e:DrawingLineFromExpertEvent):void{
@@ -98,11 +95,6 @@
         lineLabel.text = "";
     }
     protected function mouseDownHandler(event:MouseEvent):void {
-
-//        lineMSG = new Object();
-        //add some extra data to ensure every sent object is unique
-//        lineMSG.id = new Date().time;
-//        gesture.start();
         initStart();
         var lineStartPoint:Point = new Point(this.mouseX, this.mouseY);
         lineMSG.lineStartPoint = lineStartPoint;
@@ -143,7 +135,6 @@
       initLine();  //初始化线条颜色
       drawLineUI.graphics.moveTo(drawingPoint.lineStartPoint.x, drawingPoint.lineStartPoint.y);
       drawLineUI.graphics.lineTo(drawingPoint.lineEndPoint.x, drawingPoint.lineEndPoint.y);
-      //trace("onDrawingLine:"+drawingPoint.lineEndPoint.x+", "+drawingPoint.lineEndPoint.y);
 
       var angle:Number = polarAngle(new Point(drawingPoint.lineEndPoint.x, drawingPoint.lineEndPoint.y),
               new Point(drawingPoint.lineStartPoint.x, drawingPoint.lineStartPoint.y));
@@ -173,7 +164,6 @@
     }
 
     private function onMouseUp(e:MouseEvent):void {
-      trace(cmdString+" cmdString in videoCtrl onMouseUp  and _lc is "+_lc.toString());
       if (cmdString){
         _lc.sendMessageFun(cmdString);
       }
@@ -182,7 +172,6 @@
       lineLabel.text = "";
         _netStream.send("onCleanUI",_remoteUser);
       drawLineUI.graphics.clear();
-      trace("on vdDisplay onMouseUp  ");
       this.removeEventListener(MouseEvent.MOUSE_UP, onMouseUp);
       this.removeEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
     }
@@ -208,10 +197,24 @@
 
     private function mouseMoveDirection(lineMSG:Object):void {
 
-      gestureMag = gesture.update().getMagnitude() / 2;
+        /**
+         * if drawingFromExpertBoolean==false //which mean that drawing the line on local
+         *  gestureMag = gesture.update().getMagnitude() / 2;
+         * else
+         *  gestureMag=gesture.updateFromExpert(lineMSG.lineEndPoint.x,lineMSG.lineEndPoint.y).getMagnitude()/2; //we drawing from expert
+         */
+      if(drawingFromExpertBoolean){
+          gestureMag=gesture.updateFromExpert(lineMSG.lineEndPoint.x,lineMSG.lineEndPoint.y).getMagnitude()/2;
+      }else{
+          gestureMag = gesture.update().getMagnitude() / 2;
+      }
       gestureMag = Math.min(gestureMag, maxMag);
-      direction = gesture.evalDirections();
-      trace(direction + "  direction  under draw ");
+       if(drawingFromExpertBoolean){
+           direction=gesture.evalDirectionsFromExpert(lineMSG.lineEndPoint.x,lineMSG.lineEndPoint.y);
+       } else{
+           direction = gesture.evalDirections();
+       }
+
       switch (direction) {
         case 0:
           cmdString = "$0MD400000000" + getMoveDistance(direction, lineMSG) + "!";

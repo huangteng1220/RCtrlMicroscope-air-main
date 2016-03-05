@@ -48,19 +48,31 @@ public class MGesture
         _latter = new Vector2D(startMX, startMY);	//pointer location, to be updated later
     }
 
+
+    public function startFromExpert (startDrawingX:Number,startDrawindY:Number):void {
+        var startMX:Number = startDrawingX;
+        var startMY:Number = startDrawindY;
+        trace("mouse start:"+mainBox.mouseX+","+mainBox.mouseY);
+        _earlier = new Vector2D(startMX, startMY);	//pointer location, initially
+        _latter = new Vector2D(startMX, startMY);	//pointer location, to be updated later
+    }
     /**
      * Method to update mouse location
      * @return a Vector2D of current mouse location relative to that when start() is called;
      */
     public function update ():Vector2D {
         _latter = new Vector2D(mainBox.mouseX, mainBox.mouseY);
-        trace("_latter:"+mainBox.mouseX+","+mainBox.mouseY);
+
         var vecUpdate:Vector2D = _latter.minus(_earlier);
 
-        //trace("vecUpdate:"+vecUpdate.x+","+vecUpdate.y);
         return vecUpdate;
     }
 
+    public function updateFromExpert(endDrawingFromExpertX:Number,endDrawingFromExpertY:Number){
+        _latter = new Vector2D(endDrawingFromExpertX, endDrawingFromExpertY);
+        var vecUpdate:Vector2D = _latter.minus(_earlier);
+        return vecUpdate;
+    }
     /**
      * Method to validate a gesture.
      * @param	newLoc	Vector2D to new mouse location
@@ -71,9 +83,21 @@ public class MGesture
         var newMag:Number = gestureVector.getMagnitude();
 
         //if magnitude condition is not fulfilled, reset gestureVector to null
-        if (newMag < _minDist)		gestureVector = null;
+        if (newMag < _minDist)
+            gestureVector = null;
+
         return gestureVector;
     }
+
+    private function validMagnitudeFromExpert (endDrawingFromExpertX:Number,endDrawingFromExpertY:Number):Vector2D {
+        var gestureVector:Vector2D = updateFromExpert(endDrawingFromExpertX,endDrawingFromExpertY);
+        var newMag:Number = gestureVector.getMagnitude();
+        //if magnitude condition is not fulfilled, reset gestureVector to null
+        if (newMag < _minDist)
+            gestureVector = null;
+        return gestureVector;
+    }
+
 
     /**
      * Method to evaluate gesture direction
@@ -85,6 +109,44 @@ public class MGesture
 
         //validate magnitude condition
         var newDirection:Vector2D = validMagnitude();
+
+        //if gesture exceed minimum magnitude
+        if (newDirection != null) {
+
+            //evaluation against all directions
+            for (var i:int = 0; i < directions.length; i++)
+            {
+                var angle:Number = directions[i].angleBetween(newDirection);
+                angle = Math.abs(angle);
+
+                //check against main directions
+                if ( i < 4 && angle < _deviationFromMains) {
+                    detectedDirection = i;
+                    break;
+                }
+
+                //check against diagonal directions
+                else if (i > 3 && angle < _deviationFromDiagonals) {
+                    detectedDirection = i;
+                    break;
+                }
+            }
+
+            //update mouse location for next evaluation
+            //_earlier =  _latter;
+        }
+
+        //return detected direction
+        return detectedDirection
+    }
+
+
+    public function evalDirectionsFromExpert(endDrawingFromExpertX:Number,endDrawingFromExpertY:Number):int {
+        //Pessimistic search (initialise with unsuccessful search)
+        var detectedDirection:int = -1;
+
+        //validate magnitude condition
+        var newDirection:Vector2D = validMagnitudeFromExpert(endDrawingFromExpertX,endDrawingFromExpertY);
 
         //if gesture exceed minimum magnitude
         if (newDirection != null) {
