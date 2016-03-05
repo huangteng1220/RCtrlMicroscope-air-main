@@ -840,7 +840,7 @@
                                   editable="true"/>
     <s:Button id="obj_con_choose_save_bt" x="64" y="205" label="保存新设置"
               click="obj_con_choose_save_bt_clickHandler()"/>
-    <s:Button id="obj_con_choose_reset_bt" x="174" y="204" label="恢复默认值"
+    <s:Button id="obj_con_choose_reset_bt" x="174" y="205" label="恢复默认值"
               click="obj_con_choose_reset_bt_clickHandler()"/>
 
   </s:NavigatorContent>

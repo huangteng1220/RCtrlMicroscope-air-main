@@ -45,7 +45,7 @@
 
 
   <s:layout>
-    <s:VerticalLayout  verticalAlign="middle"/>
+    <s:VerticalLayout  verticalAlign="middle" horizontalAlign="center"/>
   </s:layout>
 
   <!--<s:HGroup width="100%"  verticalAlign="middle">-->
