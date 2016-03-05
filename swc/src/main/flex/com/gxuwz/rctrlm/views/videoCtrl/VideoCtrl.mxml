@@ -113,7 +113,6 @@
     }
 
     private function onMouseMove(e:MouseEvent):void {
-
       if (e.buttonDown) {
         var lineEndPoint:Point = new Point(this.mouseX, this.mouseY);
         lineMSG.lineEndPoint = lineEndPoint;

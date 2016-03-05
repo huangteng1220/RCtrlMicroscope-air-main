@@ -334,13 +334,13 @@
 
             vdCtrl.localVdCam_vd.attachCamera(null);
             startInit.dispatchEvent(new MouseEvent("CloseComEvent"));
-            No_autoFocus(); //before connect to camera we set focus to reset
+//            No_autoFocus(); //before connect to camera we set focus to reset
             if (_autoFocus != 0) {
                 commandPanel.enabled = false;
                 picHandler.enabled = false;
                 _autoFocus = 0;
             }
-//            initAfterOpenCom();
+            initAfterOpenCom();
         }
 
         private function No_autoFocus():void {
@@ -640,10 +640,15 @@
         </s:VGroup>
 
         <s:HGroup width="100%" height="100%">
-            <img:ImageBox id="imgShwList"
-                          width="100%" height="100%"
-                          cornerRadius="5"/>
+            <!--<img:ImageBox id="imgShwList"-->
+                          <!--width="100%" height="100%"-->
+                          <!--cornerRadius="5"/>-->
 
+            <s:BorderContainer width="100%" height="100%" cornerRadius="5">
+                <s:Scroller width="100%" height="100%">
+                    <img:ImageBox id="imgShwList" width="100%" height="100%"  />
+                </s:Scroller>
+            </s:BorderContainer>
             <img:PicHandler id="picHandler"
                             cornerRadius="5"
                             width="80"
