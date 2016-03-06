@@ -59,7 +59,9 @@
         import mx.controls.Alert;
 
         import com.gxuwz.rctrlm.events.SendPanelEvent;
+
         import mx.core.SoundAsset;
+
         /**
          * 调用融合图片主程序的exe所需的全局变量
          */
@@ -127,48 +129,48 @@
 
         public function set playoff(value:Boolean):void {
             _playoff = value;
-            if(_playoff && camera){
+            if (_playoff && camera) {
                 publicVideo();
-                messageVGroup.enabled=true;
-            }else if(!_playoff){
-                messageVGroup.enabled=false;
-                if(inStream){
+                messageVGroup.enabled = true;
+            } else if (!_playoff) {
+                messageVGroup.enabled = false;
+                if (inStream) {
                     inStream.close();
-                    inStream=null;
+                    inStream = null;
                 }
-                if(outStream){
+                if (outStream) {
                     outStream.publish(null);
                     outStream.close();
-                    outStream=null;
+                    outStream = null;
                 }
             }
+        }
 
-
-//        public function set playoff(value:Boolean):void {
-//            _playoff = value;
-//            trace(_playoff+" on line 129 in ImgVideo");
-//            if(_playoff && camera){
-//                publicVideo();
-//                trace(_playoff+" on line 132 in ImgVideo");
-//                messageVGroup.enabled=true;
-//            }else if(_playoff==false){
-//                publicLocal();
-//            }
-//            publicLocal();
-//            messageVGroup.enabled=false;
-//            if (_playoff && camera) {
-//                //发布视频
-//                publicVideo();
-//            } else if (_playoff == false && camera) {
-//                //Alert.show("请连接显微镜");
-////                cameraIndex = 0;
-////                inStream = null;
-////                outStream = null;
-//                publicLocal();
-//            } else {
-//                Alert.show("请连接显微镜再操作", "提示");
-//            }
-//        }
+        //        public function set playoff(value:Boolean):void {
+        //            _playoff = value;
+        //            trace(_playoff+" on line 129 in ImgVideo");
+        //            if(_playoff && camera){
+        //                publicVideo();
+        //                trace(_playoff+" on line 132 in ImgVideo");
+        //                messageVGroup.enabled=true;
+        //            }else if(_playoff==false){
+        //                publicLocal();
+        //            }
+        //            publicLocal();
+        //            messageVGroup.enabled=false;
+        //            if (_playoff && camera) {
+        //                //发布视频
+        //                publicVideo();
+        //            } else if (_playoff == false && camera) {
+        //                //Alert.show("请连接显微镜");
+        ////                cameraIndex = 0;
+        ////                inStream = null;
+        ////                outStream = null;
+        //                publicLocal();
+        //            } else {
+        //                Alert.show("请连接显微镜再操作", "提示");
+        //            }
+        //        }
 
         private function creationCompleteHandler():void {
             EventDispatcherFactory.getEventDispatcher()
@@ -319,6 +321,7 @@
             }
 
         }
+
         /**************   图片处理   结束 ******************/
 
         /**************   显微镜处理  开始 ******************/
@@ -463,9 +466,9 @@
             //camera=null;//关闭摄像头无效
             cameraIndex = startInit.cameraSelection_cb.selectedIndex; //get the camera index
             camera = Camera.getCamera(cameraIndex.toString()); //get the camera
-            mic=Microphone.getEnhancedMicrophone();
+            mic = Microphone.getEnhancedMicrophone();
             connectCamera();
-            vdCtrl.enabled=true;
+            vdCtrl.enabled = true;
             // selected camera device
 //            if (localSO.data.hasOwnProperty("cameraIndex")) {
 //                trace("camera open:" + cameraIndex);
@@ -538,7 +541,7 @@
                 inStream = new NetStream(_netConnection);
                 vi.attachNetStream(inStream);
                 inStream.client = new Services();
-                inStream.play(remoteUser+"Media-sound");
+                inStream.play(remoteUser + "Media-sound");
                 vi.attachCamera(camera);  //get the local camera
                 vdCtrl.localVdCam_vd.addChild(vi);
                 video = vi;
@@ -548,7 +551,7 @@
                 outStream.client = new Services();
                 outStream.attachCamera(camera);
                 outStream.attachAudio(mic);
-                outStream.publish(_localUser+"Media-call");
+                outStream.publish(_localUser + "Media-call");
                 trace(" out stream on line 530 in ImgVideoCtrl");
             } catch (e:ErrorEvent) {
                 Alert.show("发布视频出错");
@@ -590,17 +593,17 @@
         }
 
         private function sendMessageEventHandler(event:SendPanelEvent):void {
-            if(_netConnection && _remoteUser){
+            if (_netConnection && _remoteUser) {
                 trace("remote user" + _remoteUser);
                 _netConnection.call("sendMsg", null, _remoteUser, event._msg);
                 msgArea.text += "我 :  " + event._msg + "\n";
                 sendPanel.say.text = "";
                 msgArea.scroller.verticalScrollBar.value = msgArea
                         .scroller.verticalScrollBar.maximum;
-            }else{
+            } else {
                 Alert.show("请检查服务连接\n" +
                         "1.连接网络服务\n" +
-                        "2.与远程用户连接。","提示");
+                        "2.与远程用户连接。", "提示");
             }
 
         }
@@ -608,7 +611,6 @@
         private function startInit_release_cameraHandler(event:MouseEvent):void {
             video.attachCamera(null);// 关闭显微镜
         }
-
         ]]>
     </fx:Script>
 

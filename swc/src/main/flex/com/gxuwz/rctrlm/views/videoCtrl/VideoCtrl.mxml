@@ -124,7 +124,7 @@
           }
       } else {
         drawLineUI.graphics.clear();
-          if(_remoteUser){
+          if(_remoteUser && _netStream){
               _netStream.send("onCleanUI",_remoteUser);
           }
       }
@@ -171,7 +171,7 @@
      // trace( _lc+"   _lc.sendMessageFun")
       cmdString = null;
       lineLabel.text = "";
-        if(_remoteUser){
+        if(_remoteUser && _netStream){
             _netStream.send("onCleanUI",_remoteUser);
         }
       drawLineUI.graphics.clear();
