@@ -124,14 +124,36 @@
             return _playoff;
         }
 
+
         public function set playoff(value:Boolean):void {
             _playoff = value;
-            trace(_playoff+" on line 129 in ImgVideo");
             if(_playoff && camera){
                 publicVideo();
-                trace(_playoff+" on line 132 in ImgVideo");
                 messageVGroup.enabled=true;
+            }else if(!_playoff){
+                messageVGroup.enabled=false;
+                if(inStream){
+                    inStream.close();
+                    inStream=null;
+                }
+                if(outStream){
+                    outStream.publish(null);
+                    outStream.close();
+                    outStream=null;
+                }
             }
+
+
+//        public function set playoff(value:Boolean):void {
+//            _playoff = value;
+//            trace(_playoff+" on line 129 in ImgVideo");
+//            if(_playoff && camera){
+//                publicVideo();
+//                trace(_playoff+" on line 132 in ImgVideo");
+//                messageVGroup.enabled=true;
+//            }else if(_playoff==false){
+//                publicLocal();
+//            }
 //            publicLocal();
 //            messageVGroup.enabled=false;
 //            if (_playoff && camera) {
@@ -146,7 +168,7 @@
 //            } else {
 //                Alert.show("请连接显微镜再操作", "提示");
 //            }
-        }
+//        }
 
         private function creationCompleteHandler():void {
             EventDispatcherFactory.getEventDispatcher()
