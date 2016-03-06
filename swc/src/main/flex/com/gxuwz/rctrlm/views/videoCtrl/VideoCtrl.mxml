@@ -45,7 +45,7 @@
     private var maxMag:Number = 40;			//Magnitude capped at maximum
     private var currentAngle:Number = 0;	//Angle on easing function for animation
 
-    public var lineMSG:Object;
+    public var lineMSG:Object;0
     public var lineLabel:Label;
     private var _camera:Camera;
 

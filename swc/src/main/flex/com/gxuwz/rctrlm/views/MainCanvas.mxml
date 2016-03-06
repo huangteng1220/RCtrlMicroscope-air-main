@@ -78,23 +78,36 @@
             trace(e.action +"here in MainCanvas 81");
             trace(_playoff+" on line 79 in Main");
             if (e.action == "Accept") {
+
                 csBar.currentState = csBar.callEstablished;
                 _playoff=false;
                 _playoff = true;
                 trace(_playoff+" on line 84 in Main");
+
             } else if (e.action == "Reject") {
+
                 Alert.show("对方拒绝接受显微镜连接\n", "提示！");
                 _playoff = false;
                 csBar.currentState = csBar.callReady;
+
             }else if(e.action == "Disconnect"){
+
                 Alert.show("对方已经下线");
                 _playoff=false;
                 netConn.close();
                 netConn=null;
                 csBar.currentState=csBar.loginNotConnected;
+
             }else if(e.action=="HasUser"){
+
                 netConn.call("callUser", null, _remoteUser, "Disconnect");
                 Alert.show("重名登记，被禁止");
+
+            }else if(e.action=="noRemoteUser"){
+                Alert.show("用户 "+e.remoteUser+"  不存在\n" +
+                        "请稍后再呼叫");
+                csBar.ringerChooseBool=false;
+                csBar.currentState=csBar.callReady;
             }
             csBar.ringerChooseBool = false;
         }
@@ -195,6 +208,7 @@
         private function userConnectWithServiceEventHandler(evt:UserAddEvent):void {
 
             if (evt.action =="connection") {
+
                 if ((evt.user).toString() != (csBar.userNameInput.text).toString())
                     if(userList.contains(evt.user)){
                         otherUser=evt.user as String;
@@ -204,6 +218,7 @@
                     }
                 trace("here ");
                 csBar.currentState = csBar.callReady; //状态改变
+
             } else {
                 var index:int = userList.getItemIndex(evt.user);
                 if (index > -1)
