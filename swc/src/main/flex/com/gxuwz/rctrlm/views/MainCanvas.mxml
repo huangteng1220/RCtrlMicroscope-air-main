@@ -76,15 +76,19 @@
          */
         private function callRemoteUserStatusEventHandler(e:ConServerBarEvent):void {
             trace(e.action +"here in MainCanvas 81");
+            trace(_playoff+" on line 79 in Main");
             if (e.action == "Accept") {
                 csBar.currentState = csBar.callEstablished;
+                _playoff=false;
                 _playoff = true;
+                trace(_playoff+" on line 84 in Main");
             } else if (e.action == "Reject") {
                 Alert.show("对方拒绝接受显微镜连接\n", "提示！");
                 _playoff = false;
-                csBar.currentState = csBar.callFailed;
+                csBar.currentState = csBar.callReady;
             }else if(e.action == "Disconnect"){
                 Alert.show("对方已经下线");
+                _playoff=false;
                 netConn.close();
                 netConn=null;
                 csBar.currentState=csBar.loginNotConnected;
@@ -231,6 +235,13 @@
         private function csBar_CancelToCallUserEventHandler(event:MouseEvent):void {
             csBar.ringerChooseBool = false;
             csBar.currentState = csBar.callReady;
+            trace(_playoff+" in main on line 236");
+            if(netConn){
+                netConn.call("callUser", null, _remoteUser, "Reject");
+                _playoff!=_playoff;
+                _playoff=false;
+            }
+
         }
 
         /**
@@ -279,7 +290,6 @@
                                    CallExpertEvent="csBar_CallExpertEventHandler(event)"
                                    CancelToCallUserEvent="csBar_CancelToCallUserEventHandler(event)"/>
 
-
     <command:ImgVideoCtrl id="imgVideoCtrl"
                           width="100%" height="100%"
                           netConnection="{netConn}"
@@ -287,5 +297,4 @@
                           playoff="{_playoff}"
                           localUser="{csBar.userNameInput.text}"
                           remoteUser="{_remoteUser}"/>
-
 </s:VGroup>

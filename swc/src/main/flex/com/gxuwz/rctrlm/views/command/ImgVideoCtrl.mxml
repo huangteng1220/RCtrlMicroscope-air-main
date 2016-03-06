@@ -126,10 +126,14 @@
 
         public function set playoff(value:Boolean):void {
             _playoff = value;
+            trace(_playoff+" on line 129 in ImgVideo");
             if(_playoff && camera){
                 publicVideo();
+                trace(_playoff+" on line 132 in ImgVideo");
                 messageVGroup.enabled=true;
             }
+//            publicLocal();
+//            messageVGroup.enabled=false;
 //            if (_playoff && camera) {
 //                //发布视频
 //                publicVideo();
@@ -523,7 +527,7 @@
                 outStream.attachCamera(camera);
                 outStream.attachAudio(mic);
                 outStream.publish(_localUser+"Media-call");
-
+                trace(" out stream on line 530 in ImgVideoCtrl");
             } catch (e:ErrorEvent) {
                 Alert.show("发布视频出错");
             }
@@ -564,12 +568,19 @@
         }
 
         private function sendMessageEventHandler(event:SendPanelEvent):void {
-            trace("remote user" + _remoteUser);
-            _netConnection.call("sendMsg", null, _remoteUser, event._msg);
-            msgArea.text += "我 :  " + event._msg + "\n";
-            sendPanel.say.text = "";
-            msgArea.scroller.verticalScrollBar.value = msgArea
-                    .scroller.verticalScrollBar.maximum;
+            if(_netConnection && _remoteUser){
+                trace("remote user" + _remoteUser);
+                _netConnection.call("sendMsg", null, _remoteUser, event._msg);
+                msgArea.text += "我 :  " + event._msg + "\n";
+                sendPanel.say.text = "";
+                msgArea.scroller.verticalScrollBar.value = msgArea
+                        .scroller.verticalScrollBar.maximum;
+            }else{
+                Alert.show("请检查服务连接\n" +
+                        "1.连接网络服务\n" +
+                        "2.与远程用户连接。","提示");
+            }
+
         }
 
         private function startInit_release_cameraHandler(event:MouseEvent):void {

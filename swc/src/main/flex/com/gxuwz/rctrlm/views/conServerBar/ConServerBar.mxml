@@ -298,7 +298,6 @@ import spark.components.Alert;
     <s:Button label="挂断" click="onCancel(3)"/>
   </s:HGroup>
 
-  <s:Button id="chat" includeIn="CallEstablished" label="已经与远程用户对话连接" click="chat_clickHandler(event)"/>
   <!--<s:Label includeIn="CallEstablished" text="质量调整"/>-->
   <!--<s:HSlider id="videoQualitySlider"-->
              <!--includeIn="CallEstablished"-->
