@@ -49,7 +49,7 @@ public class Services {
     }
 
     public function onEvent(event:String, nameUser:String):void {
-        trace(event+" add to "+nameUser);
+//        trace(event+" add to "+nameUser);
         var e:UserAddEvent=new UserAddEvent(UserAddEvent.USER_CONNECTION_WITH_SERVICE_FROM_SERVER);
         e.action=event;
         e.user=nameUser;
@@ -65,8 +65,8 @@ public class Services {
     }
 
     public function onDrawingLine(obj:Object,user:String):void{
-        trace(obj.lineStartPoint.x+" in Server from Expert line 74");
-        trace(user+" in Server from Expert line 75 and localuser"+localUser);
+//        trace(obj.lineStartPoint.x+" in Server from Expert line 74");
+//        trace(user+" in Server from Expert line 75 and localuser"+localUser);
         if(localUser==user){
             var e:DrawingLineFromExpertEvent =new DrawingLineFromExpertEvent(DrawingLineFromExpertEvent.DRAWING_LINE_FROM_EXPERT);
             e.data=obj;

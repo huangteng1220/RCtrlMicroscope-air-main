@@ -83,7 +83,6 @@
     private function drawingLineFromExpert(e:DrawingLineFromExpertEvent):void{
        drawingFromExpertBoolean=true;
        gesture.startFromExpert(e.data.lineStartPoint.x,e.data.lineStartPoint.y);
-      trace(e.data+" e.data im videoCtrl on line 92");
       startDrawingLine(e.data);
       mouseMoveDirection(e.data);
       onDrawingLine(e.data);
@@ -108,7 +107,7 @@
     public function startDrawingLine(startPoint:Object):void {
       initLine();
       drawLineUI.graphics.moveTo(startPoint.lineStartPoint.x, startPoint.lineStartPoint.y);
-      trace("startDrawingLine:" + startPoint.lineStartPoint.x + ", " + startPoint.lineStartPoint.y);
+//      trace("startDrawingLine:" + startPoint.lineStartPoint.x + ", " + startPoint.lineStartPoint.y);
 
     }
 
@@ -131,7 +130,7 @@
     }
 
     public function onDrawingLine(drawingPoint:Object):void {
-      trace(drawingPoint + "  in VideoCtrl.mxml's  onDrawingLine");
+
       drawLineUI.graphics.clear();//当鼠标移动，擦除上次画的线，重新画线
       initLine();  //初始化线条颜色
       drawLineUI.graphics.moveTo(drawingPoint.lineStartPoint.x, drawingPoint.lineStartPoint.y);
@@ -166,6 +165,7 @@
 
     private function onMouseUp(e:MouseEvent):void {
       if (cmdString){
+          trace(cmdString+" cmdString on line 168 in VideoCtrl Class");
         _lc.sendMessageFun(cmdString);
       }
      // trace( _lc+"   _lc.sendMessageFun")

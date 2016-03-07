@@ -43,7 +43,7 @@ public class MGesture
     public function start ():void {
         var startMX:Number = mainBox.mouseX;
         var startMY:Number = mainBox.mouseY;
-        trace("mouse start:"+mainBox.mouseX+","+mainBox.mouseY);
+//        trace("mouse start:"+mainBox.mouseX+","+mainBox.mouseY);
         _earlier = new Vector2D(startMX, startMY);	//pointer location, initially
         _latter = new Vector2D(startMX, startMY);	//pointer location, to be updated later
     }
@@ -52,7 +52,7 @@ public class MGesture
     public function startFromExpert (startDrawingX:Number,startDrawindY:Number):void {
         var startMX:Number = startDrawingX;
         var startMY:Number = startDrawindY;
-        trace("mouse start:"+mainBox.mouseX+","+mainBox.mouseY);
+//        trace("mouse start:"+mainBox.mouseX+","+mainBox.mouseY);
         _earlier = new Vector2D(startMX, startMY);	//pointer location, initially
         _latter = new Vector2D(startMX, startMY);	//pointer location, to be updated later
     }

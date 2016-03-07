@@ -66,7 +66,7 @@
          * 调用融合图片主程序的exe所需的全局变量
          */
         public var _process:NativeProcess = new NativeProcess();
-
+        public var vidContainer : Sprite = new Sprite();
         [Bindable]
         private var inStream:NetStream;
         [Bindable]
@@ -188,7 +188,23 @@
             }
             catch (e:Error) {
                 // could not draw so don't draw
-                Alert.show("安全沙箱出错!");
+                trace("安全沙箱出错!");
+
+//                var vector:Vector.<IGraphicsData> = vidContainer.graphics.readGraphicsData();
+//                var len:int = vector.length;
+//
+//                //这里调试发现，vector里存放了三种类型
+//                //0 type---> [object GraphicsBitmapFill]
+//                //1 type---> [object GraphicsPath]
+//                //2 type---> [object GraphicsEndFill]
+//                for(var i:int = 0; i < len; i++)
+//                {
+//                    trace(i, "type--->", vector[i]);
+//                }
+//
+//                //关键代码
+//                bmpd = GraphicsBitmapFill(vector[0]).bitmapData;
+
             }
 
             var imgShow:ImageShow = new ImageShow();  //取得相片并保存
@@ -304,7 +320,7 @@
                 var _processArgs:Vector.<String> = new Vector.<String>();
                 var _nativeProcessStartupInfo:NativeProcessStartupInfo = new NativeProcessStartupInfo();
                 _nativeProcessStartupInfo.executable = File.applicationDirectory.resolvePath("bin/MSCtrl.exe");
-//            _nativeProcessStartupInfo.executable = File.applicationStorageDirectory.resolvePath("G:/projects/microscope/rCtrlMicroscope-air-main/air/src/main/resources/bin/MSCtrl.exe");
+//            _nativeProcessStartupInfo.executable = File.applicationStorageDirectory.resolvePath("G:/projects/microscope/news/rCtrlMicroscope-air-main/air/src/main/resources/bin/MSCtrl.exe");
                 _processArgs.push(number);
                 _nativeProcessStartupInfo.arguments = _processArgs;
                 trace("_process:" + _process);
@@ -313,7 +329,10 @@
                         _process.start(_nativeProcessStartupInfo);
                 } catch (e:Error) {
                     if (_process) {
-                        Alert.show("图片处理程序已经在运行!");
+//                        Alert.show("图片处理程序已经在运行!");
+//                        _process.exit(null);
+                        _process.exit(false);
+                        _process.start(_nativeProcessStartupInfo);
                     }
                 }
             } catch (e:ErrorEvent) {
@@ -363,13 +382,15 @@
 
             vdCtrl.localVdCam_vd.attachCamera(null);
             startInit.dispatchEvent(new MouseEvent("CloseComEvent"));
-//            No_autoFocus(); //before connect to camera we set focus to reset
+            No_autoFocus(); //before connect to camera we set focus to reset
+            if (_autoFocus != 0) {
             if (_autoFocus != 0) {
                 commandPanel.enabled = false;
                 picHandler.enabled = false;
                 _autoFocus = 0;
             }
-            initAfterOpenCom();
+//            initAfterOpenCom(); //for haven't com1
+        }
         }
 
         private function No_autoFocus():void {
@@ -377,7 +398,7 @@
             try {
                 var _autoNativeProcessStartupInfo:NativeProcessStartupInfo = new NativeProcessStartupInfo();
                 _autoNativeProcessStartupInfo.executable = File.applicationDirectory.resolvePath("autoFocus/No_focus_opencv_pic.exe");
-//                  _autoNativeProcessStartupInfo.executable = File.applicationDirectory.resolvePath("G:/projects/microscope/rCtrlMicroscope-air-main/air/src/main/resources/autoFocus/No_focus_opencv_pic.exe");
+//                  _autoNativeProcessStartupInfo.executable = File.applicationDirectory.resolvePath("G:/projects/microscope/news/rCtrlMicroscope-air-main/air/src/main/resources/autoFocus/No_focus_opencv_pic.exe");
                 _autoFocusProcess.addEventListener(NativeProcessExitEvent.EXIT, onExit_NoFocus);
                 _autoFocusProcess.start(_autoNativeProcessStartupInfo);
             } catch (e:ErrorEvent) {
@@ -425,7 +446,7 @@
             try {
                 var _autoNativeProcessStartupInfo:NativeProcessStartupInfo = new NativeProcessStartupInfo();
                 _autoNativeProcessStartupInfo.executable = File.applicationDirectory.resolvePath("autoFocus/opencv_pic_cut.exe");
-//                _autoNativeProcessStartupInfo.executable = File.applicationDirectory.resolvePath("G:/projects/microscope/rCtrlMicroscope-air-main/air/src/main/resources/autoFocus/No_focus_opencv_pic.exe");
+//                _autoNativeProcessStartupInfo.executable = File.applicationDirectory.resolvePath("G:/projects/microscope/news/rCtrlMicroscope-air-main/air/src/main/resources/autoFocus/opencv_pic_cut.exe");
                 var args:Vector.<String> = new Vector.<String>();
                 args.push(comNum);
                 _autoNativeProcessStartupInfo.arguments = args;
