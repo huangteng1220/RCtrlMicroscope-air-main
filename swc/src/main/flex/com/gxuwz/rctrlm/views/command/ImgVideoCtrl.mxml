@@ -384,13 +384,11 @@
             startInit.dispatchEvent(new MouseEvent("CloseComEvent"));
             No_autoFocus(); //before connect to camera we set focus to reset
             if (_autoFocus != 0) {
-            if (_autoFocus != 0) {
                 commandPanel.enabled = false;
                 picHandler.enabled = false;
                 _autoFocus = 0;
             }
 //            initAfterOpenCom(); //for haven't com1
-        }
         }
 
         private function No_autoFocus():void {
@@ -644,7 +642,6 @@
             No_FocusInitEvent="No_focusInit()"
             FocusInitEvent="focusInit()"
             Obj_con_rest="focusReset()"
-
             CameraSelectionEvent="startInit_CameraSelectionEventHandler(event)"
             release_camera="startInit_release_cameraHandler(event)"/>
 

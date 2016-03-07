@@ -163,9 +163,11 @@
       protected function normal_Handler(str:String):void {
           defaultValueLabel.text = "";
           currentValueLabel.text = "";
+
           machBox.selectedIndex = -1;
           setSpeed_2.value = 0;
           _lc.sendMessageFun(str);
+          trace(str+"command from button on line 170 in Cammand");
       }
 
       protected function regulate_clickHandler(regulate:Regulate, control:int):void {
@@ -925,8 +927,6 @@
                                       camera="{_camera}" mic="{_mic}"/>
 
     </s:NavigatorContent>
-
-
 
 
 </mx:TabNavigator>
